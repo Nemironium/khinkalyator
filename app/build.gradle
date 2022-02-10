@@ -1,0 +1,86 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+}
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        applicationId "me.nemiron"
+        minSdk 23
+        targetSdk 31
+
+        // TODO: настроить Github CI для автоматической генерации на основе кол-ва коммитов
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // TODO: настроить обфускацию для быстродействия Compose
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion libs.versions.compose.get()
+    }
+
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    coreLibraryDesugaring libs.android.desugar
+
+    // Kotlin
+    implementation libs.kotlin.datetime
+    implementation libs.coroutines.core
+    implementation libs.coroutines.android
+
+    // UI
+    implementation libs.compose.ui
+    implementation libs.compose.material2
+    implementation libs.compose.preview
+    implementation libs.compose.activity
+    implementation libs.appcompat
+    implementation libs.coil
+    implementation libs.splashscreen
+    debugImplementation libs.compose.tooling
+
+    // Accompanist
+    implementation libs.accompanist.systemuicontroller
+    implementation libs.accompanist.placeholder
+
+    // Architecture
+    implementation libs.bundles.sesame
+    implementation libs.bundles.decompose
+
+    // DI
+    implementation libs.koin.android
+
+    // Debugging
+    implementation libs.timber
+}
