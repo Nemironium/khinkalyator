@@ -61,6 +61,8 @@ dependencyResolutionManagement {
             version('accompanist', '0.24.1-alpha')
             alias('accompanist-systemuicontroller').to('com.google.accompanist', 'accompanist-systemuicontroller').versionRef('accompanist')
             alias('accompanist-placeholder').to('com.google.accompanist', 'accompanist-placeholder-material').versionRef('accompanist')
+            alias('accompanist-insets').to('com.google.accompanist', 'accompanist-insets').versionRef('accompanist')
+            alias('accompanist-insetsui').to('com.google.accompanist', 'accompanist-insets-ui').versionRef('accompanist')
         }
     }
 }

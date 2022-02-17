@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.ui.theme
+package me.nemiron.khinkalyator.core.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

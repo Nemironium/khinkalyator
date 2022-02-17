@@ -1,15 +1,17 @@
-*.iml
+# Build files and folders
 .gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+build
+
+# Idea
+/.idea/
+**/*.iml
+
+# Mac OS
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+
+# Layout Inspector files
+captures/
+
+# Properties
 local.properties
+
