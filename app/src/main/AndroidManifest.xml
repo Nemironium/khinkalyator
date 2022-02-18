@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="me.nemiron.khinkalyator">
 
-    <!-- TODO: splash theme-->
     <application
         android:name=".KhinkalyatorApp"
         android:allowBackup="false"
@@ -11,14 +10,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Khinkalyator">
+        android:theme="@style/KhinkalyatorTheme">
 
         <activity
             android:name=".KhinkalyatorActivity"
+            android:configChanges="density|fontScale|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Khinkalyator"
+            android:theme="@style/SplashTheme"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity">
 

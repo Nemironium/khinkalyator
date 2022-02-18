@@ -1,12 +1,13 @@
 package me.nemiron.khinkalyator.root.ui
 
+import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.RouterState
 import com.arkivanov.decompose.router.push
 import com.arkivanov.decompose.router.router
-import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import me.nemiron.khinkalyator.core.ui.utils.toComposeState
 import me.nemiron.khinkalyator.evening.ui.RealEveningComponent
 import me.nemiron.khinkalyator.main.ui.MainComponent
 import me.nemiron.khinkalyator.main.ui.RealMainComponent
@@ -21,9 +22,14 @@ class RealRootComponent(
         childFactory = ::createChild
     )
 
-    override val routerState: Value<RouterState<*, RootComponent.Child>> = router.state
+    override val routerState: RouterState<*, RootComponent.Child> by router.state.toComposeState(
+        lifecycle
+    )
 
-    private fun createChild(config: Configuration, componentContext: ComponentContext): RootComponent.Child =
+    private fun createChild(
+        config: Configuration,
+        componentContext: ComponentContext
+    ): RootComponent.Child =
         when (config) {
             is Configuration.Evening -> RootComponent.Child.Evening(
                 RealEveningComponent(

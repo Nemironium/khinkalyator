@@ -7,6 +7,7 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.remember
 import me.nemiron.khinkalyator.core.ui.utils.LocalApplyDarkStatusBarIcons
 
 private val DarkColorPalette = darkColors(
@@ -37,8 +38,9 @@ fun KhinkalyatorTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Comp
     } else {
         LightColorPalette
     }
+    val rememberLocalDarkIcons = remember { mutableStateMapOf<Int, Unit>() }
 
-    CompositionLocalProvider(LocalApplyDarkStatusBarIcons provides mutableStateMapOf()) {
+    CompositionLocalProvider(LocalApplyDarkStatusBarIcons provides rememberLocalDarkIcons) {
         MaterialTheme(
             colors = colors,
             typography = Typography,

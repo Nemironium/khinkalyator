@@ -38,7 +38,6 @@ fun DarkStatusBarIcons() {
 
     DisposableEffect(Unit) {
         applyDarkStatusBarIcons[key] = Unit
-
         onDispose { applyDarkStatusBarIcons.remove(key) }
     }
 }

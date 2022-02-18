@@ -5,12 +5,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import com.arkivanov.decompose.extensions.compose.jetpack.Children
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.utils.LocalApplyDarkStatusBarIcons
+import me.nemiron.khinkalyator.core.ui.utils.createFakeRouterState
 import me.nemiron.khinkalyator.evening.ui.EveningUi
 import me.nemiron.khinkalyator.main.ui.MainUi
+import me.nemiron.khinkalyator.main.ui.PreviewMainComponent
 
 @Composable
 fun RootUi(
@@ -34,11 +38,24 @@ private fun SystemBarColors() {
 
     val surfaceColor = MaterialTheme.colors.surface
 
-    val statusBarDarkContentEnabled = LocalApplyDarkStatusBarIcons.current.count() > 0
+    val statusBarDarkContentEnabled = LocalApplyDarkStatusBarIcons.current.size > 0
 
     LaunchedEffect(surfaceColor, statusBarDarkContentEnabled) {
-        systemUiController.statusBarDarkContentEnabled = statusBarDarkContentEnabled
         systemUiController.setStatusBarColor(Color.Transparent)
         systemUiController.setNavigationBarColor(surfaceColor)
+        systemUiController.statusBarDarkContentEnabled = statusBarDarkContentEnabled
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun RootUiPreview() {
+    KhinkalyatorTheme {
+        RootUi(PreviewRootComponent())
+    }
+}
+
+private class PreviewRootComponent : RootComponent {
+    override val routerState =
+        createFakeRouterState(RootComponent.Child.Main(PreviewMainComponent()))
 }
