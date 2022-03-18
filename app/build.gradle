@@ -75,6 +75,8 @@ dependencies {
     implementation libs.accompanist.placeholder
     implementation libs.accompanist.insets
     implementation libs.accompanist.insetsui
+    implementation libs.accompanist.pager
+    implementation libs.accompanist.pagerindicators
 
     // Architecture
     implementation libs.bundles.sesame

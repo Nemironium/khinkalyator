@@ -2,49 +2,31 @@ package me.nemiron.khinkalyator.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import me.nemiron.khinkalyator.core.ui.utils.LocalApplyDarkStatusBarIcons
 
-private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
-)
-
-private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
-)
-
 @Composable
 fun KhinkalyatorTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
+    val appTypography = AppTypography()
+    val appShapes = AppShapes()
+    val additionalColors = AdditionalColors()
+    val materialColors = getMaterialColors(darkTheme)
+
     val rememberLocalDarkIcons = remember { mutableStateMapOf<Int, Unit>() }
 
-    CompositionLocalProvider(LocalApplyDarkStatusBarIcons provides rememberLocalDarkIcons) {
+    CompositionLocalProvider(
+        LocalAdditionalColors provides additionalColors,
+        LocalAppTypography provides appTypography,
+        LocalAppShapes provides appShapes,
+        LocalApplyDarkStatusBarIcons provides rememberLocalDarkIcons
+    ) {
         MaterialTheme(
-            colors = colors,
-            typography = Typography,
-            shapes = Shapes,
+            colors = materialColors,
+            typography = appTypography.toMaterialTypography(),
+            shapes = appShapes.toMaterialShapes(),
             content = content
         )
     }
