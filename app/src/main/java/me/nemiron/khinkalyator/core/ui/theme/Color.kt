@@ -1,8 +1,11 @@
 package me.nemiron.khinkalyator.core.ui.theme
 
 import androidx.compose.material.Colors
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
@@ -36,12 +39,17 @@ private object RawColors {
 data class AdditionalColors(
     val secondaryOnSurface: Color = RawColors.silver,
     val secondaryOnBackground: Color = RawColors.tapa,
-    val secondaryOnPrimary: Color = RawColors.blackAlpha50,
+    val secondaryOnPrimary: Color = RawColors.blackAlpha50
 )
 
 val LocalAdditionalColors = staticCompositionLocalOf {
     AdditionalColors()
 }
+
+val MaterialTheme.additionalColors: AdditionalColors
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalAdditionalColors.current
 
 // TODO: think about dark theme
 fun getMaterialColors(darkTheme: Boolean): Colors {

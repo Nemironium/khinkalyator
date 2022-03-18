@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Home-->
+    <string name="home_meets_tab">Встреча</string>
+    <string name="home_restaurants_tab">Ресторан</string>
+    <string name="home_people_tab">Люди</string>
+</resources>

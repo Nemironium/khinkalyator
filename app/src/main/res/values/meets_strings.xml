@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Meets-->
+    <string name="meets_add">Добавить встречу</string>
+    <string name="meets_archived">Архив</string>
+    <string name="meets_today_date">Сегодня</string>
+    <string name="meets_previous_date">Встреча от %s</string>
+</resources>

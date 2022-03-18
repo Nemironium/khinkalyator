@@ -72,7 +72,7 @@ data class AppTypography constructor(
 // TODO: add shaped for required material2 components (dialogs and etc)
 fun AppTypography.toMaterialTypography(): Typography {
     return Typography(
-        button = button
+        h6 = head1 // toolbar title
     )
 }
 

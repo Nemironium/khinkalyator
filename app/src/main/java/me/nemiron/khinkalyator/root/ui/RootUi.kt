@@ -8,14 +8,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.arkivanov.decompose.extensions.compose.jetpack.Children
 import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.utils.LocalApplyDarkStatusBarIcons
 import me.nemiron.khinkalyator.core.ui.utils.createFakeRouterState
-import me.nemiron.khinkalyator.evening.ui.EveningUi
-import me.nemiron.khinkalyator.main.ui.MainUi
-import me.nemiron.khinkalyator.main.ui.PreviewMainComponent
+import me.nemiron.khinkalyator.home.ui.HomeUi
+import me.nemiron.khinkalyator.home.ui.PreviewHomeComponent
 
+@ExperimentalPagerApi
 @Composable
 fun RootUi(
     component: RootComponent,
@@ -25,8 +26,7 @@ fun RootUi(
         SystemBarColors()
         Children(component.routerState, modifier) {
             when (val child = it.instance) {
-                is RootComponent.Child.Evening -> EveningUi(child.component)
-                is RootComponent.Child.Main -> MainUi(child.component)
+                is RootComponent.Child.Home -> HomeUi(child.component)
             }
         }
     }
@@ -36,17 +36,18 @@ fun RootUi(
 private fun SystemBarColors() {
     val systemUiController = rememberSystemUiController()
 
-    val surfaceColor = MaterialTheme.colors.surface
+    val backgroundColor = MaterialTheme.colors.background
 
     val statusBarDarkContentEnabled = LocalApplyDarkStatusBarIcons.current.size > 0
 
-    LaunchedEffect(surfaceColor, statusBarDarkContentEnabled) {
+    LaunchedEffect(backgroundColor, statusBarDarkContentEnabled) {
         systemUiController.setStatusBarColor(Color.Transparent)
-        systemUiController.setNavigationBarColor(surfaceColor)
+        systemUiController.setNavigationBarColor(backgroundColor)
         systemUiController.statusBarDarkContentEnabled = statusBarDarkContentEnabled
     }
 }
 
+@ExperimentalPagerApi
 @Preview(showBackground = true)
 @Composable
 private fun RootUiPreview() {
@@ -57,5 +58,5 @@ private fun RootUiPreview() {
 
 private class PreviewRootComponent : RootComponent {
     override val routerState =
-        createFakeRouterState(RootComponent.Child.Main(PreviewMainComponent()))
+        createFakeRouterState(RootComponent.Child.Home(PreviewHomeComponent()))
 }
