@@ -36,7 +36,7 @@ private object RawColors {
 data class AdditionalColors(
     val secondaryOnSurface: Color = RawColors.silver,
     val secondaryOnBackground: Color = RawColors.tapa,
-    val secondaryOnPrimary: Color = RawColors.blackAlpha50,
+    val secondaryOnPrimary: Color = RawColors.blackAlpha50
 )
 
 val LocalAdditionalColors = staticCompositionLocalOf {

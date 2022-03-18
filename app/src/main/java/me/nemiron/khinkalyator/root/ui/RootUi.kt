@@ -36,13 +36,13 @@ fun RootUi(
 private fun SystemBarColors() {
     val systemUiController = rememberSystemUiController()
 
-    val surfaceColor = MaterialTheme.colors.surface
+    val backgroundColor = MaterialTheme.colors.background
 
     val statusBarDarkContentEnabled = LocalApplyDarkStatusBarIcons.current.size > 0
 
-    LaunchedEffect(surfaceColor, statusBarDarkContentEnabled) {
+    LaunchedEffect(backgroundColor, statusBarDarkContentEnabled) {
         systemUiController.setStatusBarColor(Color.Transparent)
-        systemUiController.setNavigationBarColor(surfaceColor)
+        systemUiController.setNavigationBarColor(backgroundColor)
         systemUiController.statusBarDarkContentEnabled = statusBarDarkContentEnabled
     }
 }
