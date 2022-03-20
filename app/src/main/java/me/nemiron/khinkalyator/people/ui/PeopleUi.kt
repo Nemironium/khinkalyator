@@ -41,4 +41,4 @@ private fun PeopleUiPreview() {
     }
 }
 
-private class PreviewPeopleComponent : PeopleComponent
+class PreviewPeopleComponent : PeopleComponent

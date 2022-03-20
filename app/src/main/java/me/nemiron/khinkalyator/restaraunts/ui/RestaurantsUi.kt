@@ -41,4 +41,4 @@ private fun RestaurantsUiPreview() {
     }
 }
 
-private class PreviewRestaurantsComponent : RestaurantsComponent
+class PreviewRestaurantsComponent : RestaurantsComponent
