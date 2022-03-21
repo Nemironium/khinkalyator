@@ -32,8 +32,8 @@ import me.nemiron.khinkalyator.meets.ui.MeetsUi
 import me.nemiron.khinkalyator.meets.ui.PreviewMeetsComponent
 import me.nemiron.khinkalyator.people.ui.PeopleUi
 import me.nemiron.khinkalyator.people.ui.PreviewPeopleComponent
-import me.nemiron.khinkalyator.restaraunts.ui.PreviewRestaurantsComponent
-import me.nemiron.khinkalyator.restaraunts.ui.RestaurantsUi
+import me.nemiron.khinkalyator.restaraunts.page.ui.PreviewRestaurantsPageComponent
+import me.nemiron.khinkalyator.restaraunts.page.ui.RestaurantsPageUi
 
 @ExperimentalPagerApi
 @Composable
@@ -57,7 +57,7 @@ fun HomeUi(
             ) { page ->
                 when (pages[page]) {
                     HomeComponent.Page.Meets -> MeetsUi(component.meetsComponent)
-                    HomeComponent.Page.Restaurants -> RestaurantsUi(component.restaurantsComponent)
+                    HomeComponent.Page.Restaurants -> RestaurantsPageUi(component.restaurantsPageComponent)
                     HomeComponent.Page.People -> PeopleUi(component.peopleComponent)
                 }
             }
@@ -137,6 +137,6 @@ private fun HomeUiPreview() {
 
 class PreviewHomeComponent : HomeComponent {
     override val meetsComponent = PreviewMeetsComponent()
-    override val restaurantsComponent = PreviewRestaurantsComponent()
+    override val restaurantsPageComponent = PreviewRestaurantsPageComponent()
     override val peopleComponent = PreviewPeopleComponent()
 }

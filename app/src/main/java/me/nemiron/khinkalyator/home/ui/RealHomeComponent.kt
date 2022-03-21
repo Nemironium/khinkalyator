@@ -4,8 +4,8 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
 import me.nemiron.khinkalyator.meets.ui.RealMeetsComponent
 import me.nemiron.khinkalyator.people.ui.RealPeopleComponent
-import me.nemiron.khinkalyator.restaraunts.ui.RealRestaurantsComponent
-import me.nemiron.khinkalyator.restaraunts.ui.RestaurantsComponent
+import me.nemiron.khinkalyator.restaraunts.page.ui.RealRestaurantsPageComponent
+import me.nemiron.khinkalyator.restaraunts.page.ui.RestaurantsPageComponent
 
 class RealHomeComponent(
     componentContext: ComponentContext,
@@ -16,7 +16,7 @@ class RealHomeComponent(
         childContext(key = "meetsPage")
     )
 
-    override val restaurantsComponent = RealRestaurantsComponent(
+    override val restaurantsPageComponent = RealRestaurantsPageComponent(
         childContext(key = "restaurantsPage"),
         onOutput = ::onRestaurantsOutput
     )
@@ -25,9 +25,9 @@ class RealHomeComponent(
         childContext(key = "peoplePage")
     )
 
-    private fun onRestaurantsOutput(output: RestaurantsComponent.Output) {
+    private fun onRestaurantsOutput(output: RestaurantsPageComponent.Output) {
         when (output) {
-            is RestaurantsComponent.Output.NewRestaurantRequested -> {
+            is RestaurantsPageComponent.Output.NewRestaurantRequested -> {
                 onOutput(HomeComponent.Output.NewRestaurantRequested)
             }
         }

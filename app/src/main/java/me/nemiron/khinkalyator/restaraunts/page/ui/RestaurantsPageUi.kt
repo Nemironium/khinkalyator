@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.restaraunts.ui
+package me.nemiron.khinkalyator.restaraunts.page.ui
 
 import androidx.compose.material.FabPosition
 import androidx.compose.runtime.Composable
@@ -12,8 +12,8 @@ import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.widgets.KhContainedButton
 
 @Composable
-fun RestaurantsUi(
-    component: RestaurantsComponent,
+fun RestaurantsPageUi(
+    component: RestaurantsPageComponent,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -35,12 +35,12 @@ fun RestaurantsUi(
 
 @Preview(showBackground = true)
 @Composable
-private fun RestaurantsUiPreview() {
+private fun RestaurantsPageUiPreview() {
     KhinkalyatorTheme {
-        RestaurantsUi(PreviewRestaurantsComponent())
+        RestaurantsPageUi(PreviewRestaurantsPageComponent())
     }
 }
 
-class PreviewRestaurantsComponent : RestaurantsComponent {
+class PreviewRestaurantsPageComponent : RestaurantsPageComponent {
     override fun onAddRestaurantClick() = Unit
 }
