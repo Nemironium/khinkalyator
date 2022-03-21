@@ -17,7 +17,7 @@ import com.google.accompanist.insets.statusBarsPadding
 
 fun Modifier.statusBar(
     color: Color,
-    darkIcons: Boolean = color.luminance() > 0.9
+    darkIcons: Boolean = color.luminance() > 0.5
 ): Modifier = composed {
     if (darkIcons) {
         DarkStatusBarIcons()

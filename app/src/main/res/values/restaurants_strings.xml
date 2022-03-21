@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Restaurants-->
+    <!-- Restaurants -->
     <string name="restaurants_add">Добавить ресторан</string>
+
+    <!-- NewRestaurant -->
+    <string name="new_restaurant_title">Новый ресторан</string>
 
 </resources>
