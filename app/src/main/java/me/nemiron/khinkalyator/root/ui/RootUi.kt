@@ -15,6 +15,7 @@ import me.nemiron.khinkalyator.core.ui.utils.LocalApplyDarkStatusBarIcons
 import me.nemiron.khinkalyator.core.ui.utils.createFakeRouterState
 import me.nemiron.khinkalyator.home.ui.HomeUi
 import me.nemiron.khinkalyator.home.ui.PreviewHomeComponent
+import me.nemiron.khinkalyator.restaraunts.new.ui.NewRestaurantUi
 
 @ExperimentalPagerApi
 @Composable
@@ -27,6 +28,7 @@ fun RootUi(
         Children(component.routerState, modifier) {
             when (val child = it.instance) {
                 is RootComponent.Child.Home -> HomeUi(child.component)
+                is RootComponent.Child.NewRestaurant -> NewRestaurantUi(child.component)
             }
         }
     }

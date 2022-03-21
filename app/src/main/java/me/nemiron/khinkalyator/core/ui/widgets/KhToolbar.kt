@@ -17,7 +17,7 @@ import me.nemiron.khinkalyator.core.ui.utils.dispatchOnBackPressed
 import me.nemiron.khinkalyator.core.ui.utils.statusBar
 
 @Composable
-fun Toolbar(
+fun KhToolbar(
     title: String?,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable (() -> Unit)? = { BackButton() },

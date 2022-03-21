@@ -1,6 +1,7 @@
 package me.nemiron.khinkalyator.home.ui
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Tab
@@ -44,16 +45,13 @@ fun HomeUi(
     val pages = remember { HomeComponent.Page.values().asList() }
 
     Scaffold(
-        modifier = modifier.statusBar(
-            color = MaterialTheme.colors.primary,
-            darkIcons = true
-        ),
+        modifier = modifier.statusBar(MaterialTheme.colors.primary),
         topBar = {
             PagerTabRow(pagerState, pages)
         },
-        content = { paddingValues ->
+        content = { contentPadding ->
             HorizontalPager(
-                modifier = Modifier.padding(paddingValues),
+                modifier = Modifier.padding(contentPadding),
                 count = pages.size,
                 state = pagerState
             ) { page ->
@@ -77,6 +75,7 @@ private fun PagerTabRow(
     val coroutineScope = rememberCoroutineScope()
 
     TabRow(
+        modifier = Modifier.height(56.dp),
         selectedTabIndex = state.currentPage,
         indicator = { tabPositions ->
             TabRowDefaults.Indicator(

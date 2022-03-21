@@ -14,5 +14,7 @@ interface HomeComponent {
         Meets, Restaurants, People
     }
 
-    sealed interface Output
+    sealed interface Output {
+        object NewRestaurantRequested : Output
+    }
 }

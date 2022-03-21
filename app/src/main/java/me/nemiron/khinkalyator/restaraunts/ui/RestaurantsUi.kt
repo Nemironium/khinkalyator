@@ -23,7 +23,7 @@ fun RestaurantsUi(
                 modifier = Modifier
                     .navigationBarsPadding(),
                 text = stringResource(R.string.restaurants_add),
-                onClick = { }
+                onClick = component::onAddRestaurantClick
             )
         },
         floatingActionButtonPosition = FabPosition.Center,
@@ -41,4 +41,6 @@ private fun RestaurantsUiPreview() {
     }
 }
 
-class PreviewRestaurantsComponent : RestaurantsComponent
+class PreviewRestaurantsComponent : RestaurantsComponent {
+    override fun onAddRestaurantClick() = Unit
+}
