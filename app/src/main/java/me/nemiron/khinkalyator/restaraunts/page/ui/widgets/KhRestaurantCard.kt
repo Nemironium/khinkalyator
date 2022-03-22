@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -40,7 +39,8 @@ fun KhRestaurantCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier
+        modifier = modifier,
+        elevation = 0.dp
     ) {
         Row(
             modifier = Modifier
@@ -67,20 +67,20 @@ fun KhRestaurantCard(
             }
 
             IconActions(
+                phoneIconVisible = data.phoneIconVisible,
+                onCallClick = onCallClick,
+                onShareClick = onShareClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 20.dp, end = 20.dp)
-                    .align(Alignment.Bottom),
-                phoneIconVisible = data.phoneIconVisible,
-                onCallClick = onCallClick,
-                onShareClick = onShareClick
+                    .align(Alignment.Bottom)
             )
         }
     }
 }
 
 @Composable
-private fun RowScope.IconActions(
+private fun IconActions(
     phoneIconVisible: Boolean,
     onCallClick: () -> Unit,
     onShareClick: () -> Unit,
@@ -122,6 +122,7 @@ private fun KhRestaurantCardPreview() {
                 modifier = Modifier
                     .fillMaxWidth(),
                 data = RestaurantFullViewData(
+                    id = 1L,
                     title = LocalizedString.raw("Каха"),
                     subtitle = LocalizedString.raw("Рубинштейна, 24"),
                     phoneIconVisible = true

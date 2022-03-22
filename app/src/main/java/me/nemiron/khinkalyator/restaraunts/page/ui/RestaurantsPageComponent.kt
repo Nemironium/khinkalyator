@@ -4,7 +4,15 @@ import me.nemiron.khinkalyator.restaraunts.domain.RestaurantId
 
 interface RestaurantsPageComponent {
 
-    fun onAddRestaurantClick()
+    val restaurantsViewData: List<RestaurantFullViewData>
+
+    fun onRestaurantAddClick()
+
+    fun onRestaurantClick(restaurantId: RestaurantId)
+
+    fun onRestaurantCallClick(restaurantId: RestaurantId)
+
+    fun onRestaurantShareClick(restaurantId: RestaurantId)
 
     sealed interface Output {
         object NewRestaurantRequested : Output
