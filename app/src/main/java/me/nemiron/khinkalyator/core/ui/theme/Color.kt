@@ -37,6 +37,7 @@ private object RawColors {
 
 @Immutable
 data class AdditionalColors(
+    val secondaryContainer: Color = RawColors.purpleBack,
     val secondaryOnSurface: Color = RawColors.silver,
     val secondaryOnBackground: Color = RawColors.tapa,
     val secondaryOnPrimary: Color = RawColors.blackAlpha50

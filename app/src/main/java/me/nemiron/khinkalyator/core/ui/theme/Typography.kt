@@ -29,7 +29,7 @@ data class AppTypography constructor(
             lineHeight = 28.sp
         ),
         head2: TextStyle = TextStyle(
-            fontWeight = FontWeight.Normal,
+            fontWeight = FontWeight.Medium,
             fontSize = 22.sp,
             lineHeight = 25.78.sp
         ),
