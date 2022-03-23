@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.ui.Scaffold
@@ -36,7 +37,7 @@ fun RestaurantsPageUi(
         },
         floatingActionButtonPosition = FabPosition.Center,
         content = {
-            RestaurantCards(component = component)
+            RestaurantCards(component, fabButtonPadding = 100.dp)
         }
     )
 }
@@ -44,11 +45,13 @@ fun RestaurantsPageUi(
 @Composable
 private fun RestaurantCards(
     component: RestaurantsPageComponent,
+    fabButtonPadding: Dp,
     modifier: Modifier = Modifier
 ) {
+    // FIXME: add ItemPlacement animation
     LazyColumn(
         modifier = modifier,
-        contentPadding = PaddingValues(top = 24.dp),
+        contentPadding = PaddingValues(top = 24.dp, bottom = fabButtonPadding),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(items = component.restaurantsViewData, key = { it.id }) { restaurant ->

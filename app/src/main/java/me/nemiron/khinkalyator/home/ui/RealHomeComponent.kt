@@ -3,7 +3,7 @@ package me.nemiron.khinkalyator.home.ui
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
 import me.nemiron.khinkalyator.meets.ui.RealMeetsComponent
-import me.nemiron.khinkalyator.people.ui.RealPeopleComponent
+import me.nemiron.khinkalyator.people.page.ui.RealPeoplePageComponent
 import me.nemiron.khinkalyator.restaraunts.page.ui.RealRestaurantsPageComponent
 import me.nemiron.khinkalyator.restaraunts.page.ui.RestaurantsPageComponent
 
@@ -21,7 +21,7 @@ class RealHomeComponent(
         onOutput = ::onRestaurantsOutput
     )
 
-    override val peopleComponent = RealPeopleComponent(
+    override val peoplePageComponent = RealPeoplePageComponent(
         childContext(key = "peoplePage")
     )
 

@@ -2,7 +2,11 @@ package me.nemiron.khinkalyator.core.ui.widgets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
@@ -13,17 +17,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import me.nemiron.khinkalyator.R
+import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.theme.additionalColors
 
 /**
- * Composable для создания иконки с круглым фоном
- * @param contentColor цвет для тела иконки. Если не указан,
- * то используется secondaryColor из [MaterialTheme.colors]
- * @param backgroundColor цвет для фона иконки. Если не указан,
- * то используется secondaryContainer из [MaterialTheme.additionalColors]
- * @param backgroundSize размер фона для иконки. Если не указан, то используется 40 [Dp]
+ * Composable for Icon with circle background
+ * @param clickableModifier should only be used with [Modifier.clickable]
  */
 @Composable
 fun IconWithBackground(
@@ -33,12 +37,14 @@ fun IconWithBackground(
     contentDescription: String? = null,
     shouldBeColored: Boolean = true,
     contentColor: Color = MaterialTheme.colors.secondary,
-    backgroundColor: Color = MaterialTheme.additionalColors.secondaryContainer
+    backgroundColor: Color = MaterialTheme.additionalColors.secondaryContainer,
+    clickableModifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .size(backgroundSize)
             .clip(CircleShape)
+            .then(clickableModifier)
             .background(backgroundColor),
         contentAlignment = Alignment.Center
     ) {
@@ -47,5 +53,19 @@ fun IconWithBackground(
             colorFilter = if (shouldBeColored) ColorFilter.tint(contentColor) else null,
             contentDescription = contentDescription
         )
+    }
+}
+
+@Preview
+@Composable
+fun IconsWithBackgroundPreview() {
+    KhinkalyatorTheme {
+        Column {
+            IconWithBackground(painterResource(R.drawable.ic_share_40))
+            Spacer(Modifier.height(16.dp))
+            IconWithBackground(
+                painter = painterResource(R.drawable.ic_share_40),
+                clickableModifier = Modifier.clickable { })
+        }
     }
 }
