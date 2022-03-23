@@ -21,16 +21,22 @@ private object RawColors {
     val silver: Color = Color(0xFFC7C7C7)
     val tapa: Color = Color(0xFF7A776C)
     val selago: Color = Color(0xFFF2EBFC)
+    val purpleBack: Color = Color(0xFFEEE9FF)
+
+    val blueLight: Color = Color(0xFFEAF1F8)
+    val whiteLilac: Color = Color(0xFFEEEAF8)
+    val blueLight2: Color = Color(0xFFE6EAFF)
+    val greenLight: Color = Color(0xFFE8F6EB)
+    val pinkLight: Color = Color(0xFFF6E8F3)
+    val peachLight: Color = Color(0xFFF6E8E8)
+    val redBack: Color = Color(0xFFFDF2F3)
+    val yellowLight: Color = Color(0xFFFAF2E7)
 
     val blueStroke: Color = Color(0xFFD5E6F7)
     val blueLetter: Color = Color(0xFF336093)
-    val blueLight: Color = Color(0xFFEAF1F8)
-    val blueLight2: Color = Color(0xFFE6EAFF)
-    val greenLight: Color = Color(0xFFE8F6EB)
     val greenLetter: Color = Color(0xFF4F9F53)
     val greenBorder: Color = Color(0xFFB8F0C1)
     val purpleLetter: Color = Color(0xFF7C4ABA)
-    val purpleBack: Color = Color(0xFFEEE9FF)
     val purpleStroke: Color = Color(0xFFE5DAF1)
     val grayVeryLight: Color = Color(0xFFF5F5F5)
 }
@@ -43,14 +49,35 @@ data class AdditionalColors(
     val secondaryOnPrimary: Color = RawColors.blackAlpha50
 )
 
+@Immutable
+data class EmojiColors(
+    val first: Color = RawColors.blueLight,
+    val second: Color = RawColors.whiteLilac,
+    val third: Color = RawColors.greenLight,
+    val fourth: Color = RawColors.pinkLight,
+    val fifth: Color = RawColors.peachLight,
+    val sixth: Color = RawColors.redBack,
+    val seventh: Color = RawColors.yellowLight,
+    val eighth: Color = RawColors.blueLight2
+)
+
 val LocalAdditionalColors = staticCompositionLocalOf {
     AdditionalColors()
+}
+
+val LocalEmojiColors = staticCompositionLocalOf {
+    EmojiColors()
 }
 
 val MaterialTheme.additionalColors: AdditionalColors
     @Composable
     @ReadOnlyComposable
     get() = LocalAdditionalColors.current
+
+val MaterialTheme.emojiColors: EmojiColors
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalEmojiColors.current
 
 // TODO: think about dark theme
 fun getMaterialColors(darkTheme: Boolean): Colors {
