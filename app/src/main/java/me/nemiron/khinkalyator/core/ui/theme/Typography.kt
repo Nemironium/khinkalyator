@@ -31,32 +31,37 @@ data class AppTypography constructor(
         head2: TextStyle = TextStyle(
             fontWeight = FontWeight.Medium,
             fontSize = 22.sp,
-            lineHeight = 25.78.sp
+            lineHeight = 26.sp
         ),
         head3: TextStyle = TextStyle(
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
-            lineHeight = 21.09.sp
+            lineHeight = 21.sp
         ),
         medium: TextStyle = TextStyle(
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
-            lineHeight = 18.75.sp
+            lineHeight = 18.8.sp
         ),
         text1: TextStyle = TextStyle(
             fontWeight = FontWeight.Normal,
             fontSize = 16.sp,
-            lineHeight = 18.75.sp
+            lineHeight = 18.8.sp
         ),
         text2: TextStyle = TextStyle(
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
-            lineHeight = 16.41.sp
+            lineHeight = 16.4.sp
         ),
         button: TextStyle = TextStyle(
             fontWeight = FontWeight.Medium,
             fontSize = 18.sp,
-            lineHeight = 23.74.sp
+            lineHeight = 23.7.sp
+        ),
+        emoji: TextStyle = TextStyle(
+            fontWeight = FontWeight.Normal,
+            fontSize = 36.sp,
+            lineHeight = 42.sp
         )
     ) : this(
         head1 = head1.withDefaultFontFamily(defaultFontFamily),
