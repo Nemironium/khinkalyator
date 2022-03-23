@@ -30,8 +30,8 @@ import me.nemiron.khinkalyator.core.ui.theme.appTypography
 import me.nemiron.khinkalyator.core.ui.utils.statusBar
 import me.nemiron.khinkalyator.meets.ui.MeetsUi
 import me.nemiron.khinkalyator.meets.ui.PreviewMeetsComponent
-import me.nemiron.khinkalyator.people.ui.PeopleUi
-import me.nemiron.khinkalyator.people.ui.PreviewPeopleComponent
+import me.nemiron.khinkalyator.people.page.ui.PeoplePageUi
+import me.nemiron.khinkalyator.people.page.ui.PreviewPeoplePageComponent
 import me.nemiron.khinkalyator.restaraunts.page.ui.PreviewRestaurantsPageComponent
 import me.nemiron.khinkalyator.restaraunts.page.ui.RestaurantsPageUi
 
@@ -58,7 +58,7 @@ fun HomeUi(
                 when (pages[page]) {
                     HomeComponent.Page.Meets -> MeetsUi(component.meetsComponent)
                     HomeComponent.Page.Restaurants -> RestaurantsPageUi(component.restaurantsPageComponent)
-                    HomeComponent.Page.People -> PeopleUi(component.peopleComponent)
+                    HomeComponent.Page.People -> PeoplePageUi(component.peoplePageComponent)
                 }
             }
         }
@@ -138,5 +138,5 @@ private fun HomeUiPreview() {
 class PreviewHomeComponent : HomeComponent {
     override val meetsComponent = PreviewMeetsComponent()
     override val restaurantsPageComponent = PreviewRestaurantsPageComponent()
-    override val peopleComponent = PreviewPeopleComponent()
+    override val peoplePageComponent = PreviewPeoplePageComponent()
 }
