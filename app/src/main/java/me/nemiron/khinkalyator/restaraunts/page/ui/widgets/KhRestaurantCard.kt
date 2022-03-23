@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Card
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -42,7 +41,7 @@ fun KhRestaurantCard(
         modifier = modifier,
         elevation = 0.dp
     ) {
-        Row(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { onCardClick() }
@@ -67,13 +66,12 @@ fun KhRestaurantCard(
             }
 
             IconActions(
+                modifier = Modifier
+                    .padding(bottom = 20.dp, end = 20.dp)
+                    .align(Alignment.BottomEnd),
                 phoneIconVisible = data.phoneIconVisible,
                 onCallClick = onCallClick,
-                onShareClick = onShareClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 20.dp, end = 20.dp)
-                    .align(Alignment.Bottom)
+                onShareClick = onShareClick
             )
         }
     }
@@ -86,28 +84,22 @@ private fun IconActions(
     onShareClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    if (phoneIconVisible) {
-        Row(
-            modifier = modifier,
-            horizontalArrangement = Arrangement.End
-        ) {
-            IconButton(onClick = onCallClick) {
-                IconWithBackground(painterResource(R.drawable.ic_phone_40))
-            }
-            Spacer(modifier = Modifier.width(4.dp))
-            IconButton(onClick = onShareClick) {
-                IconWithBackground(painterResource(R.drawable.ic_share_40))
-            }
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.End
+    ) {
+        if (phoneIconVisible) {
+            IconWithBackground(
+                painter = painterResource(R.drawable.ic_phone_40),
+                clickableModifier = Modifier.clickable { onCallClick() }
+            )
+            Spacer(modifier = Modifier.width(12.dp))
         }
-    } else {
-        Box(
-            modifier = modifier,
-            contentAlignment = Alignment.BottomEnd
-        ) {
-            IconButton(onClick = onShareClick) {
-                IconWithBackground(painterResource(R.drawable.ic_share_40))
-            }
-        }
+
+        IconWithBackground(
+            painter = painterResource(R.drawable.ic_share_40),
+            clickableModifier = Modifier.clickable { onShareClick() }
+        )
     }
 }
 
