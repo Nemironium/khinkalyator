@@ -49,7 +49,6 @@ fun SmallEmojiWithBackground(
 
 /**
  * Composable for Emoji with circle colored background
- * @param clickableModifier should only be used with [Modifier.clickable]
  */
 @Composable
 fun BigEmojiWithBackground(
@@ -57,7 +56,7 @@ fun BigEmojiWithBackground(
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,
     backgroundColor: Color = MaterialTheme.emojiColors.first,
-    clickableModifier: Modifier = Modifier
+    onClick: (() -> Unit)? = null
 ) {
     EmojiWithBackgroundImpl(
         modifier = modifier,
@@ -67,7 +66,7 @@ fun BigEmojiWithBackground(
         backgroundColor = backgroundColor,
         isOutlined = isSelected,
         outlinePadding = PaddingValues(6.dp),
-        clickableModifier = clickableModifier
+        onClick = onClick
     )
 }
 
@@ -81,7 +80,7 @@ private fun EmojiWithBackgroundImpl(
     modifier: Modifier = Modifier,
     outlineColor: Color = MaterialTheme.colors.secondary,
     outlinePadding: PaddingValues = PaddingValues(0.dp),
-    clickableModifier: Modifier = Modifier
+    onClick: (() -> Unit)? = null
 ) {
     val outlineModifier = if (isOutlined) {
         Modifier
@@ -90,6 +89,12 @@ private fun EmojiWithBackgroundImpl(
                 color = outlineColor,
                 shape = CircleShape
             )
+    } else {
+        Modifier
+    }
+
+    val clickableModifier = if (onClick != null) {
+        Modifier.clickable { onClick() }
     } else {
         Modifier
     }
@@ -119,15 +124,13 @@ fun EmojiWithBackgroundPreview() {
             Spacer(Modifier.height(16.dp))
             BigEmojiWithBackground("🐨", isSelected = true)
             Spacer(Modifier.height(16.dp))
-            BigEmojiWithBackground(
-                "🐨",
-                clickableModifier = Modifier.clickable { }
-            )
+            BigEmojiWithBackground("🐨") {
+                // nothing
+            }
             Spacer(Modifier.height(16.dp))
-            BigEmojiWithBackground(
-                "🐨",
-                isSelected = true,
-                clickableModifier = Modifier.clickable { })
+            BigEmojiWithBackground("🐨", isSelected = true) {
+                // nothing
+            }
         }
     }
 }

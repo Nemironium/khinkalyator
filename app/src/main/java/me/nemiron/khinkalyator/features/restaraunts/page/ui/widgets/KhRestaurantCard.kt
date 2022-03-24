@@ -89,17 +89,15 @@ private fun IconActions(
         horizontalArrangement = Arrangement.End
     ) {
         if (phoneIconVisible) {
-            IconWithBackground(
-                painter = painterResource(R.drawable.ic_phone_40),
-                clickableModifier = Modifier.clickable { onCallClick() }
-            )
+            IconWithBackground(painterResource(R.drawable.ic_phone_40)) {
+                onCallClick()
+            }
             Spacer(modifier = Modifier.width(12.dp))
         }
 
-        IconWithBackground(
-            painter = painterResource(R.drawable.ic_share_40),
-            clickableModifier = Modifier.clickable { onShareClick() }
-        )
+        IconWithBackground(painterResource(R.drawable.ic_share_40)) {
+            onShareClick()
+        }
     }
 }
 
