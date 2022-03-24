@@ -1,21 +1,21 @@
-package me.nemiron.khinkalyator.features.people.data
+package me.nemiron.khinkalyator.features.emoji.domain
 
-import me.nemiron.khinkalyator.features.people.domain.Emoji
 import kotlin.random.Random
 
 /**
  * Stores only fully-qualified animal emojis from https://unicode.org/emoji/
  */
-
 class EmojiProvider {
 
     fun getNextEmoji(): Emoji {
         val randomNumber = Random.nextInt(from = RANDOM_FROM, until = RANDOM_UNTIL)
-        val randomEmoji = animalEmojis[randomNumber]
+        val randomEmoji = supportedEmojis[randomNumber]
         return Emoji(randomEmoji)
     }
 
     private companion object {
+        val supportedEmojis = arrayOf("🐵", "🦄", "🐰", "🐮", "🐱", "🐙", "🐼", "🐨")
+        // TODO: add additional background and content colors for other emojis
         val animalEmojis = arrayOf(
             /* subgroup: animal-mammal */
             "🐵",
@@ -128,6 +128,6 @@ class EmojiProvider {
         )
 
         const val RANDOM_FROM = 0
-        val RANDOM_UNTIL = animalEmojis.size - 1
+        val RANDOM_UNTIL = supportedEmojis.size - 1
     }
 }

@@ -14,6 +14,7 @@ fun KhinkalyatorTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Comp
     val appShapes = AppShapes()
     val additionalColors = AdditionalColors()
     val emojiColors = EmojiColors()
+    val initialsColors = InitialsColors()
     val materialColors = getMaterialColors(darkTheme)
 
     val rememberLocalDarkIcons = remember { mutableStateMapOf<Int, Unit>() }
@@ -21,6 +22,7 @@ fun KhinkalyatorTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Comp
     CompositionLocalProvider(
         LocalAdditionalColors provides additionalColors,
         LocalEmojiColors provides emojiColors,
+        LocalInitialsColors provides initialsColors,
         LocalAppTypography provides appTypography,
         LocalAppShapes provides appShapes,
         LocalApplyDarkStatusBarIcons provides rememberLocalDarkIcons

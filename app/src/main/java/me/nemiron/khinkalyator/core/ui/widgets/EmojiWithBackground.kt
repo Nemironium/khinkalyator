@@ -24,7 +24,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.theme.appTypography
-import me.nemiron.khinkalyator.core.ui.theme.emojiColors
+import me.nemiron.khinkalyator.features.emoji.domain.Emoji
+import me.nemiron.khinkalyator.features.emoji.utils.getBackgroundColor
 
 // FIXME: algorithm to match emoji and background color
 
@@ -33,14 +34,12 @@ import me.nemiron.khinkalyator.core.ui.theme.emojiColors
  */
 @Composable
 fun SmallEmojiWithBackground(
-    emoji: String,
-    modifier: Modifier = Modifier,
-    backgroundColor: Color = MaterialTheme.emojiColors.first
+    emoji: Emoji,
+    modifier: Modifier = Modifier
 ) {
     EmojiWithBackgroundImpl(
         modifier = modifier,
         emoji = emoji,
-        backgroundColor = backgroundColor,
         backgroundSize = 48.dp,
         emojiTextStyle = MaterialTheme.appTypography.emojiSmall,
         isOutlined = false
@@ -52,10 +51,9 @@ fun SmallEmojiWithBackground(
  */
 @Composable
 fun BigEmojiWithBackground(
-    emoji: String,
+    emoji: Emoji,
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,
-    backgroundColor: Color = MaterialTheme.emojiColors.first,
     onClick: (() -> Unit)? = null
 ) {
     EmojiWithBackgroundImpl(
@@ -63,7 +61,6 @@ fun BigEmojiWithBackground(
         emoji = emoji,
         emojiTextStyle = MaterialTheme.appTypography.emojiBig,
         backgroundSize = 76.dp,
-        backgroundColor = backgroundColor,
         isOutlined = isSelected,
         outlinePadding = PaddingValues(6.dp),
         onClick = onClick
@@ -72,10 +69,9 @@ fun BigEmojiWithBackground(
 
 @Composable
 private fun EmojiWithBackgroundImpl(
-    emoji: String,
+    emoji: Emoji,
     emojiTextStyle: TextStyle,
     backgroundSize: Dp,
-    backgroundColor: Color,
     isOutlined: Boolean,
     modifier: Modifier = Modifier,
     outlineColor: Color = MaterialTheme.colors.secondary,
@@ -106,10 +102,13 @@ private fun EmojiWithBackgroundImpl(
             .then(clickableModifier)
             .then(outlineModifier)
             .padding(outlinePadding)
-            .background(color = backgroundColor, shape = CircleShape),
+            .background(
+                color = emoji.getBackgroundColor(),
+                shape = CircleShape
+            ),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = emoji, style = emojiTextStyle)
+        Text(text = emoji.value, style = emojiTextStyle)
     }
 }
 
@@ -117,20 +116,17 @@ private fun EmojiWithBackgroundImpl(
 @Composable
 fun EmojiWithBackgroundPreview() {
     KhinkalyatorTheme {
+        val emoji = Emoji("🐨")
         Column {
-            SmallEmojiWithBackground("🐨")
+            SmallEmojiWithBackground(emoji)
             Spacer(Modifier.height(16.dp))
-            BigEmojiWithBackground("🐨")
+            BigEmojiWithBackground(emoji)
             Spacer(Modifier.height(16.dp))
-            BigEmojiWithBackground("🐨", isSelected = true)
+            BigEmojiWithBackground(emoji, isSelected = true)
             Spacer(Modifier.height(16.dp))
-            BigEmojiWithBackground("🐨") {
-                // nothing
-            }
+            BigEmojiWithBackground(emoji) { }
             Spacer(Modifier.height(16.dp))
-            BigEmojiWithBackground("🐨", isSelected = true) {
-                // nothing
-            }
+            BigEmojiWithBackground(emoji, isSelected = true) { }
         }
     }
 }

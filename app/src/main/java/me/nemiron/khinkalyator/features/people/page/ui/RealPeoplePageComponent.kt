@@ -5,7 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.arkivanov.decompose.ComponentContext
-import me.nemiron.khinkalyator.features.people.domain.Emoji
+import me.nemiron.khinkalyator.features.emoji.domain.Emoji
 import me.nemiron.khinkalyator.features.people.domain.Person
 import me.nemiron.khinkalyator.features.people.domain.PersonId
 import me.nemiron.khinkalyator.features.phone.domain.Phone
@@ -21,49 +21,49 @@ class RealPeoplePageComponent(
                 id = Random.nextLong(),
                 name = "Ритуза",
                 phone = null,
-                emoji = Emoji("🦜")
+                emoji = Emoji("🐵")
             ),
             Person(
                 id = Random.nextLong(),
                 name = "Элина Зайникеева",
                 phone = null,
-                emoji = Emoji("🐓")
+                emoji = Emoji("🐰")
             ),
             Person(
                 id = Random.nextLong(),
                 name = "Павел Александров",
                 phone = Phone("89041930639"),
-                emoji = Emoji("🐺")
+                emoji = Emoji("🐙")
             ),
             Person(
                 id = Random.nextLong(),
                 name = "Жека Кауров",
                 phone = null,
-                emoji = Emoji("🦬")
+                emoji = Emoji("🐨")
             ),
             Person(
                 id = Random.nextLong(),
                 name = "Томочка Тараненко",
                 phone = null,
-                emoji = Emoji("🐎")
+                emoji = Emoji("🦄")
             ),
             Person(
                 id = Random.nextLong(),
                 name = "Тёма Шанин",
                 phone = null,
-                emoji = Emoji("🐩")
+                emoji = Emoji("🐼")
             ),
             Person(
                 id = Random.nextLong(),
                 name = "Макс Цекин",
                 phone = null,
-                emoji = Emoji("🐫")
+                emoji = Emoji("🐮")
             ),
             Person(
                 id = Random.nextLong(),
                 name = "Настя Станкова",
                 phone = null,
-                emoji = Emoji("🐬")
+                emoji = Emoji("🐱")
             )
         )
     )

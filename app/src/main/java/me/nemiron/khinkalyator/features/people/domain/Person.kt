@@ -1,5 +1,6 @@
 package me.nemiron.khinkalyator.features.people.domain
 
+import me.nemiron.khinkalyator.features.emoji.domain.Emoji
 import me.nemiron.khinkalyator.features.phone.domain.Phone
 
 typealias PersonId = Long
@@ -10,6 +11,3 @@ data class Person(
     val phone: Phone?,
     val emoji: Emoji
 )
-
-@JvmInline
-value class Emoji(val value: String)

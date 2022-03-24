@@ -22,6 +22,7 @@ import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.theme.appTypography
 import me.nemiron.khinkalyator.core.ui.utils.resolve
 import me.nemiron.khinkalyator.core.ui.widgets.BigEmojiWithBackground
+import me.nemiron.khinkalyator.features.emoji.domain.Emoji
 import me.nemiron.khinkalyator.features.people.page.ui.PersonFullViewData
 
 @Composable
@@ -38,7 +39,7 @@ fun BigPersonItem(
     ) {
         BigEmojiWithBackground(
             modifier = Modifier.align(Alignment.CenterVertically),
-            emoji = data.emoji.resolve()
+            emoji = data.emoji
         )
 
         Spacer(Modifier.width(16.dp))
@@ -78,7 +79,7 @@ fun BigPersonItemsPreview() {
                     id = 1L,
                     name = LocalizedString.raw("Томочка Тараненко"),
                     phone = LocalizedString.raw("8 (999) 385 - 23 - 91"),
-                    emoji = LocalizedString.raw("🐎")
+                    emoji = Emoji("🦄")
                 ),
                 onClick = { }
             )
@@ -88,7 +89,7 @@ fun BigPersonItemsPreview() {
                     id = 1L,
                     name = LocalizedString.raw("Жека Кауров"),
                     phone = null,
-                    emoji = LocalizedString.raw("🦬")
+                    emoji = Emoji("🐨")
                 ),
                 onClick = { }
             )
