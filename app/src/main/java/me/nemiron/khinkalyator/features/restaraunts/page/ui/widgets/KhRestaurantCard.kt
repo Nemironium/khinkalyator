@@ -28,7 +28,6 @@ import me.nemiron.khinkalyator.core.ui.utils.resolve
 import me.nemiron.khinkalyator.core.ui.widgets.IconWithBackground
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.RestaurantFullViewData
 
-// FIXME: make correct text overflow with long address
 @Composable
 fun KhRestaurantCard(
     data: RestaurantFullViewData,
@@ -38,17 +37,19 @@ fun KhRestaurantCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier.height(120.dp),
         elevation = 0.dp
     ) {
-        Box(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { onCardClick() }
+                .padding(start = 24.dp, end = 20.dp, top = 20.dp, bottom = 20.dp)
         ) {
             Column(
                 modifier = Modifier
-                    .padding(vertical = 20.dp, horizontal = 24.dp)
+                    .weight(1f)
+                    .padding(end = 12.dp)
             ) {
                 Text(
                     text = data.title.resolve(),
@@ -56,19 +57,17 @@ fun KhRestaurantCard(
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.appTypography.head2
                 )
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.weight(1.0f))
                 Text(
                     text = data.subtitle.resolve(),
-                    maxLines = 1,
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.appTypography.text2
                 )
             }
 
             IconActions(
-                modifier = Modifier
-                    .padding(bottom = 20.dp, end = 20.dp)
-                    .align(Alignment.BottomEnd),
+                modifier = Modifier.align(Alignment.Bottom),
                 phoneIconVisible = data.phoneIconVisible,
                 onCallClick = onCallClick,
                 onShareClick = onShareClick
@@ -92,7 +91,7 @@ private fun IconActions(
             IconWithBackground(painterResource(R.drawable.ic_phone_40)) {
                 onCallClick()
             }
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(Modifier.width(12.dp))
         }
 
         IconWithBackground(painterResource(R.drawable.ic_share_40)) {
