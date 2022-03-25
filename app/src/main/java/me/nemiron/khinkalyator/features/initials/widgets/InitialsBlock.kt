@@ -2,7 +2,6 @@ package me.nemiron.khinkalyator.features.initials.widgets
 
 import androidx.annotation.IntRange
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -21,19 +20,19 @@ fun InitialsBlock(
     @IntRange(from = 2) visibleCount: Int = 4
 ) {
     val initialsCount = initials.size
-
-    if (initialsCount <= visibleCount) {
-        OverlaidInitials(initials)
+    val data = if (initialsCount <= visibleCount) {
+        initials
     } else {
         val realCounts = visibleCount - 1
         val extraCounts = initialsCount - realCounts
         val lastViewData = initials.last().copy(initials = "+$extraCounts")
-
-        OverlaidInitials(
-            modifier = modifier,
-            initials = initials.take(realCounts) + lastViewData
-        )
+        initials.take(realCounts) + lastViewData
     }
+
+    OverlaidInitials(
+        modifier = modifier,
+        initials = data
+    )
 }
 
 @Composable
@@ -45,7 +44,7 @@ private fun OverlaidInitials(
     val overlayWidth = 9.dp
     val startPadding = initialsSize - overlayWidth
 
-    Box(modifier.fillMaxWidth()) {
+    Box(modifier) {
         initials.forEachIndexed { index, data ->
             InitialsWithBackground(
                 modifier = Modifier.padding(start = startPadding * index),
