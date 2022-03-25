@@ -37,6 +37,7 @@ private object RawColors {
     val greenLetter: Color = Color(0xFF4F9F53)
     val greenBorder: Color = Color(0xFFB8F0C1)
     val purpleLetter: Color = Color(0xFF7C4ABA)
+    val redLetter: Color = Color(0xFFCA4040)
     val purpleStroke: Color = Color(0xFFE5DAF1)
     val grayVeryLight: Color = Color(0xFFF5F5F5)
 }
@@ -47,6 +48,15 @@ data class AdditionalColors(
     val secondaryOnSurface: Color = RawColors.silver,
     val secondaryOnBackground: Color = RawColors.tapa,
     val secondaryOnPrimary: Color = RawColors.blackAlpha50
+)
+
+// TODO: add all 8 colors when design will be ready
+@Immutable
+data class InitialsColors(
+    val first: Color = RawColors.purpleLetter,
+    val second: Color = RawColors.greenLetter,
+    val third: Color = RawColors.blueLetter,
+    val fourth: Color = RawColors.redLetter
 )
 
 @Immutable
@@ -69,6 +79,10 @@ val LocalEmojiColors = staticCompositionLocalOf {
     EmojiColors()
 }
 
+val LocalInitialsColors = staticCompositionLocalOf {
+    InitialsColors()
+}
+
 val MaterialTheme.additionalColors: AdditionalColors
     @Composable
     @ReadOnlyComposable
@@ -78,6 +92,11 @@ val MaterialTheme.emojiColors: EmojiColors
     @Composable
     @ReadOnlyComposable
     get() = LocalEmojiColors.current
+
+val MaterialTheme.initialsColors: InitialsColors
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalInitialsColors.current
 
 // TODO: think about dark theme
 fun getMaterialColors(darkTheme: Boolean): Colors {

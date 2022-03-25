@@ -27,7 +27,6 @@ import me.nemiron.khinkalyator.core.ui.theme.additionalColors
 
 /**
  * Composable for Icon with circle background
- * @param clickableModifier should only be used with [Modifier.clickable]
  */
 @Composable
 fun IconWithBackground(
@@ -38,8 +37,13 @@ fun IconWithBackground(
     shouldBeColored: Boolean = true,
     contentColor: Color = MaterialTheme.colors.secondary,
     backgroundColor: Color = MaterialTheme.additionalColors.secondaryContainer,
-    clickableModifier: Modifier = Modifier
+    onClick: (() -> Unit)? = null
 ) {
+    val clickableModifier = if (onClick != null) {
+        Modifier.clickable { onClick() }
+    } else {
+        Modifier
+    }
     Box(
         modifier = modifier
             .size(backgroundSize)
@@ -63,9 +67,9 @@ fun IconsWithBackgroundPreview() {
         Column {
             IconWithBackground(painterResource(R.drawable.ic_share_40))
             Spacer(Modifier.height(16.dp))
-            IconWithBackground(
-                painter = painterResource(R.drawable.ic_share_40),
-                clickableModifier = Modifier.clickable { })
+            IconWithBackground(painterResource(R.drawable.ic_share_40)) {
+                // nothing
+            }
         }
     }
 }

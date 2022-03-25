@@ -13,9 +13,9 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.utils.LocalApplyDarkStatusBarIcons
 import me.nemiron.khinkalyator.core.ui.utils.createFakeRouterState
-import me.nemiron.khinkalyator.home.ui.HomeUi
-import me.nemiron.khinkalyator.home.ui.PreviewHomeComponent
-import me.nemiron.khinkalyator.restaraunts.new.ui.NewRestaurantUi
+import me.nemiron.khinkalyator.features.home.ui.HomeUi
+import me.nemiron.khinkalyator.features.home.ui.PreviewHomeComponent
+import me.nemiron.khinkalyator.features.restaraunts.new.ui.NewRestaurantUi
 
 @ExperimentalPagerApi
 @Composable

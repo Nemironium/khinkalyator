@@ -21,7 +21,9 @@ data class AppTypography constructor(
     val text2: TextStyle,
     val button: TextStyle,
     val emojiBig: TextStyle,
-    val emojiSmall: TextStyle
+    val emojiSmall: TextStyle,
+    val initialsBig: TextStyle,
+    val initialsSmall: TextStyle
 ) {
     constructor(
         defaultFontFamily: FontFamily = FontFamily.Default,
@@ -70,6 +72,16 @@ data class AppTypography constructor(
             fontSize = 28.sp,
             lineHeight = 33.sp
         ),
+        initialsBig: TextStyle = TextStyle(
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 15.sp,
+            lineHeight = 18.sp
+        ),
+        initialsSmall: TextStyle = TextStyle(
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 12.sp,
+            lineHeight = 14.sp
+        )
     ) : this(
         head1 = head1.withDefaultFontFamily(defaultFontFamily),
         head2 = head2.withDefaultFontFamily(defaultFontFamily),
@@ -79,11 +91,13 @@ data class AppTypography constructor(
         text2 = text2.withDefaultFontFamily(defaultFontFamily),
         button = button.withDefaultFontFamily(defaultFontFamily),
         emojiBig = emojiBig.withDefaultFontFamily(defaultFontFamily),
-        emojiSmall= emojiSmall.withDefaultFontFamily(defaultFontFamily)
+        emojiSmall= emojiSmall.withDefaultFontFamily(defaultFontFamily),
+        initialsBig= initialsBig.withDefaultFontFamily(defaultFontFamily),
+        initialsSmall= initialsSmall.withDefaultFontFamily(defaultFontFamily)
     )
 }
 
-// TODO: add shaped for required material2 components (dialogs and etc)
+// TODO: add shapes for required material2 components (dialogs and etc)
 fun AppTypography.toMaterialTypography(): Typography {
     return Typography(
         h6 = head1 // toolbar title
