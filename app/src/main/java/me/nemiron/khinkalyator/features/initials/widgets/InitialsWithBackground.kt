@@ -13,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -30,10 +31,10 @@ fun SmallInitialsWithBackground(
     data: InitialsViewData,
     modifier: Modifier = Modifier
 ) {
-    InitialsWithBackgroundImpl(
+    InitialsWithBackground(
         modifier = modifier,
         data = data,
-        initialsTextStyle = MaterialTheme.appTypography.initialsSmall,
+        textStyle = MaterialTheme.appTypography.initialsSmall,
         backgroundSize = 32.dp
     )
 }
@@ -46,25 +47,40 @@ fun BigInitialsWithBackground(
     data: InitialsViewData,
     modifier: Modifier = Modifier
 ) {
-    InitialsWithBackgroundImpl(
+    InitialsWithBackground(
         modifier = modifier,
         data = data,
-        initialsTextStyle = MaterialTheme.appTypography.initialsBig,
+        textStyle = MaterialTheme.appTypography.initialsBig,
         backgroundSize = 40.dp
     )
 }
 
+/**
+ * Composable for Person initials with circle colored background and border
+ * @param overlayColor – optional [Color] for additional background color overlaid
+ * above main backgroundColor from [InitialsViewData.getColors]
+ */
 @Composable
-private fun InitialsWithBackgroundImpl(
+fun InitialsWithBackground(
     data: InitialsViewData,
-    initialsTextStyle: TextStyle,
+    textStyle: TextStyle,
     backgroundSize: Dp,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    overlayColor: Color? = null
 ) {
     val (contentColor, backgroundColor, outlineColor) = data.getColors()
+    val overlayColorModifier = if (overlayColor != null) {
+        Modifier.background(
+            color = overlayColor,
+            shape = CircleShape
+        )
+    } else {
+        Modifier
+    }
     Box(
         modifier = modifier
             .size(backgroundSize)
+            .then(overlayColorModifier)
             .border(
                 width = 1.dp,
                 color = outlineColor,
@@ -75,7 +91,7 @@ private fun InitialsWithBackgroundImpl(
     ) {
         Text(
             text = data.initials.take(2),
-            style = initialsTextStyle,
+            style = textStyle,
             color = contentColor
         )
     }
