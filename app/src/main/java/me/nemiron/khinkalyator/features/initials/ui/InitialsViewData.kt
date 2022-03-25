@@ -31,6 +31,8 @@ fun Person.toInitialsViewData(): InitialsViewData {
     )
 }
 
+fun List<Person>.toInitialsViewData(): List<InitialsViewData> = map(Person::toInitialsViewData)
+
 @Composable
 private fun Emoji.getColorsForInitials(): Triple<Color, Color, Color> {
     val contentColor = when (this.value) {

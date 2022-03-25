@@ -6,4 +6,5 @@
     <string name="meets_archived">Архив</string>
     <string name="meets_today_date">Сегодня</string>
     <string name="meets_previous_date">Встреча от %s</string>
+    <string name="meets_date_format">%s.%s.%s</string>
 </resources>
