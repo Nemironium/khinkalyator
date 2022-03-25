@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.page.ui.widgets
+package me.nemiron.khinkalyator.features.restaraunts.page.widgets
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -29,7 +28,7 @@ import me.nemiron.khinkalyator.core.ui.widgets.IconWithBackground
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.RestaurantFullViewData
 
 @Composable
-fun KhRestaurantCard(
+fun RestaurantCard(
     data: RestaurantFullViewData,
     onCardClick: () -> Unit,
     onCallClick: () -> Unit,
@@ -42,7 +41,6 @@ fun KhRestaurantCard(
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
                 .clickable { onCardClick() }
                 .padding(start = 24.dp, end = 20.dp, top = 20.dp, bottom = 20.dp)
         ) {
@@ -57,7 +55,7 @@ fun KhRestaurantCard(
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.appTypography.head2
                 )
-                Spacer(modifier = Modifier.weight(1.0f))
+                Spacer(Modifier.weight(1.0f))
                 Text(
                     text = data.subtitle.resolve(),
                     maxLines = 2,
@@ -102,14 +100,12 @@ private fun IconActions(
 
 @Preview(showSystemUi = true)
 @Composable
-private fun KhRestaurantCardPreview() {
+private fun RestaurantCardPreview() {
     KhinkalyatorTheme {
         Box(
             modifier = Modifier.padding(16.dp)
         ) {
-            KhRestaurantCard(
-                modifier = Modifier
-                    .fillMaxWidth(),
+            RestaurantCard(
                 data = RestaurantFullViewData(
                     id = 1L,
                     title = LocalizedString.raw("Каха"),

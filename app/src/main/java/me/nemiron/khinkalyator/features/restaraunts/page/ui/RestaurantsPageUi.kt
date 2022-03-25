@@ -18,7 +18,7 @@ import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.widgets.KhContainedButton
 import me.nemiron.khinkalyator.features.restaraunts.domain.RestaurantId
-import me.nemiron.khinkalyator.features.restaraunts.page.ui.widgets.KhRestaurantCard
+import me.nemiron.khinkalyator.features.restaraunts.page.widgets.RestaurantCard
 
 @Composable
 fun RestaurantsPageUi(
@@ -55,13 +55,14 @@ private fun RestaurantCards(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(items = component.restaurantsViewData, key = { it.id }) { restaurant ->
-            KhRestaurantCard(
+            RestaurantCard(
                 modifier = Modifier
                     .padding(horizontal = 16.dp),
                 data = restaurant,
                 onCardClick = { component.onRestaurantClick(restaurant.id) },
                 onCallClick = { component.onRestaurantCallClick(restaurant.id) },
-                onShareClick = { component.onRestaurantShareClick(restaurant.id) })
+                onShareClick = { component.onRestaurantShareClick(restaurant.id) }
+            )
         }
     }
 }
