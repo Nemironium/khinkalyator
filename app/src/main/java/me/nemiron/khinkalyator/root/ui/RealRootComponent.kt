@@ -54,6 +54,9 @@ class RealRootComponent(
                     Configuration.NewRestaurant
                 )
             }
+            HomeComponent.Output.NewMeetRequested -> {
+                // TODO
+            }
         }
 
     private fun onNewRestaurantOutput(output: NewRestaurantComponent.Output): Unit =

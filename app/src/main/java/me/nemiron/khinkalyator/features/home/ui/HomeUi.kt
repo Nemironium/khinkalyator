@@ -28,8 +28,8 @@ import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.theme.additionalColors
 import me.nemiron.khinkalyator.core.ui.theme.appTypography
 import me.nemiron.khinkalyator.core.ui.utils.statusBar
-import me.nemiron.khinkalyator.features.meets.ui.MeetsUi
-import me.nemiron.khinkalyator.features.meets.ui.PreviewMeetsComponent
+import me.nemiron.khinkalyator.features.meets.page.ui.MeetsUi
+import me.nemiron.khinkalyator.features.meets.page.ui.PreviewMeetsPageComponent
 import me.nemiron.khinkalyator.features.people.page.ui.PeoplePageUi
 import me.nemiron.khinkalyator.features.people.page.ui.PreviewPeoplePageComponent
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.PreviewRestaurantsPageComponent
@@ -56,7 +56,7 @@ fun HomeUi(
                 state = pagerState
             ) { page ->
                 when (pages[page]) {
-                    HomeComponent.Page.Meets -> MeetsUi(component.meetsComponent)
+                    HomeComponent.Page.Meets -> MeetsUi(component.meetsPageComponent)
                     HomeComponent.Page.Restaurants -> RestaurantsPageUi(component.restaurantsPageComponent)
                     HomeComponent.Page.People -> PeoplePageUi(component.peoplePageComponent)
                 }
@@ -136,7 +136,7 @@ private fun HomeUiPreview() {
 }
 
 class PreviewHomeComponent : HomeComponent {
-    override val meetsComponent = PreviewMeetsComponent()
+    override val meetsPageComponent = PreviewMeetsPageComponent()
     override val restaurantsPageComponent = PreviewRestaurantsPageComponent()
     override val peoplePageComponent = PreviewPeoplePageComponent()
 }
