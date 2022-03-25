@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.core.ui.widgets
+package me.nemiron.khinkalyator.features.emoji.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

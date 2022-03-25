@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.people.utils
+package me.nemiron.khinkalyator.features.initials.ui
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -7,19 +7,32 @@ import me.nemiron.khinkalyator.core.ui.theme.initialsColors
 import me.nemiron.khinkalyator.features.emoji.domain.Emoji
 import me.nemiron.khinkalyator.features.people.domain.Person
 
-/*
-* first – content color
-* second – background color
-* third – outline color
-* */
-// TODO: add all 8 colors when design will be ready
-@Composable
-fun Person.getColorsForInitials(): Triple<Color, Color, Color> {
-    return emoji.getColorsForInitials()
+data class InitialsViewData(
+    val initials: String,
+    private val emoji: Emoji
+) {
+    /**
+     * first – content color
+     * second – background color
+     * third – outline color
+     */
+    @Composable
+    fun getColors(): Triple<Color, Color, Color> {
+        return emoji.getColorsForInitials()
+    }
+}
+
+fun Person.toInitialsViewData(): InitialsViewData {
+    val firstCapitalizedChar = name.firstOrNull()?.uppercase().orEmpty()
+    val secondCapitalizedChar = name.substringAfter(" ").firstOrNull()?.uppercase().orEmpty()
+    return InitialsViewData(
+        initials = firstCapitalizedChar + secondCapitalizedChar,
+        emoji = emoji
+    )
 }
 
 @Composable
-fun Emoji.getColorsForInitials(): Triple<Color, Color, Color> {
+private fun Emoji.getColorsForInitials(): Triple<Color, Color, Color> {
     val contentColor = when (this.value) {
         "🐵" -> MaterialTheme.initialsColors.first
         "🦄" -> MaterialTheme.initialsColors.second

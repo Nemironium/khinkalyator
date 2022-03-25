@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.core.ui.widgets
+package me.nemiron.khinkalyator.features.initials.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,22 +20,20 @@ import androidx.compose.ui.unit.dp
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.theme.appTypography
 import me.nemiron.khinkalyator.features.emoji.domain.Emoji
-import me.nemiron.khinkalyator.features.people.utils.getColorsForInitials
+import me.nemiron.khinkalyator.features.initials.ui.InitialsViewData
 
 /**
  * Composable for Person initials with circle colored background and border
  */
 @Composable
 fun SmallInitialsWithBackground(
-    initials: String,
-    emoji: Emoji,
+    data: InitialsViewData,
     modifier: Modifier = Modifier
 ) {
     InitialsWithBackgroundImpl(
         modifier = modifier,
-        initials = initials,
+        data = data,
         initialsTextStyle = MaterialTheme.appTypography.initialsSmall,
-        emoji = emoji,
         backgroundSize = 32.dp
     )
 }
@@ -45,28 +43,25 @@ fun SmallInitialsWithBackground(
  */
 @Composable
 fun BigInitialsWithBackground(
-    initials: String,
-    emoji: Emoji,
+    data: InitialsViewData,
     modifier: Modifier = Modifier
 ) {
     InitialsWithBackgroundImpl(
         modifier = modifier,
-        initials = initials,
+        data = data,
         initialsTextStyle = MaterialTheme.appTypography.initialsBig,
-        emoji = emoji,
         backgroundSize = 40.dp
     )
 }
 
 @Composable
 private fun InitialsWithBackgroundImpl(
-    initials: String,
+    data: InitialsViewData,
     initialsTextStyle: TextStyle,
-    emoji: Emoji,
     backgroundSize: Dp,
     modifier: Modifier = Modifier
 ) {
-    val (contentColor, backgroundColor, outlineColor) = emoji.getColorsForInitials()
+    val (contentColor, backgroundColor, outlineColor) = data.getColors()
     Box(
         modifier = modifier
             .size(backgroundSize)
@@ -79,7 +74,7 @@ private fun InitialsWithBackgroundImpl(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = initials.substring(0..1).uppercase(),
+            text = data.initials.take(2),
             style = initialsTextStyle,
             color = contentColor
         )
@@ -90,18 +85,11 @@ private fun InitialsWithBackgroundImpl(
 @Composable
 fun InitialsWithBackgroundPreview() {
     KhinkalyatorTheme {
-        val emoji = Emoji("🐨")
+        val data = InitialsViewData("ЖК", Emoji("🐨"))
         Column {
-            SmallInitialsWithBackground(
-                initials = "жк",
-                emoji = emoji
-
-            )
+            SmallInitialsWithBackground(data)
             Spacer(Modifier.height(16.dp))
-            BigInitialsWithBackground(
-                initials = "жк",
-                emoji = emoji
-            )
+            BigInitialsWithBackground(data)
         }
     }
 }
