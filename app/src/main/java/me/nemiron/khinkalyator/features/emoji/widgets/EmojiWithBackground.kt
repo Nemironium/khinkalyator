@@ -27,8 +27,6 @@ import me.nemiron.khinkalyator.core.ui.theme.appTypography
 import me.nemiron.khinkalyator.features.emoji.domain.Emoji
 import me.nemiron.khinkalyator.features.emoji.utils.getBackgroundColor
 
-// FIXME: algorithm to match emoji and background color
-
 /**
  * Composable for Emoji with circle colored background
  */

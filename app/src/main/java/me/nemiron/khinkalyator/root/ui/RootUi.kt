@@ -1,5 +1,7 @@
 package me.nemiron.khinkalyator.root.ui
 
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -7,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.arkivanov.decompose.extensions.compose.jetpack.Children
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
@@ -23,13 +24,17 @@ fun RootUi(
     component: RootComponent,
     modifier: Modifier = Modifier
 ) {
-    ProvideWindowInsets(windowInsetsAnimationsEnabled = false) {
-        SystemBarColors()
-        Children(component.routerState, modifier) {
-            when (val child = it.instance) {
-                is RootComponent.Child.Home -> HomeUi(child.component)
-                is RootComponent.Child.NewRestaurant -> NewRestaurantUi(child.component)
-            }
+    SystemBarColors()
+    // FIXME: check that IME paddings work as needed
+    Children(
+        modifier = modifier
+            .navigationBarsPadding()
+            .imePadding(),
+        routerState = component.routerState
+    ) {
+        when (val child = it.instance) {
+            is RootComponent.Child.Home -> HomeUi(child.component)
+            is RootComponent.Child.NewRestaurant -> NewRestaurantUi(child.component)
         }
     }
 }
