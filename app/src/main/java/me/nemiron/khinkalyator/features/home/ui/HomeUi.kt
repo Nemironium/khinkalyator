@@ -35,7 +35,7 @@ import me.nemiron.khinkalyator.features.people.page.ui.PreviewPeoplePageComponen
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.PreviewRestaurantsPageComponent
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.RestaurantsPageUi
 
-@ExperimentalPagerApi
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun HomeUi(
     component: HomeComponent,
@@ -65,7 +65,8 @@ fun HomeUi(
     )
 }
 
-@ExperimentalPagerApi
+
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 private fun PagerTabRow(
     state: PagerState,
@@ -126,7 +127,6 @@ private val HomeComponent.Page.stringRes: Int
         HomeComponent.Page.People -> R.string.home_people_tab
     }
 
-@ExperimentalPagerApi
 @Preview(showBackground = true)
 @Composable
 private fun HomeUiPreview() {

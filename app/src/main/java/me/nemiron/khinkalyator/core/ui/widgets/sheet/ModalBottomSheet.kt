@@ -16,7 +16,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import me.aartikov.sesame.dialog.DialogControl
 import me.nemiron.khinkalyator.core.ui.theme.appShapes
@@ -36,8 +35,6 @@ import me.nemiron.khinkalyator.core.ui.theme.appShapes
 fun <T : Any, F : Any> ModalBottomSheet(
     dialogControl: DialogControl<T, F>,
     modifier: Modifier = Modifier,
-    // FIXME: is it good place for such logic?
-    dropFocusAfterDismiss: Boolean = true,
     sheetContent: @Composable (T) -> Unit
 ) {
     val state by dialogControl.stateFlow.collectAsState()
@@ -45,7 +42,6 @@ fun <T : Any, F : Any> ModalBottomSheet(
         initialValue = ModalBottomSheetValue.Hidden,
         confirmStateChange = { it != ModalBottomSheetValue.HalfExpanded }
     )
-    val focusManager = LocalFocusManager.current
 
     if (state is DialogControl.State.Shown) {
         if (modalBottomSheetState.currentValue != ModalBottomSheetValue.Expanded) {
@@ -64,9 +60,6 @@ fun <T : Any, F : Any> ModalBottomSheet(
     if (modalBottomSheetState.currentValue != ModalBottomSheetValue.Hidden) {
         DisposableEffect(Unit) {
             onDispose {
-                if (dropFocusAfterDismiss) {
-                    focusManager.clearFocus()
-                }
                 dialogControl.dismiss()
             }
         }

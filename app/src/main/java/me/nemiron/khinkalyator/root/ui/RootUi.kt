@@ -1,7 +1,5 @@
 package me.nemiron.khinkalyator.root.ui
 
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.arkivanov.decompose.extensions.compose.jetpack.Children
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.utils.LocalApplyDarkStatusBarIcons
@@ -18,20 +15,13 @@ import me.nemiron.khinkalyator.features.home.ui.HomeUi
 import me.nemiron.khinkalyator.features.home.ui.PreviewHomeComponent
 import me.nemiron.khinkalyator.features.restaraunts.new.ui.NewRestaurantUi
 
-@ExperimentalPagerApi
 @Composable
 fun RootUi(
     component: RootComponent,
     modifier: Modifier = Modifier
 ) {
     SystemBarColors()
-    // FIXME: check that IME paddings work as needed
-    Children(
-        modifier = modifier
-            .navigationBarsPadding()
-            .imePadding(),
-        routerState = component.routerState
-    ) {
+    Children(component.routerState, modifier) {
         when (val child = it.instance) {
             is RootComponent.Child.Home -> HomeUi(child.component)
             is RootComponent.Child.NewRestaurant -> NewRestaurantUi(child.component)
@@ -54,7 +44,6 @@ private fun SystemBarColors() {
     }
 }
 
-@ExperimentalPagerApi
 @Preview(showBackground = true)
 @Composable
 private fun RootUiPreview() {

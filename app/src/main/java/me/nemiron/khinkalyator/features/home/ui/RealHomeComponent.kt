@@ -2,14 +2,17 @@ package me.nemiron.khinkalyator.features.home.ui
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
+import me.nemiron.khinkalyator.core.ui.CloseKeyboardServiceImpl
 import me.nemiron.khinkalyator.features.meets.page.ui.MeetsPageComponent
 import me.nemiron.khinkalyator.features.meets.page.ui.RealMeetsPageComponent
+import me.nemiron.khinkalyator.features.people.domain.PeopleStorage
 import me.nemiron.khinkalyator.features.people.page.ui.RealPeoplePageComponent
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.RealRestaurantsPageComponent
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.RestaurantsPageComponent
 
 class RealHomeComponent(
     componentContext: ComponentContext,
+    peopleStorage: PeopleStorage,
     private val onOutput: (HomeComponent.Output) -> Unit
 ) : HomeComponent, ComponentContext by componentContext {
 
@@ -28,7 +31,9 @@ class RealHomeComponent(
     )
 
     override val peoplePageComponent = RealPeoplePageComponent(
-        childContext(key = "peoplePage")
+        childContext(key = "peoplePage"),
+        peopleStorage = peopleStorage,
+        closeKeyboardService = CloseKeyboardServiceImpl()
     )
 
     private fun onMeetsOutput(output: MeetsPageComponent.Output) {
