@@ -47,7 +47,8 @@ data class AdditionalColors(
     val secondaryContainer: Color = RawColors.purpleBack,
     val secondaryOnSurface: Color = RawColors.silver,
     val secondaryOnBackground: Color = RawColors.tapa,
-    val secondaryOnPrimary: Color = RawColors.blackAlpha50
+    val secondaryOnPrimary: Color = RawColors.blackAlpha50,
+    val onSurfaceContainer: Color = RawColors.grayVeryLight
 )
 
 // TODO: add all 8 colors when design will be ready
@@ -106,6 +107,7 @@ fun getMaterialColors(darkTheme: Boolean): Colors {
         secondaryVariant = RawColors.selago,
         background = RawColors.whiteBack,
         surface = RawColors.whiteMain,
+        error = RawColors.redLetter,
         onPrimary = RawColors.blackMain,
         onSecondary = RawColors.whiteMain,
         onBackground = RawColors.blackMain,
