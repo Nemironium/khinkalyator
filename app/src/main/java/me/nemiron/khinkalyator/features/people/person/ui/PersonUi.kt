@@ -109,6 +109,5 @@ class PreviewPersonComponent : PersonComponent {
     )
 
     override val buttonText = LocalizedString.resource(R.string.person_add_button)
-    override fun setConfiguration(config: PersonComponent.Configuration) = Unit
     override fun onSubmitClick() = Unit
 }
