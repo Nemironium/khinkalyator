@@ -19,14 +19,12 @@ import com.google.accompanist.insets.ui.Scaffold
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
-import me.aartikov.sesame.dialog.DialogControl
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.widgets.KhContainedButton
 import me.nemiron.khinkalyator.core.ui.widgets.sheet.ModalBottomSheet
 import me.nemiron.khinkalyator.features.people.domain.PersonId
 import me.nemiron.khinkalyator.features.people.page.widgets.BigPersonItem
-import me.nemiron.khinkalyator.features.people.person.ui.PersonComponent
 import me.nemiron.khinkalyator.features.people.person.ui.PersonUi
 import me.nemiron.khinkalyator.features.people.person.ui.PreviewPersonComponent
 
@@ -59,12 +57,14 @@ fun PeoplePageUi(
             PeopleList(component, fabButtonPadding = 100.dp)
         }
     )
-    PersonBottomSheet(
+    ModalBottomSheet(
         modifier = modifier
             .imePadding(),
-        component = component.personComponent,
-        dialogControl = component.personDialogControl,
-    )
+        data = component.personComponent,
+        onDismiss = { keyboardController?.hide() }
+    ) {
+        PersonUi(it)
+    }
 }
 
 @Composable
@@ -88,23 +88,6 @@ private fun PeopleList(
     }
 }
 
-@Composable
-private fun PersonBottomSheet(
-    component: PersonComponent,
-    dialogControl: DialogControl<Unit, Unit>,
-    modifier: Modifier = Modifier
-) {
-    ModalBottomSheet(
-        modifier = modifier,
-        dialogControl = dialogControl,
-        sheetContent = {
-            PersonUi(
-                component = component
-            )
-        }
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
 private fun PeoplePageUiPreview() {
@@ -115,7 +98,6 @@ private fun PeoplePageUiPreview() {
 
 class PreviewPeoplePageComponent : PeoplePageComponent {
     override val personComponent = PreviewPersonComponent()
-    override val personDialogControl = DialogControl<Unit, Unit>()
     override val closeKeyboardEvents: Flow<Unit> = flow { }
     override val peopleViewData: List<PersonFullViewData> = emptyList()
 

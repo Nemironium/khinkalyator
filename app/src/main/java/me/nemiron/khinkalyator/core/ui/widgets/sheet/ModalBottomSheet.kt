@@ -29,7 +29,6 @@ import me.nemiron.khinkalyator.core.ui.theme.appShapes
 * цвет фона сделать прозрачным, установить Elevation в 0, скрыть контент.
 * WARNING: sheetContent не может быть пустым, по этой причине используется Spacer
 * */
-
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun <T : Any, F : Any> ModalBottomSheet(
@@ -89,6 +88,69 @@ fun <T : Any, F : Any> ModalBottomSheet(
         sheetContent = {
             val data = dialogControl.dataOrNull
             if (data != null && modalBottomSheetState.isVisible) {
+                sheetContent(data)
+            } else {
+                Spacer(Modifier.height(1.dp))
+            }
+        },
+        content = {}
+    )
+}
+
+/**
+ * ModalBottomSheetDialogLayout для отображения BottomSheet без [DialogControl] на основе
+ * изменяемого состояния [data].
+ * Когда [data] не равна null, то будет показан [sheetContent] для текущей [data].
+ */
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun <T>ModalBottomSheet(
+    data: T?,
+    modifier: Modifier = Modifier,
+    onDismiss: () -> Unit = { },
+    sheetContent: @Composable (data: T) -> Unit
+) {
+    val modalSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        confirmStateChange = { newState ->
+            if (newState == ModalBottomSheetValue.Hidden) {
+                onDismiss()
+            }
+            true
+        }
+    )
+
+    LaunchedEffect(data) {
+        if (data == null) {
+            modalSheetState.hide()
+        } else {
+            modalSheetState.show()
+        }
+    }
+
+    val sheetElevation = if (modalSheetState.isVisible) {
+        ModalBottomSheetDefaults.Elevation
+    } else {
+        0.dp
+    }
+
+    val sheetBackgroundColor = if (modalSheetState.isVisible) {
+        MaterialTheme.colors.background
+    } else {
+        Color.Transparent
+    }
+
+    ModalBottomSheetLayout(
+        modifier = modifier,
+        sheetState = modalSheetState,
+        sheetShape = MaterialTheme.appShapes.sheet.copy(
+            bottomStart = CornerSize(0.dp),
+            bottomEnd = CornerSize(0.dp)
+        ),
+        sheetElevation = sheetElevation,
+        sheetBackgroundColor = sheetBackgroundColor,
+        sheetContent = {
+            if (modalSheetState.isVisible && data != null) {
                 sheetContent(data)
             } else {
                 Spacer(Modifier.height(1.dp))
