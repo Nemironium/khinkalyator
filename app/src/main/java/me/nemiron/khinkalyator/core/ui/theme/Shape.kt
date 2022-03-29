@@ -12,14 +12,17 @@ import androidx.compose.ui.unit.dp
 
 @Immutable
 data class AppShapes(
-    val button: CornerBasedShape = RoundedCornerShape(100.dp),
-    val card: CornerBasedShape = RoundedCornerShape(16.dp)
+    val button: CornerBasedShape = RoundedCornerShape(100),
+    val textField: CornerBasedShape = RoundedCornerShape(100),
+    val card: CornerBasedShape = RoundedCornerShape(16.dp),
+    val sheet: CornerBasedShape = RoundedCornerShape(16.dp)
 )
 
 fun AppShapes.toMaterialShapes(): Shapes {
     return Shapes(
         small = button,
-        medium = card
+        medium = card,
+        large = sheet
     )
 }
 

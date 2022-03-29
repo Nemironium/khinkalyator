@@ -6,8 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.arkivanov.decompose.defaultComponentContext
-import com.google.accompanist.pager.ExperimentalPagerApi
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
+import me.nemiron.khinkalyator.features.people.data.InMemoryPeopleStorage
 import me.nemiron.khinkalyator.root.ui.RealRootComponent
 import me.nemiron.khinkalyator.root.ui.RootUi
 
@@ -15,7 +15,6 @@ import me.nemiron.khinkalyator.root.ui.RootUi
  * All activity android:configChanges listed in AndroidManifest.xml.
  * All UI updates occur through Compose recomposition instead activity recreating
  */
-@ExperimentalPagerApi
 class KhinkalyatorActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +23,8 @@ class KhinkalyatorActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen()
 
-        val root = RealRootComponent(defaultComponentContext())
+        val peopleStorage = InMemoryPeopleStorage()
+        val root = RealRootComponent(defaultComponentContext(), peopleStorage)
 
         setContent {
             KhinkalyatorTheme {

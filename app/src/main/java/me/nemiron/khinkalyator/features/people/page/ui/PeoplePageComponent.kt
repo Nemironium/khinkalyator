@@ -11,4 +11,9 @@ interface PeoplePageComponent {
     fun onPersonDeleteClick(personId: PersonId)
 
     fun onPersonClick(personId: PersonId)
+
+    sealed interface Output {
+        object NewPersonRequested : Output
+        class PersonRequested(val personId: PersonId) : Output
+    }
 }

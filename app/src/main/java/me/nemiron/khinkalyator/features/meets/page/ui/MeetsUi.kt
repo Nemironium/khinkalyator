@@ -2,6 +2,7 @@ package me.nemiron.khinkalyator.features.meets.page.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,7 +13,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.ui.Scaffold
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
@@ -31,7 +31,7 @@ fun MeetsUi(
             KhContainedButton(
                 modifier = Modifier
                     .navigationBarsPadding(),
-                text = stringResource(R.string.meets_add),
+                text = stringResource(R.string.meets_add_button),
                 onClick = component::onMeetAddClick
             )
         },

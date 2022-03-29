@@ -1,5 +1,8 @@
 package me.nemiron.khinkalyator.core.ui.utils
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.currentCompositeKeyHash
@@ -12,8 +15,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
-import com.google.accompanist.insets.LocalWindowInsets
-import com.google.accompanist.insets.statusBarsPadding
+import androidx.compose.ui.platform.LocalDensity
 
 fun Modifier.statusBar(
     color: Color,
@@ -23,10 +25,12 @@ fun Modifier.statusBar(
         DarkStatusBarIcons()
     }
 
-    val statusBarHeightPx = LocalWindowInsets.current.statusBars.top.toFloat()
-    this
-        .drawBehind { drawRect(color, Offset.Zero, Size(size.width, statusBarHeightPx)) }
-        .statusBarsPadding()
+    val currentDensity = LocalDensity.current
+    val statusBarHeightPx = WindowInsets.statusBars.getTop(currentDensity).toFloat()
+
+    drawBehind {
+        drawRect(color, Offset.Zero, Size(size.width, statusBarHeightPx))
+    }.statusBarsPadding()
 }
 
 val LocalApplyDarkStatusBarIcons = staticCompositionLocalOf { mutableStateMapOf<Int, Unit>() }

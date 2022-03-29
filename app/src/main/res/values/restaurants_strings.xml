@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Restaurants -->
-    <string name="restaurants_add">Добавить ресторан</string>
+    <string name="restaurants_add_button">Добавить ресторан</string>
 
     <!-- NewRestaurant -->
     <string name="new_restaurant_title">Новый ресторан</string>

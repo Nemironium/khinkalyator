@@ -8,14 +8,17 @@ import com.arkivanov.decompose.router.push
 import com.arkivanov.decompose.router.router
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import me.nemiron.khinkalyator.core.ui.CloseKeyboardServiceImpl
 import me.nemiron.khinkalyator.core.ui.utils.toComposeState
 import me.nemiron.khinkalyator.features.home.ui.HomeComponent
 import me.nemiron.khinkalyator.features.home.ui.RealHomeComponent
+import me.nemiron.khinkalyator.features.people.domain.PeopleStorage
 import me.nemiron.khinkalyator.features.restaraunts.new.ui.NewRestaurantComponent
 import me.nemiron.khinkalyator.features.restaraunts.new.ui.RealNewRestaurantComponent
 
 class RealRootComponent(
-    componentContext: ComponentContext
+    componentContext: ComponentContext,
+    private val peopleStorage: PeopleStorage
 ) : RootComponent, ComponentContext by componentContext {
 
     private val router = router<Configuration, RootComponent.Child>(
@@ -36,7 +39,9 @@ class RealRootComponent(
             is Configuration.Home -> RootComponent.Child.Home(
                 RealHomeComponent(
                     componentContext,
-                    ::onHomeOutput
+                    peopleStorage = peopleStorage,
+                    closeKeyboardService = CloseKeyboardServiceImpl(),
+                    onOutput = ::onHomeOutput
                 )
             )
             is Configuration.NewRestaurant -> RootComponent.Child.NewRestaurant(

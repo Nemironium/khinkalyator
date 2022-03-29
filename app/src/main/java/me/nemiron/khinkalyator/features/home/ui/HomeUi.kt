@@ -2,6 +2,7 @@ package me.nemiron.khinkalyator.features.home.ui
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Tab
@@ -9,9 +10,12 @@ import androidx.compose.material.TabRow
 import androidx.compose.material.TabRowDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -22,20 +26,26 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.theme.additionalColors
 import me.nemiron.khinkalyator.core.ui.theme.appTypography
 import me.nemiron.khinkalyator.core.ui.utils.statusBar
+import me.nemiron.khinkalyator.core.ui.widgets.sheet.ModalBottomSheet
 import me.nemiron.khinkalyator.features.meets.page.ui.MeetsUi
 import me.nemiron.khinkalyator.features.meets.page.ui.PreviewMeetsPageComponent
 import me.nemiron.khinkalyator.features.people.page.ui.PeoplePageUi
 import me.nemiron.khinkalyator.features.people.page.ui.PreviewPeoplePageComponent
+import me.nemiron.khinkalyator.features.people.person.ui.PersonUi
+import me.nemiron.khinkalyator.features.people.person.ui.PreviewPersonComponent
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.PreviewRestaurantsPageComponent
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.RestaurantsPageUi
 
-@ExperimentalPagerApi
+@OptIn(ExperimentalPagerApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun HomeUi(
     component: HomeComponent,
@@ -43,6 +53,14 @@ fun HomeUi(
 ) {
     val pagerState = rememberPagerState()
     val pages = remember { HomeComponent.Page.values().asList() }
+
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    LaunchedEffect(Unit) {
+        component.closeKeyboardEvents.collectLatest {
+            keyboardController?.hide()
+        }
+    }
 
     Scaffold(
         modifier = modifier.statusBar(MaterialTheme.colors.primary),
@@ -63,9 +81,18 @@ fun HomeUi(
             }
         }
     )
+
+    ModalBottomSheet(
+        modifier = modifier
+            .imePadding(),
+        data = component.personComponent,
+        onDismiss = { keyboardController?.hide() }
+    ) {
+        PersonUi(it)
+    }
 }
 
-@ExperimentalPagerApi
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 private fun PagerTabRow(
     state: PagerState,
@@ -126,7 +153,6 @@ private val HomeComponent.Page.stringRes: Int
         HomeComponent.Page.People -> R.string.home_people_tab
     }
 
-@ExperimentalPagerApi
 @Preview(showBackground = true)
 @Composable
 private fun HomeUiPreview() {
@@ -139,4 +165,6 @@ class PreviewHomeComponent : HomeComponent {
     override val meetsPageComponent = PreviewMeetsPageComponent()
     override val restaurantsPageComponent = PreviewRestaurantsPageComponent()
     override val peoplePageComponent = PreviewPeoplePageComponent()
+    override val personComponent = PreviewPersonComponent()
+    override val closeKeyboardEvents: Flow<Unit> = flow { }
 }

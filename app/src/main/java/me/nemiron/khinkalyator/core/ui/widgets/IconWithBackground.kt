@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -19,7 +18,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
@@ -32,7 +30,6 @@ import me.nemiron.khinkalyator.core.ui.theme.additionalColors
 fun IconWithBackground(
     painter: Painter,
     modifier: Modifier = Modifier,
-    backgroundSize: Dp = 40.dp,
     contentDescription: String? = null,
     shouldBeColored: Boolean = true,
     contentColor: Color = MaterialTheme.colors.secondary,
@@ -46,7 +43,6 @@ fun IconWithBackground(
     }
     Box(
         modifier = modifier
-            .size(backgroundSize)
             .clip(CircleShape)
             .then(clickableModifier)
             .background(backgroundColor),
