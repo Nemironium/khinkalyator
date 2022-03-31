@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 @Immutable
 data class AppShapes(
     val button: CornerBasedShape = RoundedCornerShape(100),
+    val chip: CornerBasedShape = RoundedCornerShape(100),
     val textField: CornerBasedShape = RoundedCornerShape(100),
     val card: CornerBasedShape = RoundedCornerShape(16.dp),
     val sheet: CornerBasedShape = RoundedCornerShape(16.dp)

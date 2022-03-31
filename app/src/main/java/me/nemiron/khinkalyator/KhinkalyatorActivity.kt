@@ -8,6 +8,7 @@ import androidx.core.view.WindowCompat
 import com.arkivanov.decompose.defaultComponentContext
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.features.people.data.InMemoryPeopleStorage
+import me.nemiron.khinkalyator.features.restaraunts.data.InMemoryRestaurantsStorage
 import me.nemiron.khinkalyator.root.ui.RealRootComponent
 import me.nemiron.khinkalyator.root.ui.RootUi
 
@@ -24,7 +25,8 @@ class KhinkalyatorActivity : ComponentActivity() {
         installSplashScreen()
 
         val peopleStorage = InMemoryPeopleStorage()
-        val root = RealRootComponent(defaultComponentContext(), peopleStorage)
+        val restaurantStorage = InMemoryRestaurantsStorage()
+        val root = RealRootComponent(defaultComponentContext(), peopleStorage, restaurantStorage)
 
         setContent {
             KhinkalyatorTheme {

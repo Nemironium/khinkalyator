@@ -13,16 +13,22 @@ import me.nemiron.khinkalyator.core.ui.utils.toComposeState
 import me.nemiron.khinkalyator.features.home.ui.HomeComponent
 import me.nemiron.khinkalyator.features.home.ui.RealHomeComponent
 import me.nemiron.khinkalyator.features.people.domain.PeopleStorage
-import me.nemiron.khinkalyator.features.restaraunts.new.ui.NewRestaurantComponent
-import me.nemiron.khinkalyator.features.restaraunts.new.ui.RealNewRestaurantComponent
+import me.nemiron.khinkalyator.features.restaraunts.domain.AddRestaurantUseCase
+import me.nemiron.khinkalyator.features.restaraunts.domain.DeleteRestaurantByIdUseCase
+import me.nemiron.khinkalyator.features.restaraunts.domain.GetRestaurantByIdUseCase
+import me.nemiron.khinkalyator.features.restaraunts.domain.RestaurantsStorage
+import me.nemiron.khinkalyator.features.restaraunts.domain.UpdateRestaurantUseCase
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.ui.RealRestaurantComponent
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.ui.RestaurantComponent
 
 class RealRootComponent(
     componentContext: ComponentContext,
-    private val peopleStorage: PeopleStorage
+    private val peopleStorage: PeopleStorage,
+    private val restaurantsStorage: RestaurantsStorage
 ) : RootComponent, ComponentContext by componentContext {
 
-    private val router = router<Configuration, RootComponent.Child>(
-        initialConfiguration = Configuration.Home,
+    private val router = router<ChildConfiguration, RootComponent.Child>(
+        initialConfiguration = ChildConfiguration.Home,
         handleBackButton = true,
         childFactory = ::createChild
     )
@@ -32,51 +38,67 @@ class RealRootComponent(
     )
 
     private fun createChild(
-        config: Configuration,
+        childConfig: ChildConfiguration,
         componentContext: ComponentContext
     ): RootComponent.Child =
-        when (config) {
-            is Configuration.Home -> RootComponent.Child.Home(
+        when (childConfig) {
+            is ChildConfiguration.Home -> RootComponent.Child.Home(
                 RealHomeComponent(
                     componentContext,
                     peopleStorage = peopleStorage,
+                    restaurantsStorage = restaurantsStorage,
                     closeKeyboardService = CloseKeyboardServiceImpl(),
                     onOutput = ::onHomeOutput
                 )
             )
-            is Configuration.NewRestaurant -> RootComponent.Child.NewRestaurant(
-                RealNewRestaurantComponent(
+            is ChildConfiguration.Restaurant -> RootComponent.Child.Restaurant(
+                RealRestaurantComponent(
                     componentContext,
-                    ::onNewRestaurantOutput
+                    configuration = childConfig.restaurantConfiguration,
+                    getRestaurantById = GetRestaurantByIdUseCase(restaurantsStorage),
+                    addRestaurant = AddRestaurantUseCase(restaurantsStorage),
+                    updateRestaurant = UpdateRestaurantUseCase(restaurantsStorage),
+                    deleteRestaurantById = DeleteRestaurantByIdUseCase(restaurantsStorage),
+                    onOutput = ::onNewRestaurantOutput
                 )
             )
         }
 
     private fun onHomeOutput(output: HomeComponent.Output): Unit =
         when (output) {
-            HomeComponent.Output.NewRestaurantRequested -> {
+            is HomeComponent.Output.NewRestaurantRequested -> {
                 router.push(
-                    Configuration.NewRestaurant
+                    ChildConfiguration.Restaurant(
+                        RestaurantComponent.Configuration.NewRestaurant
+                    )
                 )
             }
-            HomeComponent.Output.NewMeetRequested -> {
+            is HomeComponent.Output.NewMeetRequested -> {
                 // TODO
+            }
+            is HomeComponent.Output.RestaurantRequested -> {
+                router.push(
+                    ChildConfiguration.Restaurant(
+                        RestaurantComponent.Configuration.EditRestaurant(output.restaurantId)
+                    )
+                )
             }
         }
 
-    private fun onNewRestaurantOutput(output: NewRestaurantComponent.Output): Unit =
+    private fun onNewRestaurantOutput(output: RestaurantComponent.Output): Unit =
         when (output) {
-            NewRestaurantComponent.Output.RestaurantDeleted -> {
-                // TODO: add DB entity deleting
+            is RestaurantComponent.Output.RestaurantCloseRequested -> {
                 router.pop()
             }
         }
 
-    private sealed class Configuration : Parcelable {
+    private sealed interface ChildConfiguration : Parcelable {
         @Parcelize
-        object Home : Configuration()
+        object Home : ChildConfiguration
 
         @Parcelize
-        object NewRestaurant : Configuration()
+        class Restaurant(
+            val restaurantConfiguration: RestaurantComponent.Configuration
+        ) : ChildConfiguration
     }
 }

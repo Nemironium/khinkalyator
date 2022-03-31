@@ -6,7 +6,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.replaceCurrent
 import com.arkivanov.decompose.router.router
 import com.arkivanov.essenty.parcelable.Parcelable
-import kotlinx.parcelize.Parcelize
+import com.arkivanov.essenty.parcelable.Parcelize
 import me.nemiron.khinkalyator.core.ui.utils.currentConfiguration
 import me.nemiron.khinkalyator.core.ui.utils.toComposeState
 
@@ -70,12 +70,12 @@ class ComponentHolder<C : Parcelable, T : Any>(
         }
     }
 
-    sealed class Configuration<out C : Parcelable> : Parcelable {
+    sealed interface Configuration<out C : Parcelable> : Parcelable {
         @Parcelize
-        object None : Configuration<Nothing>()
+        object None : Configuration<Nothing>
 
         @Parcelize
-        data class Component<C : Parcelable>(val componentConfiguration: C) : Configuration<C>()
+        data class Component<C : Parcelable>(val componentConfiguration: C) : Configuration<C>
     }
 
     class Child<T>(val component: T?)

@@ -6,7 +6,6 @@ import me.nemiron.khinkalyator.features.phone.domain.Phone
 
 interface PeopleStorage {
     fun observePeople(): Flow<List<Person>>
-    fun observePerson(id: PersonId): Flow<Person?>
 
     suspend fun deletePerson(id: PersonId)
 

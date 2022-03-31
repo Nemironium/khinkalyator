@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.ui.TopAppBar
 import me.nemiron.khinkalyator.R
@@ -27,7 +28,15 @@ fun KhToolbar(
 ) {
     TopAppBar(
         modifier = modifier.then(statusBarModifier),
-        title = { title?.let { Text(text = it) } },
+        title = {
+            title?.let {
+                Text(
+                    text = it,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        },
         navigationIcon = navigationIcon,
         actions = { actionIcon?.invoke() },
         backgroundColor = backgroundColor,

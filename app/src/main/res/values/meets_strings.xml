@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Meets-->
+    <!-- MeetsPage -->
     <string name="meets_add_button">Добавить встречу</string>
     <string name="meets_archived">Архив</string>
     <string name="meets_today_date">Сегодня</string>
