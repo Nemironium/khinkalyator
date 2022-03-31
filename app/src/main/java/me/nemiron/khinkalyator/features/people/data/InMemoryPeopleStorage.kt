@@ -77,14 +77,6 @@ class InMemoryPeopleStorage : PeopleStorage {
             .map { it.values.toList() }
     }
 
-    override fun observePerson(id: PersonId): Flow<Person?> {
-        return stateFlow
-            .asStateFlow()
-            .map { peopleMap ->
-                peopleMap[id]
-            }
-    }
-
     override suspend fun deletePerson(id: PersonId) {
         peopleMutex.withLock {
             stateFlow.value = stateFlow.value.toMutableMap()
@@ -125,6 +117,11 @@ class InMemoryPeopleStorage : PeopleStorage {
     }
 
     override suspend fun getPerson(id: PersonId): Person? {
-        return observePerson(id).first()
+        return stateFlow
+            .asStateFlow()
+            .map { peopleMap ->
+                peopleMap[id]
+            }
+            .first()
     }
 }
