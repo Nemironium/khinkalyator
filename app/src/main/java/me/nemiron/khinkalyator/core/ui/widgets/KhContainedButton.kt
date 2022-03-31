@@ -9,12 +9,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
+import me.nemiron.khinkalyator.core.ui.theme.additionalColors
 import me.nemiron.khinkalyator.core.ui.theme.appShapes
 import me.nemiron.khinkalyator.core.ui.theme.appTypography
 
@@ -27,12 +27,11 @@ fun KhContainedButton(
     KhButtonImpl(
         modifier = modifier,
         onClick = onClick,
-        backgroundColor = MaterialTheme.colors.secondary,
-        contentColor = MaterialTheme.colors.onSecondary,
         contentPadding = PaddingValues(
             vertical = 4.dp,
             horizontal = 16.dp
-        )
+        ),
+        enabled = true
     ) {
         Icon(
             painter = painterResource(iconRes),
@@ -45,17 +44,17 @@ fun KhContainedButton(
 fun KhContainedButton(
     text: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ) {
     KhButtonImpl(
         modifier = modifier,
         onClick = onClick,
-        backgroundColor = MaterialTheme.colors.secondary,
-        contentColor = MaterialTheme.colors.onSecondary,
         contentPadding = PaddingValues(
             vertical = 16.dp,
             horizontal = 24.dp
-        )
+        ),
+        enabled = enabled
     ) {
         Text(
             text = text,
@@ -69,18 +68,20 @@ fun KhContainedButton(
 @Composable
 private fun KhButtonImpl(
     onClick: () -> Unit,
-    backgroundColor: Color,
-    contentColor: Color,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
+    enabled: Boolean,
     content: @Composable () -> Unit
 ) {
     Button(
         modifier = modifier,
         onClick = onClick,
+        enabled = enabled,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = backgroundColor,
-            contentColor = contentColor
+            backgroundColor = MaterialTheme.colors.secondary,
+            disabledBackgroundColor = MaterialTheme.additionalColors.secondaryContainer,
+            disabledContentColor = MaterialTheme.colors.onSecondary,
+            contentColor = MaterialTheme.colors.onSecondary
         ),
         shape = MaterialTheme.appShapes.button,
         contentPadding = contentPadding,

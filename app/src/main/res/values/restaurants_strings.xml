@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Restaurants -->
+    <!-- RestaurantsPage -->
     <string name="restaurants_add_button">Добавить ресторан</string>
 
-    <!-- NewRestaurant -->
-    <string name="new_restaurant_title">Новый ресторан</string>
+    <!-- Restaurant -->
+    <string name="restaurant_title_new">Новый ресторан</string>
+    <string name="restaurant_name_placeholder">Название ресторана</string>
+    <string name="restaurant_address_placeholder">Адрес</string>
+    <string name="restaurant_phone_placeholder">Телефон</string>
+    <string name="restaurant_menu_title">Меню</string>
+    <string name="restaurant_submit_button">Готово</string>
+    <string name="restaurant_delete_menu_action">Удалить ресторан</string>
 
 </resources>

@@ -86,6 +86,17 @@ class RealPersonComponent(
         lifecycle.doOnCreate(::setTextFields)
     }
 
+    override fun onSubmitClick() {
+        if (validator.validate().isValid) {
+            coroutineScope.launch {
+                val name = nameInputControl.text
+                val phone = phoneInputControl.text.takeIf { it.isNotBlank() }
+                createOrUpdatePerson(configuration, name, phone)
+                onOutput(PersonComponent.Output.PersonEdited)
+            }
+        }
+    }
+
     private fun setTextFields() {
         coroutineScope.launch {
             when (configuration) {
@@ -103,28 +114,17 @@ class RealPersonComponent(
         }
     }
 
-    override fun onSubmitClick() {
-        if (validator.validate().isValid) {
-            val name = nameInputControl.text
-            val phone = phoneInputControl.text.takeIf { it.isNotBlank() }
-            createOrUpdatePerson(configuration, name, phone)
-            onOutput(PersonComponent.Output.PersonEdited)
-        }
-    }
-
-    private fun createOrUpdatePerson(
+    private suspend fun createOrUpdatePerson(
         config: PersonComponent.Configuration,
         name: String,
         phone: String?
     ) {
-        coroutineScope.launch {
-            when (config) {
-                is PersonComponent.Configuration.EditPerson -> {
-                    updatePerson(personId = config.personId, name = name, phone = phone)
-                }
-                is PersonComponent.Configuration.NewPerson -> {
-                    addPerson(name = name, phone = phone)
-                }
+        when (config) {
+            is PersonComponent.Configuration.EditPerson -> {
+                updatePerson(personId = config.personId, name = name, phone = phone)
+            }
+            is PersonComponent.Configuration.NewPerson -> {
+                addPerson(name = name, phone = phone)
             }
         }
     }
