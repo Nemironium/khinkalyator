@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import me.nemiron.khinkalyator.features.meets.page.ui.MeetsPageComponent
 import me.nemiron.khinkalyator.features.people.page.ui.PeoplePageComponent
 import me.nemiron.khinkalyator.features.people.person.ui.PersonComponent
+import me.nemiron.khinkalyator.features.restaraunts.domain.RestaurantId
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.RestaurantsPageComponent
 
 interface HomeComponent {
@@ -15,6 +16,8 @@ interface HomeComponent {
 
     val closeKeyboardEvents: Flow<Unit>
 
+    fun onPersonDismissed()
+
     enum class Page {
         Meets, Restaurants, People
     }
@@ -22,5 +25,6 @@ interface HomeComponent {
     sealed interface Output {
         object NewMeetRequested : Output
         object NewRestaurantRequested : Output
+        class RestaurantRequested(val restaurantId: RestaurantId) : Output
     }
 }

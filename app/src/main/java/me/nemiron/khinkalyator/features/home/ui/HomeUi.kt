@@ -86,7 +86,7 @@ fun HomeUi(
         modifier = modifier
             .imePadding(),
         data = component.personComponent,
-        onDismiss = { keyboardController?.hide() }
+        onDismiss = component::onPersonDismissed
     ) {
         PersonUi(it)
     }
@@ -167,4 +167,5 @@ class PreviewHomeComponent : HomeComponent {
     override val peoplePageComponent = PreviewPeoplePageComponent()
     override val personComponent = PreviewPersonComponent()
     override val closeKeyboardEvents: Flow<Unit> = flow { }
+    override fun onPersonDismissed() = Unit
 }

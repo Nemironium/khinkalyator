@@ -25,14 +25,17 @@ import me.nemiron.khinkalyator.features.people.page.ui.PeoplePageComponent
 import me.nemiron.khinkalyator.features.people.page.ui.RealPeoplePageComponent
 import me.nemiron.khinkalyator.features.people.person.ui.PersonComponent
 import me.nemiron.khinkalyator.features.people.person.ui.RealPersonComponent
+import me.nemiron.khinkalyator.features.restaraunts.domain.ObserveRestaurantsUseCase
+import me.nemiron.khinkalyator.features.restaraunts.domain.RestaurantsStorage
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.RealRestaurantsPageComponent
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.RestaurantsPageComponent
 
 class RealHomeComponent(
     componentContext: ComponentContext,
+    private val onOutput: (HomeComponent.Output) -> Unit,
     peopleStorage: PeopleStorage,
-    private val closeKeyboardService: CloseKeyboardService,
-    private val onOutput: (HomeComponent.Output) -> Unit
+    restaurantsStorage: RestaurantsStorage,
+    private val closeKeyboardService: CloseKeyboardService
 ) : HomeComponent, ComponentContext by componentContext {
 
     /*
@@ -63,6 +66,7 @@ class RealHomeComponent(
 
     override val restaurantsPageComponent = RealRestaurantsPageComponent(
         childContext(key = "restaurantsPage"),
+        observeRestaurants = ObserveRestaurantsUseCase(restaurantsStorage),
         onOutput = ::onRestaurantsOutput
     )
 
@@ -94,6 +98,10 @@ class RealHomeComponent(
         }
     }
 
+    override fun onPersonDismissed() {
+        personComponentHolder.configuration = null
+    }
+
     private fun onMeetsOutput(output: MeetsPageComponent.Output) {
         when (output) {
             is MeetsPageComponent.Output.NewMeetRequested -> {
@@ -111,7 +119,7 @@ class RealHomeComponent(
                 onOutput(HomeComponent.Output.NewRestaurantRequested)
             }
             is RestaurantsPageComponent.Output.RestaurantRequested -> {
-                // TODO
+                onOutput(HomeComponent.Output.RestaurantRequested(output.restaurantId))
             }
         }
     }
@@ -130,7 +138,7 @@ class RealHomeComponent(
     }
 
     private fun onPersonComponentOutput(output: PersonComponent.Output) {
-        return when (output) {
+        when (output) {
             PersonComponent.Output.PersonEdited -> {
                 personComponentHolder.configuration = null
             }
