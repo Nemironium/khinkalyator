@@ -64,6 +64,7 @@ dependencyResolutionManagement {
             library('accompanist-insetsui', 'com.google.accompanist', 'accompanist-insets-ui').versionRef('accompanist')
             library('accompanist-pager', 'com.google.accompanist', 'accompanist-pager').versionRef('accompanist')
             library('accompanist-pagerindicators', 'com.google.accompanist', 'accompanist-pager-indicators').versionRef('accompanist')
+            library('accompanist-flowlayout', 'com.google.accompanist', 'accompanist-flowlayout').versionRef('accompanist')
         }
     }
 }

@@ -1,18 +1,13 @@
 package me.nemiron.khinkalyator.features.restaraunts.restaurant.ui
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -33,6 +28,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.insets.ui.Scaffold
 import me.aartikov.sesame.compose.form.control.InputControl
 import me.aartikov.sesame.localizedstring.LocalizedString
@@ -187,36 +183,27 @@ private fun ColumnScope.DishesContent(
         text = stringResource(R.string.restaurant_menu_title),
         style = MaterialTheme.appTypography.head3
     )
-
-    if (dishes.isEmpty()) {
+    val addDishButtonModifier = if (dishes.isEmpty()) {
+        Modifier.fillMaxWidth()
+    } else {
+        Modifier
+    }
+    Spacer(Modifier.height(16.dp))
+    FlowRow(
+        modifier = Modifier.align(Alignment.Start),
+        mainAxisSpacing = 8.dp,
+        crossAxisSpacing = 8.dp
+    ) {
         KhChip(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = addDishButtonModifier,
             painter = painterResource(R.drawable.ic_plus_32),
             onClick = onAddMenuClick
         )
-        Spacer(Modifier.height(16.dp))
-    } else {
-        // FIXME: make own GridCells realization for correct design
-        LazyHorizontalGrid(
-            modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(vertical = 16.dp),
-            rows = GridCells.Adaptive(minSize = 40.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            item {
-                KhChip(
-                    modifier = Modifier.height(40.dp),
-                    painter = painterResource(R.drawable.ic_plus_32),
-                    onClick = onAddMenuClick
-                )
-            }
-            items(items = dishes, key = { it.id }) { dish ->
-                KhChip(
-                    text = dish.name.resolve(),
-                    onClick = { onDishClick(dish.id) }
-                )
-            }
+        dishes.forEach { dish ->
+            KhChip(
+                text = dish.name.resolve(),
+                onClick = { onDishClick(dish.id) }
+            )
         }
     }
 }
