@@ -8,10 +8,10 @@ import com.arkivanov.decompose.childContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import me.nemiron.khinkalyator.core.ui.CloseKeyboardService
-import me.nemiron.khinkalyator.core.ui.ComponentHolder
-import me.nemiron.khinkalyator.core.ui.componentHolder
-import me.nemiron.khinkalyator.core.ui.utils.componentCoroutineScope
+import me.nemiron.khinkalyator.core.ComponentHolder
+import me.nemiron.khinkalyator.core.componentHolder
+import me.nemiron.khinkalyator.core.ui.keyboard.CloseKeyboardService
+import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.features.emoji.domain.EmojiProvider
 import me.nemiron.khinkalyator.features.meets.page.ui.MeetsPageComponent
 import me.nemiron.khinkalyator.features.meets.page.ui.RealMeetsPageComponent

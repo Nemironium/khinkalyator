@@ -35,7 +35,7 @@ import me.aartikov.sesame.compose.form.control.InputControl
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.theme.appShapes
 import me.nemiron.khinkalyator.core.ui.theme.appTypography
-import me.nemiron.khinkalyator.core.ui.utils.resolve
+import me.nemiron.khinkalyator.core.utils.resolve
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

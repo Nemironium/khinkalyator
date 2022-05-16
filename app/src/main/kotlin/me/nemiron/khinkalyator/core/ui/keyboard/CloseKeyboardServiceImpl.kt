@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.core.ui
+package me.nemiron.khinkalyator.core.ui.keyboard
 
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

@@ -34,7 +34,7 @@ import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.theme.additionalColors
 import me.nemiron.khinkalyator.core.ui.theme.appTypography
-import me.nemiron.khinkalyator.core.ui.utils.statusBar
+import me.nemiron.khinkalyator.core.utils.statusBar
 import me.nemiron.khinkalyator.core.ui.widgets.sheet.ModalBottomSheet
 import me.nemiron.khinkalyator.features.meets.page.ui.MeetsUi
 import me.nemiron.khinkalyator.features.meets.page.ui.PreviewMeetsPageComponent

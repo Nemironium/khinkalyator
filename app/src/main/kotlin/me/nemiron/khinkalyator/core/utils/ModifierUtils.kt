@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.core.ui.utils
+package me.nemiron.khinkalyator.core.utils
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.statusBars

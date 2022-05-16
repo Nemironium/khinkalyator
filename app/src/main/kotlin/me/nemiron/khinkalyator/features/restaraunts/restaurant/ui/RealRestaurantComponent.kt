@@ -20,8 +20,8 @@ import me.aartikov.sesame.compose.form.validation.form.SetFocusOnFirstInvalidCon
 import me.aartikov.sesame.compose.form.validation.form.formValidator
 import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
-import me.nemiron.khinkalyator.core.ui.utils.TextTransformations
-import me.nemiron.khinkalyator.core.ui.utils.componentCoroutineScope
+import me.nemiron.khinkalyator.core.utils.TextTransformations
+import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.features.dish.domain.Dish
 import me.nemiron.khinkalyator.features.dish.domain.DishId
 import me.nemiron.khinkalyator.features.dish.ui.DishComponent

@@ -22,8 +22,8 @@ import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.theme.additionalColors
-import me.nemiron.khinkalyator.core.ui.utils.TextTransformations
-import me.nemiron.khinkalyator.core.ui.utils.resolve
+import me.nemiron.khinkalyator.core.utils.TextTransformations
+import me.nemiron.khinkalyator.core.utils.resolve
 import me.nemiron.khinkalyator.core.ui.widgets.IconWithBackground
 import me.nemiron.khinkalyator.core.ui.widgets.KhContainedButton
 import me.nemiron.khinkalyator.core.ui.widgets.KhOutlinedTextField

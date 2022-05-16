@@ -3,8 +3,8 @@ package me.nemiron.khinkalyator.features.restaraunts.page.ui
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.ComponentContext
-import me.nemiron.khinkalyator.core.ui.utils.componentCoroutineScope
-import me.nemiron.khinkalyator.core.ui.utils.toComposeState
+import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
+import me.nemiron.khinkalyator.core.utils.toComposeState
 import me.nemiron.khinkalyator.features.restaraunts.domain.ObserveRestaurantsUseCase
 import me.nemiron.khinkalyator.features.restaraunts.domain.Restaurant
 import me.nemiron.khinkalyator.features.restaraunts.domain.RestaurantId

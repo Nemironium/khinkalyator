@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.core.ui
+package me.nemiron.khinkalyator.core
 
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -7,8 +7,8 @@ import com.arkivanov.decompose.router.replaceCurrent
 import com.arkivanov.decompose.router.router
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import me.nemiron.khinkalyator.core.ui.utils.currentConfiguration
-import me.nemiron.khinkalyator.core.ui.utils.toComposeState
+import me.nemiron.khinkalyator.core.utils.currentConfiguration
+import me.nemiron.khinkalyator.core.utils.toComposeState
 
 /**
  * Абстракция, позволяющая динамически создавать Component [T] и менять его состояние через

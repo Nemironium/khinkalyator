@@ -4,8 +4,8 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.launch
-import me.nemiron.khinkalyator.core.ui.utils.componentCoroutineScope
-import me.nemiron.khinkalyator.core.ui.utils.toComposeState
+import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
+import me.nemiron.khinkalyator.core.utils.toComposeState
 import me.nemiron.khinkalyator.features.people.domain.DeletePersonUseCase
 import me.nemiron.khinkalyator.features.people.domain.ObserveActivePeopleUseCase
 import me.nemiron.khinkalyator.features.people.domain.Person

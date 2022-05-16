@@ -14,8 +14,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.ui.TopAppBar
 import me.nemiron.khinkalyator.R
-import me.nemiron.khinkalyator.core.ui.utils.dispatchOnBackPressed
-import me.nemiron.khinkalyator.core.ui.utils.statusBar
+import me.nemiron.khinkalyator.core.utils.dispatchOnBackPressed
+import me.nemiron.khinkalyator.core.utils.statusBar
 
 @Composable
 fun KhToolbar(

@@ -18,9 +18,9 @@ import me.aartikov.sesame.compose.form.validation.form.SetFocusOnFirstInvalidCon
 import me.aartikov.sesame.compose.form.validation.form.formValidator
 import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
-import me.nemiron.khinkalyator.core.ui.utils.TextTransformations.PersonName
-import me.nemiron.khinkalyator.core.ui.utils.TextTransformations.PhoneNumber
-import me.nemiron.khinkalyator.core.ui.utils.componentCoroutineScope
+import me.nemiron.khinkalyator.core.utils.TextTransformations.PersonName
+import me.nemiron.khinkalyator.core.utils.TextTransformations.PhoneNumber
+import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.features.people.domain.AddPersonUseCase
 import me.nemiron.khinkalyator.features.people.domain.GetPersonByIdUseCase
 import me.nemiron.khinkalyator.features.people.domain.UpdatePersonUseCase

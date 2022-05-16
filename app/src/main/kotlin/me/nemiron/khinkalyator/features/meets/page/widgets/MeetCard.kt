@@ -23,7 +23,7 @@ import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.theme.additionalColors
 import me.nemiron.khinkalyator.core.ui.theme.appTypography
-import me.nemiron.khinkalyator.core.ui.utils.resolve
+import me.nemiron.khinkalyator.core.utils.resolve
 import me.nemiron.khinkalyator.features.emoji.domain.Emoji
 import me.nemiron.khinkalyator.features.initials.ui.InitialsViewData
 import me.nemiron.khinkalyator.features.initials.widgets.InitialsBlock

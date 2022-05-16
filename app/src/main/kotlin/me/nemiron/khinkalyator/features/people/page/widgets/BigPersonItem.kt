@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.ui.theme.appTypography
-import me.nemiron.khinkalyator.core.ui.utils.resolve
+import me.nemiron.khinkalyator.core.utils.resolve
 import me.nemiron.khinkalyator.features.emoji.domain.Emoji
 import me.nemiron.khinkalyator.features.emoji.widgets.BigEmojiWithBackground
 import me.nemiron.khinkalyator.features.people.page.ui.PersonFullViewData

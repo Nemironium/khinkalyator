@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
-import me.nemiron.khinkalyator.core.ui.utils.LocalApplyDarkStatusBarIcons
+import me.nemiron.khinkalyator.core.utils.LocalApplyDarkStatusBarIcons
 
 @Composable
 fun KhinkalyatorTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {

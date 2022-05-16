@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.core.ui.utils
+package me.nemiron.khinkalyator.core.utils
 
 import me.aartikov.sesame.compose.form.control.TextTransformation
 
