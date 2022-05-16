@@ -1,9 +1,9 @@
 # Build files and folders
-.gradle
-build
+.gradle/
+build/
 
 # Idea
-/.idea/
+.idea/
 **/*.iml
 
 # Mac OS
@@ -14,4 +14,3 @@ captures/
 
 # Properties
 local.properties
-

@@ -59,7 +59,10 @@ val <C : Any, T : Any> Router<C, T>.currentConfiguration get() = state.value.cur
  * Заменяет весь стек навигации на новый, состоящий из одного элемента
  */
 fun <C : Any> Router<C, *>.replaceAll(configuration: C) {
-    navigate { listOf(configuration) }
+    navigate(
+        transformer = { listOf(configuration) },
+        onComplete = { _, _ -> }
+    )
 }
 
 /**
