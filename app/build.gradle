@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk target_sdk_version
 
     defaultConfig {
-        applicationId "me.nemiron"
-        minSdk 23
-        targetSdk 31
+        applicationId "me.nemiron.khinkalyator"
+        minSdk min_sdk_version
+        targetSdk target_sdk_version
 
         // TODO: настроить Github CI для автоматической генерации на основе кол-ва коммитов
         versionCode 1
