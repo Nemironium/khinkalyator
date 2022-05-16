@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.core.ui.keyboard
+package me.nemiron.khinkalyator.core.keyboard
 
 import kotlinx.coroutines.flow.Flow
 

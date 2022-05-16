@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.core.ui.widgets
+package me.nemiron.khinkalyator.core.widgets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,8 +20,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.nemiron.khinkalyator.R
-import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
-import me.nemiron.khinkalyator.core.ui.theme.additionalColors
+import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
+import me.nemiron.khinkalyator.core.theme.additionalColors
 
 /**
  * Composable for Icon with circle background

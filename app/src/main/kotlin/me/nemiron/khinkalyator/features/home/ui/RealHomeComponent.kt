@@ -8,33 +8,24 @@ import com.arkivanov.decompose.childContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import me.nemiron.khinkalyator.core.ComponentFactory
 import me.nemiron.khinkalyator.core.ComponentHolder
 import me.nemiron.khinkalyator.core.componentHolder
-import me.nemiron.khinkalyator.core.ui.keyboard.CloseKeyboardService
+import me.nemiron.khinkalyator.core.keyboard.CloseKeyboardService
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
-import me.nemiron.khinkalyator.features.emoji.domain.EmojiProvider
+import me.nemiron.khinkalyator.features.meets.createMeetsPageComponent
 import me.nemiron.khinkalyator.features.meets.page.ui.MeetsPageComponent
-import me.nemiron.khinkalyator.features.meets.page.ui.RealMeetsPageComponent
-import me.nemiron.khinkalyator.features.people.domain.AddPersonUseCase
-import me.nemiron.khinkalyator.features.people.domain.DeletePersonUseCase
-import me.nemiron.khinkalyator.features.people.domain.GetPersonByIdUseCase
-import me.nemiron.khinkalyator.features.people.domain.ObserveActivePeopleUseCase
-import me.nemiron.khinkalyator.features.people.domain.PeopleStorage
-import me.nemiron.khinkalyator.features.people.domain.UpdatePersonUseCase
+import me.nemiron.khinkalyator.features.people.createPeoplePageComponent
+import me.nemiron.khinkalyator.features.people.createPersonComponent
 import me.nemiron.khinkalyator.features.people.page.ui.PeoplePageComponent
-import me.nemiron.khinkalyator.features.people.page.ui.RealPeoplePageComponent
 import me.nemiron.khinkalyator.features.people.person.ui.PersonComponent
-import me.nemiron.khinkalyator.features.people.person.ui.RealPersonComponent
-import me.nemiron.khinkalyator.features.restaraunts.domain.ObserveRestaurantsUseCase
-import me.nemiron.khinkalyator.features.restaraunts.domain.RestaurantsStorage
-import me.nemiron.khinkalyator.features.restaraunts.page.ui.RealRestaurantsPageComponent
+import me.nemiron.khinkalyator.features.restaraunts.createRestaurantsPageComponent
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.RestaurantsPageComponent
 
 class RealHomeComponent(
     componentContext: ComponentContext,
     private val onOutput: (HomeComponent.Output) -> Unit,
-    peopleStorage: PeopleStorage,
-    restaurantsStorage: RestaurantsStorage,
+    componentFactory: ComponentFactory,
     private val closeKeyboardService: CloseKeyboardService
 ) : HomeComponent, ComponentContext by componentContext {
 
@@ -49,31 +40,25 @@ class RealHomeComponent(
             key = "PersonComponent",
             removeOnBackPressed = true
         ) { configuration, componentContext ->
-            RealPersonComponent(
+            componentFactory.createPersonComponent(
                 componentContext,
-                configuration = configuration,
-                onOutput = ::onPersonComponentOutput,
-                getPersonById = GetPersonByIdUseCase(peopleStorage),
-                addPerson = AddPersonUseCase(peopleStorage, EmojiProvider()),
-                updatePerson = UpdatePersonUseCase(peopleStorage)
+                configuration,
+                onOutput = ::onPersonComponentOutput
             )
         }
 
-    override val meetsPageComponent = RealMeetsPageComponent(
+    override val meetsPageComponent = componentFactory.createMeetsPageComponent(
         childContext(key = "meetsPage"),
         onOutput = ::onMeetsOutput
     )
 
-    override val restaurantsPageComponent = RealRestaurantsPageComponent(
+    override val restaurantsPageComponent = componentFactory.createRestaurantsPageComponent(
         childContext(key = "restaurantsPage"),
-        observeRestaurants = ObserveRestaurantsUseCase(restaurantsStorage),
         onOutput = ::onRestaurantsOutput
     )
 
-    override val peoplePageComponent = RealPeoplePageComponent(
+    override val peoplePageComponent = componentFactory.createPeoplePageComponent(
         childContext(key = "peoplePage"),
-        observeActivePeople = ObserveActivePeopleUseCase(peopleStorage),
-        deletePerson = DeletePersonUseCase(peopleStorage),
         onOutput = ::onPeopleOutput
     )
 

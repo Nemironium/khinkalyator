@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.core.ui.widgets
+package me.nemiron.khinkalyator.core.widgets
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -32,9 +32,9 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import me.aartikov.sesame.compose.form.control.InputControl
-import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
-import me.nemiron.khinkalyator.core.ui.theme.appShapes
-import me.nemiron.khinkalyator.core.ui.theme.appTypography
+import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
+import me.nemiron.khinkalyator.core.theme.appShapes
+import me.nemiron.khinkalyator.core.theme.appTypography
 import me.nemiron.khinkalyator.core.utils.resolve
 
 @OptIn(ExperimentalFoundationApi::class)

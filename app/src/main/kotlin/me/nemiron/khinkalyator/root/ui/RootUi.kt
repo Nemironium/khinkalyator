@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.arkivanov.decompose.extensions.compose.jetpack.Children
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
+import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.utils.LocalApplyDarkStatusBarIcons
 import me.nemiron.khinkalyator.core.utils.createFakeRouterState
 import me.nemiron.khinkalyator.features.home.ui.HomeUi

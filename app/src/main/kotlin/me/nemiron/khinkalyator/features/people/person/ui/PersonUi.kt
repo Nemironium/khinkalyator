@@ -20,13 +20,13 @@ import androidx.compose.ui.unit.dp
 import me.aartikov.sesame.compose.form.control.InputControl
 import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
-import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
-import me.nemiron.khinkalyator.core.ui.theme.additionalColors
+import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
+import me.nemiron.khinkalyator.core.theme.additionalColors
 import me.nemiron.khinkalyator.core.utils.TextTransformations
 import me.nemiron.khinkalyator.core.utils.resolve
-import me.nemiron.khinkalyator.core.ui.widgets.IconWithBackground
-import me.nemiron.khinkalyator.core.ui.widgets.KhContainedButton
-import me.nemiron.khinkalyator.core.ui.widgets.KhOutlinedTextField
+import me.nemiron.khinkalyator.core.widgets.IconWithBackground
+import me.nemiron.khinkalyator.core.widgets.KhContainedButton
+import me.nemiron.khinkalyator.core.widgets.KhOutlinedTextField
 
 @Composable
 fun PersonUi(

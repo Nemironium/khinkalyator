@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.core.ui.widgets.sheet
+package me.nemiron.khinkalyator.core.widgets.sheet
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import me.aartikov.sesame.dialog.DialogControl
-import me.nemiron.khinkalyator.core.ui.theme.appShapes
+import me.nemiron.khinkalyator.core.theme.appShapes
 
 /*
 * ModalBottomSheetDialogLayout требуется для отображения BottomSheet на экране.

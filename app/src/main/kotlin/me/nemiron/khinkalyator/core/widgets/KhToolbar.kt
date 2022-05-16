@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.core.ui.widgets
+package me.nemiron.khinkalyator.core.widgets
 
 import androidx.annotation.DrawableRes
 import androidx.compose.material.Icon

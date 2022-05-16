@@ -3,7 +3,7 @@ package me.nemiron.khinkalyator.features.initials.ui
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import me.nemiron.khinkalyator.core.ui.theme.initialsColors
+import me.nemiron.khinkalyator.core.theme.initialsColors
 import me.nemiron.khinkalyator.features.emoji.domain.Emoji
 import me.nemiron.khinkalyator.features.people.domain.Person
 

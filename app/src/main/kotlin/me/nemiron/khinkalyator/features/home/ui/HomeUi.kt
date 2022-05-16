@@ -31,11 +31,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import me.nemiron.khinkalyator.R
-import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
-import me.nemiron.khinkalyator.core.ui.theme.additionalColors
-import me.nemiron.khinkalyator.core.ui.theme.appTypography
+import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
+import me.nemiron.khinkalyator.core.theme.additionalColors
+import me.nemiron.khinkalyator.core.theme.appTypography
 import me.nemiron.khinkalyator.core.utils.statusBar
-import me.nemiron.khinkalyator.core.ui.widgets.sheet.ModalBottomSheet
+import me.nemiron.khinkalyator.core.widgets.sheet.ModalBottomSheet
 import me.nemiron.khinkalyator.features.meets.page.ui.MeetsUi
 import me.nemiron.khinkalyator.features.meets.page.ui.PreviewMeetsPageComponent
 import me.nemiron.khinkalyator.features.people.page.ui.PeoplePageUi

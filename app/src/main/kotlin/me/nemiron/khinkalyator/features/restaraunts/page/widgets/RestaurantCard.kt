@@ -21,10 +21,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
-import me.nemiron.khinkalyator.core.ui.theme.KhinkalyatorTheme
-import me.nemiron.khinkalyator.core.ui.theme.appTypography
+import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
+import me.nemiron.khinkalyator.core.theme.appTypography
 import me.nemiron.khinkalyator.core.utils.resolve
-import me.nemiron.khinkalyator.core.ui.widgets.IconWithBackground
+import me.nemiron.khinkalyator.core.widgets.IconWithBackground
 import me.nemiron.khinkalyator.features.restaraunts.page.ui.RestaurantFullViewData
 
 @Composable
