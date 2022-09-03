@@ -2,7 +2,7 @@ package me.nemiron.khinkalyator.features.meets.domain
 
 import kotlinx.datetime.LocalDateTime
 import me.nemiron.khinkalyator.features.people.domain.Person
-import me.nemiron.khinkalyator.features.restaraunts.domain.Restaurant
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Restaurant
 
 typealias MeetId = Long
 

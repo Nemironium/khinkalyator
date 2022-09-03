@@ -1,6 +1,6 @@
-package me.nemiron.khinkalyator.features.restaraunts.domain
+package me.nemiron.khinkalyator.features.restaraunts.restaurant.domain
 
-import me.nemiron.khinkalyator.features.dish.domain.Dish
+import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Dish
 import me.nemiron.khinkalyator.features.phone.domain.Phone
 
 typealias RestaurantId = Long

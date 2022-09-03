@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.domain
+package me.nemiron.khinkalyator.features.restaraunts.restaurant.domain
 
 import kotlinx.coroutines.flow.Flow
 
