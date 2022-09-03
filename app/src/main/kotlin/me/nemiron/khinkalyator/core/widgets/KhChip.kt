@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
+import me.nemiron.khinkalyator.core.theme.additionalColors
 import me.nemiron.khinkalyator.core.theme.appShapes
 import me.nemiron.khinkalyator.core.theme.appTypography
 
@@ -31,12 +32,14 @@ fun KhChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     elevation: Dp = 2.dp,
+    isSelected: Boolean = false
 ) {
     KhChipImpl(
         modifier = modifier,
         paddingValues = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
         onClick = onClick,
-        elevation = elevation
+        elevation = elevation,
+        isSelected = isSelected
     ) {
         Text(text = text, style = MaterialTheme.appTypography.text1)
     }
@@ -53,7 +56,8 @@ fun KhChip(
         modifier = modifier,
         paddingValues = PaddingValues(4.dp),
         onClick = onClick,
-        elevation = elevation
+        elevation = elevation,
+        isSelected = false
     ) {
         Image(
             painter = painter,
@@ -67,15 +71,21 @@ fun KhChip(
 private fun KhChipImpl(
     onClick: () -> Unit,
     elevation: Dp,
+    isSelected: Boolean,
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues = PaddingValues(),
     content: @Composable BoxScope.() -> Unit
 ) {
-
+    val color = if (isSelected) {
+        MaterialTheme.additionalColors.secondaryContainer
+    } else {
+        MaterialTheme.colors.surface
+    }
     Surface(
         modifier = modifier,
         onClick = onClick,
         shape = MaterialTheme.appShapes.chip,
+        color = color,
         elevation = elevation
     ) {
         Box(
@@ -96,6 +106,7 @@ fun KhChipsPreview() {
         ) {
             KhChip(
                 text = "Хачапури по-аджарски",
+                isSelected = true,
                 onClick = { }
             )
             KhChip(
