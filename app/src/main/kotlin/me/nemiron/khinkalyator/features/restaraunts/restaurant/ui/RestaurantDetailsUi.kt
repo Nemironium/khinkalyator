@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -44,15 +43,12 @@ import me.nemiron.khinkalyator.core.widgets.KhChip
 import me.nemiron.khinkalyator.core.widgets.KhContainedButton
 import me.nemiron.khinkalyator.core.widgets.KhOutlinedTextField
 import me.nemiron.khinkalyator.core.widgets.KhToolbar
-import me.nemiron.khinkalyator.core.widgets.sheet.ModalBottomSheet
-import me.nemiron.khinkalyator.features.dish.domain.DishId
-import me.nemiron.khinkalyator.features.dish.ui.DishUi
-import me.nemiron.khinkalyator.features.dish.ui.DishViewData
-import me.nemiron.khinkalyator.features.dish.ui.PreviewDishComponent
+import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
+import me.nemiron.khinkalyator.features.restaraunts.menu.ui.DishViewData
 
 @Composable
-fun RestaurantUi(
-    component: RestaurantComponent,
+fun RestaurantDetailsUi(
+    component: RestaurantDetailsComponent,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -71,7 +67,7 @@ fun RestaurantUi(
             KhContainedButton(
                 modifier = Modifier
                     .navigationBarsPadding(),
-                text = stringResource(R.string.restaurant_submit_button),
+                text = stringResource(R.string.restaurant_details_submit_button),
                 onClick = component::onSubmitClick,
                 enabled = component.isButtonActive
             )
@@ -101,19 +97,12 @@ fun RestaurantUi(
             }
         }
     )
-
-    ModalBottomSheet(
-        modifier = modifier
-            .imePadding(),
-        data = component.dishComponent
-    ) {
-        DishUi(it)
-    }
 }
 
 @Composable
 private fun DeleteAction(onMenuItemClick: () -> Unit) {
     var isExpanded by remember { mutableStateOf(false) }
+
     ActionButton(
         id = R.drawable.ic_overflow_24,
         onClick = { isExpanded = true }
@@ -123,7 +112,7 @@ private fun DeleteAction(onMenuItemClick: () -> Unit) {
         onDismissRequest = { isExpanded = false },
     ) {
         DropdownMenuItem(onClick = onMenuItemClick) {
-            Text(text = stringResource(R.string.restaurant_delete_menu_action))
+            Text(text = stringResource(R.string.restaurant_details_delete_menu_action))
         }
     }
 }
@@ -136,7 +125,7 @@ private fun RestaurantTextFields(
 ) {
     KhOutlinedTextField(
         inputControl = nameInputControl,
-        placeholder = stringResource(R.string.restaurant_name_placeholder),
+        placeholder = stringResource(R.string.restaurant_details_name_placeholder),
         leadingIcon = {
             IconWithBackground(
                 painter = painterResource(R.drawable.ic_restaurant_32),
@@ -148,7 +137,7 @@ private fun RestaurantTextFields(
     Spacer(Modifier.height(16.dp))
     KhOutlinedTextField(
         inputControl = addressInputControl,
-        placeholder = stringResource(R.string.restaurant_address_placeholder),
+        placeholder = stringResource(R.string.restaurant_details_address_placeholder),
         leadingIcon = {
             IconWithBackground(
                 painter = painterResource(R.drawable.ic_location_32),
@@ -160,7 +149,7 @@ private fun RestaurantTextFields(
     Spacer(Modifier.height(16.dp))
     KhOutlinedTextField(
         inputControl = phoneInputControl,
-        placeholder = stringResource(R.string.restaurant_phone_placeholder),
+        placeholder = stringResource(R.string.restaurant_details_phone_placeholder),
         leadingIcon = {
             IconWithBackground(
                 painter = painterResource(R.drawable.ic_phone_32),
@@ -180,7 +169,7 @@ private fun ColumnScope.DishesContent(
     Spacer(Modifier.height(32.dp))
     Text(
         modifier = Modifier.align(Alignment.Start),
-        text = stringResource(R.string.restaurant_menu_title),
+        text = stringResource(R.string.restaurant_details_menu_title),
         style = MaterialTheme.appTypography.head3
     )
     val addDishButtonModifier = if (dishes.isEmpty()) {
@@ -212,13 +201,11 @@ private fun ColumnScope.DishesContent(
 @Composable
 private fun RestaurantUiPreview() {
     KhinkalyatorTheme {
-        RestaurantUi(PreviewRestaurantComponent())
+        RestaurantDetailsUi(PreviewRestaurantDetailsComponent())
     }
 }
 
-private class PreviewRestaurantComponent : RestaurantComponent {
-
-    override val dishComponent = PreviewDishComponent()
+class PreviewRestaurantDetailsComponent : RestaurantDetailsComponent {
 
     override val nameInputControl = InputControl(
         initialText = "",
@@ -252,7 +239,7 @@ private class PreviewRestaurantComponent : RestaurantComponent {
     )
 
     override val dishesViewData: List<DishViewData> = listOf()
-    override val title = LocalizedString.resource(R.string.restaurant_title_new)
+    override val title = LocalizedString.resource(R.string.restaurant_details_title_new)
     override val isButtonActive = nameInputControl.text.isNotBlank()
     override val isDeleteActionVisible = false
 
