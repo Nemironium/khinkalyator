@@ -12,8 +12,8 @@ import me.nemiron.khinkalyator.core.ComponentFactory
 import me.nemiron.khinkalyator.core.utils.toComposeState
 import me.nemiron.khinkalyator.features.home.createHomeComponent
 import me.nemiron.khinkalyator.features.home.ui.HomeComponent
-import me.nemiron.khinkalyator.features.restaraunts.createRestaurantComponent
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.ui.RestaurantComponent
+import me.nemiron.khinkalyator.features.restaraunts.createRestaurantOverviewComponent
+import me.nemiron.khinkalyator.features.restaraunts.overview.ui.RestaurantOverviewComponent
 
 class RealRootComponent(
     componentContext: ComponentContext,
@@ -39,40 +39,38 @@ class RealRootComponent(
                 componentFactory.createHomeComponent(componentContext, ::onHomeOutput)
             )
             is ChildConfiguration.Restaurant -> RootComponent.Child.Restaurant(
-                componentFactory.createRestaurantComponent(
+                componentFactory.createRestaurantOverviewComponent(
                     componentContext,
                     childConfig.restaurantConfiguration,
-                    ::onNewRestaurantOutput
+                    ::onRestaurantOutput
                 )
             )
         }
 
-    private fun onHomeOutput(output: HomeComponent.Output): Unit =
+    private fun onHomeOutput(output: HomeComponent.Output) =
         when (output) {
+            is HomeComponent.Output.NewMeetRequested -> {
+                // TODO
+            }
             is HomeComponent.Output.NewRestaurantRequested -> {
                 router.push(
                     ChildConfiguration.Restaurant(
-                        RestaurantComponent.Configuration.NewRestaurant
+                        RestaurantOverviewComponent.Configuration.NewRestaurant
                     )
                 )
-            }
-            is HomeComponent.Output.NewMeetRequested -> {
-                // TODO
             }
             is HomeComponent.Output.RestaurantRequested -> {
                 router.push(
                     ChildConfiguration.Restaurant(
-                        RestaurantComponent.Configuration.EditRestaurant(output.restaurantId)
+                        RestaurantOverviewComponent.Configuration.EditRestaurant(output.restaurantId)
                     )
                 )
             }
         }
 
-    private fun onNewRestaurantOutput(output: RestaurantComponent.Output): Unit =
+    private fun onRestaurantOutput(output: RestaurantOverviewComponent.Output) =
         when (output) {
-            is RestaurantComponent.Output.RestaurantCloseRequested -> {
-                router.pop()
-            }
+            is RestaurantOverviewComponent.Output.RestaurantCloseRequested -> router.pop()
         }
 
     private sealed interface ChildConfiguration : Parcelable {
@@ -81,7 +79,7 @@ class RealRootComponent(
 
         @Parcelize
         class Restaurant(
-            val restaurantConfiguration: RestaurantComponent.Configuration
+            val restaurantConfiguration: RestaurantOverviewComponent.Configuration
         ) : ChildConfiguration
     }
 }
