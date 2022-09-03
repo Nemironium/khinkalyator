@@ -5,9 +5,9 @@ import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.ComponentContext
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.core.utils.toComposeState
-import me.nemiron.khinkalyator.features.restaraunts.domain.ObserveRestaurantsUseCase
-import me.nemiron.khinkalyator.features.restaraunts.domain.Restaurant
-import me.nemiron.khinkalyator.features.restaraunts.domain.RestaurantId
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.ObserveRestaurantsUseCase
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Restaurant
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
 
 class RealRestaurantsPageComponent(
     componentContext: ComponentContext,

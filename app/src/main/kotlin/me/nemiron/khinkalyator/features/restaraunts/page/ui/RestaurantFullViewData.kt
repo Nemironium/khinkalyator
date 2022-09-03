@@ -1,8 +1,8 @@
 package me.nemiron.khinkalyator.features.restaraunts.page.ui
 
 import me.aartikov.sesame.localizedstring.LocalizedString
-import me.nemiron.khinkalyator.features.restaraunts.domain.Restaurant
-import me.nemiron.khinkalyator.features.restaraunts.domain.RestaurantId
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Restaurant
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
 
 data class RestaurantFullViewData(
     val id: RestaurantId,

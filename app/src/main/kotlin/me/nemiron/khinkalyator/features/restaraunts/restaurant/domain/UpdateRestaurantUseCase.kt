@@ -1,6 +1,6 @@
-package me.nemiron.khinkalyator.features.restaraunts.domain
+package me.nemiron.khinkalyator.features.restaraunts.restaurant.domain
 
-import me.nemiron.khinkalyator.features.dish.domain.Dish
+import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Dish
 import me.nemiron.khinkalyator.features.phone.domain.Phone
 
 class UpdateRestaurantUseCase(
@@ -9,16 +9,16 @@ class UpdateRestaurantUseCase(
     suspend operator fun invoke(
         restaurantId: RestaurantId,
         name: String,
-        address: String?,
-        phone: String?,
-        menu: List<Dish>
+        address: Address?,
+        phone: Phone?,
+        dishes: List<Dish>
     ) {
         restaurantsStorage.updateRestaurant(
             id = restaurantId,
             newName = name,
-            newAddress = address?.let { Address(it) },
-            newPhone = phone?.let { Phone(it) },
-            newMenu = menu
+            newAddress = address,
+            newPhone = phone,
+            newDishes = dishes
         )
     }
 }

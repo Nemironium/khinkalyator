@@ -9,8 +9,8 @@ import me.nemiron.khinkalyator.features.meets.domain.Meet
 import me.nemiron.khinkalyator.features.meets.domain.MeetId
 import me.nemiron.khinkalyator.features.people.domain.Person
 import me.nemiron.khinkalyator.features.phone.domain.Phone
-import me.nemiron.khinkalyator.features.restaraunts.domain.Address
-import me.nemiron.khinkalyator.features.restaraunts.domain.Restaurant
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Address
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Restaurant
 import kotlin.random.Random
 
 class RealMeetsPageComponent(

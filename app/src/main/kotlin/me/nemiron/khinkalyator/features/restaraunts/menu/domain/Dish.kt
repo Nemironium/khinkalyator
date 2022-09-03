@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.dish.domain
+package me.nemiron.khinkalyator.features.restaraunts.menu.domain
 
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
@@ -11,6 +11,7 @@ data class Dish(
     val id: DishId,
     val name: String,
     val price: Double,
+    // TODO: для дальнейших фич
     val discount: Discount? = null
 ) : Parcelable {
 

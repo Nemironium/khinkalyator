@@ -1,18 +1,12 @@
 package me.nemiron.khinkalyator.features.restaraunts.restaurant.ui
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -33,6 +27,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.insets.ui.Scaffold
 import me.aartikov.sesame.compose.form.control.InputControl
 import me.aartikov.sesame.localizedstring.LocalizedString
@@ -48,15 +43,12 @@ import me.nemiron.khinkalyator.core.widgets.KhChip
 import me.nemiron.khinkalyator.core.widgets.KhContainedButton
 import me.nemiron.khinkalyator.core.widgets.KhOutlinedTextField
 import me.nemiron.khinkalyator.core.widgets.KhToolbar
-import me.nemiron.khinkalyator.core.widgets.sheet.ModalBottomSheet
-import me.nemiron.khinkalyator.features.dish.domain.DishId
-import me.nemiron.khinkalyator.features.dish.ui.DishUi
-import me.nemiron.khinkalyator.features.dish.ui.DishViewData
-import me.nemiron.khinkalyator.features.dish.ui.PreviewDishComponent
+import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
+import me.nemiron.khinkalyator.features.restaraunts.menu.ui.DishViewData
 
 @Composable
-fun RestaurantUi(
-    component: RestaurantComponent,
+fun RestaurantDetailsUi(
+    component: RestaurantDetailsComponent,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -75,7 +67,7 @@ fun RestaurantUi(
             KhContainedButton(
                 modifier = Modifier
                     .navigationBarsPadding(),
-                text = stringResource(R.string.restaurant_submit_button),
+                text = stringResource(R.string.restaurant_details_submit_button),
                 onClick = component::onSubmitClick,
                 enabled = component.isButtonActive
             )
@@ -105,19 +97,12 @@ fun RestaurantUi(
             }
         }
     )
-
-    ModalBottomSheet(
-        modifier = modifier
-            .imePadding(),
-        data = component.dishComponent
-    ) {
-        DishUi(it)
-    }
 }
 
 @Composable
 private fun DeleteAction(onMenuItemClick: () -> Unit) {
     var isExpanded by remember { mutableStateOf(false) }
+
     ActionButton(
         id = R.drawable.ic_overflow_24,
         onClick = { isExpanded = true }
@@ -127,7 +112,7 @@ private fun DeleteAction(onMenuItemClick: () -> Unit) {
         onDismissRequest = { isExpanded = false },
     ) {
         DropdownMenuItem(onClick = onMenuItemClick) {
-            Text(text = stringResource(R.string.restaurant_delete_menu_action))
+            Text(text = stringResource(R.string.restaurant_details_delete_menu_action))
         }
     }
 }
@@ -140,7 +125,7 @@ private fun RestaurantTextFields(
 ) {
     KhOutlinedTextField(
         inputControl = nameInputControl,
-        placeholder = stringResource(R.string.restaurant_name_placeholder),
+        placeholder = stringResource(R.string.restaurant_details_name_placeholder),
         leadingIcon = {
             IconWithBackground(
                 painter = painterResource(R.drawable.ic_restaurant_32),
@@ -152,7 +137,7 @@ private fun RestaurantTextFields(
     Spacer(Modifier.height(16.dp))
     KhOutlinedTextField(
         inputControl = addressInputControl,
-        placeholder = stringResource(R.string.restaurant_address_placeholder),
+        placeholder = stringResource(R.string.restaurant_details_address_placeholder),
         leadingIcon = {
             IconWithBackground(
                 painter = painterResource(R.drawable.ic_location_32),
@@ -164,7 +149,7 @@ private fun RestaurantTextFields(
     Spacer(Modifier.height(16.dp))
     KhOutlinedTextField(
         inputControl = phoneInputControl,
-        placeholder = stringResource(R.string.restaurant_phone_placeholder),
+        placeholder = stringResource(R.string.restaurant_details_phone_placeholder),
         leadingIcon = {
             IconWithBackground(
                 painter = painterResource(R.drawable.ic_phone_32),
@@ -184,39 +169,30 @@ private fun ColumnScope.DishesContent(
     Spacer(Modifier.height(32.dp))
     Text(
         modifier = Modifier.align(Alignment.Start),
-        text = stringResource(R.string.restaurant_menu_title),
+        text = stringResource(R.string.restaurant_details_menu_title),
         style = MaterialTheme.appTypography.head3
     )
-
-    if (dishes.isEmpty()) {
+    val addDishButtonModifier = if (dishes.isEmpty()) {
+        Modifier.fillMaxWidth()
+    } else {
+        Modifier
+    }
+    Spacer(Modifier.height(16.dp))
+    FlowRow(
+        modifier = Modifier.align(Alignment.Start),
+        mainAxisSpacing = 8.dp,
+        crossAxisSpacing = 8.dp
+    ) {
         KhChip(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = addDishButtonModifier,
             painter = painterResource(R.drawable.ic_plus_32),
             onClick = onAddMenuClick
         )
-        Spacer(Modifier.height(16.dp))
-    } else {
-        // FIXME: make own GridCells realization for correct design
-        LazyHorizontalGrid(
-            modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(vertical = 16.dp),
-            rows = GridCells.Adaptive(minSize = 40.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            item {
-                KhChip(
-                    modifier = Modifier.height(40.dp),
-                    painter = painterResource(R.drawable.ic_plus_32),
-                    onClick = onAddMenuClick
-                )
-            }
-            items(items = dishes, key = { it.id }) { dish ->
-                KhChip(
-                    text = dish.name.resolve(),
-                    onClick = { onDishClick(dish.id) }
-                )
-            }
+        dishes.forEach { dish ->
+            KhChip(
+                text = dish.name.resolve(),
+                onClick = { onDishClick(dish.id) }
+            )
         }
     }
 }
@@ -225,13 +201,11 @@ private fun ColumnScope.DishesContent(
 @Composable
 private fun RestaurantUiPreview() {
     KhinkalyatorTheme {
-        RestaurantUi(PreviewRestaurantComponent())
+        RestaurantDetailsUi(PreviewRestaurantDetailsComponent())
     }
 }
 
-private class PreviewRestaurantComponent : RestaurantComponent {
-
-    override val dishComponent = PreviewDishComponent()
+class PreviewRestaurantDetailsComponent : RestaurantDetailsComponent {
 
     override val nameInputControl = InputControl(
         initialText = "",
@@ -265,7 +239,7 @@ private class PreviewRestaurantComponent : RestaurantComponent {
     )
 
     override val dishesViewData: List<DishViewData> = listOf()
-    override val title = LocalizedString.resource(R.string.restaurant_title_new)
+    override val title = LocalizedString.resource(R.string.restaurant_details_title_new)
     override val isButtonActive = nameInputControl.text.isNotBlank()
     override val isDeleteActionVisible = false
 

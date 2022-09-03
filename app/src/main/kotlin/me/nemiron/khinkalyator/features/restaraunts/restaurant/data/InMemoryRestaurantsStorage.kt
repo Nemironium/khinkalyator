@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.data
+package me.nemiron.khinkalyator.features.restaraunts.restaurant.data
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -7,12 +7,12 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import me.nemiron.khinkalyator.features.dish.domain.Dish
+import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Dish
 import me.nemiron.khinkalyator.features.phone.domain.Phone
-import me.nemiron.khinkalyator.features.restaraunts.domain.Address
-import me.nemiron.khinkalyator.features.restaraunts.domain.Restaurant
-import me.nemiron.khinkalyator.features.restaraunts.domain.RestaurantId
-import me.nemiron.khinkalyator.features.restaraunts.domain.RestaurantsStorage
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Address
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Restaurant
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantsStorage
 import kotlin.random.Random
 
 class InMemoryRestaurantsStorage : RestaurantsStorage {
@@ -120,13 +120,13 @@ class InMemoryRestaurantsStorage : RestaurantsStorage {
         name: String,
         address: Address?,
         phone: Phone?,
-        menu: List<Dish>
+        dishes: List<Dish>
     ) {
         restaurantsMutex.withLock {
             stateFlow.value = stateFlow.value.toMutableMap()
                 .apply {
                     val id = Random.nextLong()
-                    val restaurant = Restaurant(id, name, address, phone, menu)
+                    val restaurant = Restaurant(id, name, address, phone, dishes)
                     put(id, restaurant)
                 }
         }
@@ -137,7 +137,7 @@ class InMemoryRestaurantsStorage : RestaurantsStorage {
         newName: String,
         newAddress: Address?,
         newPhone: Phone?,
-        newMenu: List<Dish>
+        newDishes: List<Dish>
     ) {
         restaurantsMutex.withLock {
             stateFlow.value = stateFlow.value.toMutableMap()
@@ -148,7 +148,7 @@ class InMemoryRestaurantsStorage : RestaurantsStorage {
                             name = newName,
                             address = newAddress,
                             phone = newPhone,
-                            menu = newMenu
+                            menu = newDishes
                         )
                         put(id, updatedPerson)
                     }

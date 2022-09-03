@@ -36,7 +36,7 @@ fun KhOutlinedButton(
             text = text,
             style = MaterialTheme.appTypography.button,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }

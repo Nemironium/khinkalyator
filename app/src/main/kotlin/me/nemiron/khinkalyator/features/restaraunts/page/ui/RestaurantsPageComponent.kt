@@ -1,6 +1,6 @@
 package me.nemiron.khinkalyator.features.restaraunts.page.ui
 
-import me.nemiron.khinkalyator.features.restaraunts.domain.RestaurantId
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
 
 interface RestaurantsPageComponent {
 

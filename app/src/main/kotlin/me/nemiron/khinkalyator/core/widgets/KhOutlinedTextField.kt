@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
@@ -47,7 +48,8 @@ fun KhOutlinedTextField(
     trailingIcon: @Composable (() -> Unit)? = null,
     textFieldHeight: Dp = Dp.Unspecified,
     maxLines: Int = Int.MAX_VALUE,
-    visualTransformation: VisualTransformation = inputControl.visualTransformation
+    visualTransformation: VisualTransformation = inputControl.visualTransformation,
+    onAction: (() -> Unit)? = null
 ) {
     val bringIntoViewRequester = remember { BringIntoViewRequester() }
     val coroutineScope = rememberCoroutineScope()
@@ -73,6 +75,8 @@ fun KhOutlinedTextField(
             handleColor = MaterialTheme.colors.secondary,
             backgroundColor = MaterialTheme.colors.secondary.copy(alpha = 0.4f)
         )
+        val keyboardActions = onAction?.let { KeyboardActions { onAction() } }
+            ?: KeyboardActions.Default
         CompositionLocalProvider(LocalTextSelectionColors provides textSelectionColors) {
             OutlinedTextField(
                 modifier = Modifier
@@ -110,6 +114,7 @@ fun KhOutlinedTextField(
                 singleLine = inputControl.singleLine,
                 maxLines = maxLines,
                 keyboardOptions = inputControl.keyboardOptions,
+                keyboardActions = keyboardActions,
                 enabled = inputControl.enabled
             )
             ErrorText(inputControl.error?.resolve())
@@ -122,7 +127,7 @@ private fun ErrorText(
     errorText: String?,
     modifier: Modifier = Modifier
 ) {
-    errorText?.let {
+    errorText?.ifEmpty { null }?.let {
         Text(
             modifier = modifier.padding(top = 8.dp),
             text = errorText,

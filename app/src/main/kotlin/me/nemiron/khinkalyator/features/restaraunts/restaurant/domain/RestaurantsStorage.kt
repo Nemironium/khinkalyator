@@ -1,7 +1,7 @@
-package me.nemiron.khinkalyator.features.restaraunts.domain
+package me.nemiron.khinkalyator.features.restaraunts.restaurant.domain
 
 import kotlinx.coroutines.flow.Flow
-import me.nemiron.khinkalyator.features.dish.domain.Dish
+import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Dish
 import me.nemiron.khinkalyator.features.phone.domain.Phone
 
 interface RestaurantsStorage {
@@ -13,7 +13,7 @@ interface RestaurantsStorage {
         name: String,
         address: Address?,
         phone: Phone?,
-        menu: List<Dish>
+        dishes: List<Dish>
     )
 
     suspend fun updateRestaurant(
@@ -21,7 +21,7 @@ interface RestaurantsStorage {
         newName: String,
         newAddress: Address?,
         newPhone: Phone?,
-        newMenu: List<Dish>
+        newDishes: List<Dish>
     )
 
     suspend fun getRestaurant(id: RestaurantId): Restaurant?

@@ -14,6 +14,7 @@ private object RawColors {
     val blackMain: Color = Color(0xFF353535)
     val blackText: Color = Color(0xFF000000)
     val blackAlpha50: Color = Color(0x80000000)
+    val blackAlpha70: Color = Color(0xB2000000)
     val purpleButton: Color = Color(0xFF8779D3)
     val whiteMain: Color = Color(0xFFFFFFFF)
     val whiteBack: Color = Color(0xFFFBFAFD)
@@ -48,6 +49,7 @@ data class AdditionalColors(
     val secondaryOnSurface: Color = RawColors.silver,
     val secondaryOnBackground: Color = RawColors.tapa,
     val secondaryOnPrimary: Color = RawColors.blackAlpha50,
+    val secondaryBackground: Color = RawColors.blackAlpha70,
     val onSurfaceContainer: Color = RawColors.grayVeryLight
 )
 
