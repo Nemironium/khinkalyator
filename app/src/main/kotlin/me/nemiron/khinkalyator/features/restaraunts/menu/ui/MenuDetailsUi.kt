@@ -5,8 +5,10 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.Text
@@ -78,11 +80,13 @@ fun MenuDetailsUi(
                     .fillMaxSize()
                     .background(MaterialTheme.additionalColors.secondaryBackground)
             ) {
+                val modalPadding = 248.dp
                 DishesContent(
                     modifier = Modifier
                         .align(Alignment.TopStart)
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
+                        .padding(start = 16.dp, end = 16.dp, bottom = modalPadding)
+                        .verticalScroll(rememberScrollState()),
                     dishes = component.dishesViewData,
                     onDishAddClick = component::onDishAddClick,
                     onDishClick = component::onDishClick
@@ -122,8 +126,11 @@ private fun DishesContent(
             style = MaterialTheme.appTypography.head3
         )
         Spacer(Modifier.height(16.dp))
+        // FIXME: if selected element not on screen, then row must be scrolled
         FlowRow(
-            modifier = Modifier.align(Alignment.Start),
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(bottom = 8.dp),
             mainAxisSpacing = 8.dp,
             crossAxisSpacing = 8.dp
         ) {
