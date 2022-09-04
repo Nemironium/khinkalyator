@@ -1,5 +1,8 @@
 package me.nemiron.khinkalyator.features.restaraunts.menu.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
@@ -171,13 +174,17 @@ private fun DishModal(
                 Text(
                     modifier = Modifier
                         .weight(1f)
-                        .padding(top = 8.dp, end = 12.dp),
+                        .padding(top = 8.dp, bottom = 8.dp, end = 12.dp),
                     text = title.resolve(),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.appTypography.medium
                 )
-                if (isDeleteVisible) {
+                AnimatedVisibility(
+                    visible = isDeleteVisible,
+                    enter = fadeIn(),
+                    exit = fadeOut()
+                ) {
                     IconWithBackground(
                         painter = painterResource(R.drawable.ic_delete_32),
                         contentColor = MaterialTheme.colors.onSurface,
@@ -186,7 +193,7 @@ private fun DishModal(
                     )
                 }
             }
-            Spacer(Modifier.height(10.dp))
+            Spacer(Modifier.height(4.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -250,7 +257,7 @@ private fun DishModal(
 
 @Preview(showBackground = true)
 @Composable
-private fun DishUiPreview() {
+private fun MenuDetailsPreview() {
     KhinkalyatorTheme {
         MenuDetailsUi(PreviewMenuDetailsComponent())
     }
