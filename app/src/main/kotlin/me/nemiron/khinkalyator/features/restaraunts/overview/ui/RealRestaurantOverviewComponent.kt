@@ -2,10 +2,11 @@ package me.nemiron.khinkalyator.features.restaraunts.overview.ui
 
 import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.router.RouterState
-import com.arkivanov.decompose.router.pop
-import com.arkivanov.decompose.router.push
-import com.arkivanov.decompose.router.router
+import com.arkivanov.decompose.router.stack.pop
+import com.arkivanov.decompose.router.stack.push
+import com.arkivanov.decompose.router.stack.ChildStack
+import com.arkivanov.decompose.router.stack.StackNavigation
+import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
@@ -39,7 +40,10 @@ class RealRestaurantOverviewComponent(
 
     private val commonState = State()
 
-    private val router = router<ChildConfiguration, RestaurantOverviewComponent.Child>(
+    private val navigation = StackNavigation<ChildConfiguration>()
+
+    private val stack = childStack(
+        source = navigation,
         initialConfiguration = ChildConfiguration.RestaurantDetails(configuration.toDetailsConfiguration()),
         handleBackButton = true,
         childFactory = ::createChild
@@ -47,7 +51,7 @@ class RealRestaurantOverviewComponent(
 
     private val coroutineScope = componentCoroutineScope()
 
-    override val routerState: RouterState<*, RestaurantOverviewComponent.Child> by router.state.toComposeState(
+    override val childStackState: ChildStack<*, RestaurantOverviewComponent.Child> by stack.toComposeState(
         lifecycle
     )
 
@@ -81,14 +85,14 @@ class RealRestaurantOverviewComponent(
     private fun onRestaurantDetailsOutput(output: RestaurantDetailsComponent.Output) {
         return when (output) {
             is RestaurantDetailsComponent.Output.DishRequested -> {
-                router.push(
+                navigation.push(
                     ChildConfiguration.MenuDetails(
                         MenuDetailsComponent.Configuration.EditDish(output.dishId)
                     )
                 )
             }
             is RestaurantDetailsComponent.Output.NewDishRequested -> {
-                router.push(
+                navigation.push(
                     ChildConfiguration.MenuDetails(
                         MenuDetailsComponent.Configuration.AddDish
                     )
@@ -110,7 +114,7 @@ class RealRestaurantOverviewComponent(
     }
 
     private fun onMenuDetailsOutput(output: MenuDetailsComponent.Output) = when (output) {
-        MenuDetailsComponent.Output.MenuCloseRequested -> router.pop()
+        MenuDetailsComponent.Output.MenuCloseRequested -> navigation.pop()
     }
 
     private fun loadRestaurant() {

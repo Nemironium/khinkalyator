@@ -1,6 +1,6 @@
 package me.nemiron.khinkalyator.features.restaraunts.overview.ui
 
-import com.arkivanov.decompose.router.RouterState
+import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import me.nemiron.khinkalyator.features.restaraunts.menu.ui.MenuDetailsComponent
@@ -9,7 +9,7 @@ import me.nemiron.khinkalyator.features.restaraunts.restaurant.ui.RestaurantDeta
 
 interface RestaurantOverviewComponent {
 
-    val routerState: RouterState<*, Child>
+    val childStackState: ChildStack<*, Child>
 
     sealed interface Configuration : Parcelable {
 

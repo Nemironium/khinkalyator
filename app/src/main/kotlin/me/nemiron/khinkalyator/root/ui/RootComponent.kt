@@ -1,11 +1,11 @@
 package me.nemiron.khinkalyator.root.ui
 
-import com.arkivanov.decompose.router.RouterState
+import com.arkivanov.decompose.router.stack.ChildStack
 import me.nemiron.khinkalyator.features.home.ui.HomeComponent
 import me.nemiron.khinkalyator.features.restaraunts.overview.ui.RestaurantOverviewComponent
 
 interface RootComponent {
-    val routerState: RouterState<*, Child>
+    val childStackState: ChildStack<*, Child>
 
     sealed interface Child {
         class Home(val component: HomeComponent) : Child
