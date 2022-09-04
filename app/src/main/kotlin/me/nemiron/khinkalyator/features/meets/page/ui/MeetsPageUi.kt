@@ -1,5 +1,6 @@
 package me.nemiron.khinkalyator.features.meets.page.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -21,7 +22,7 @@ import me.nemiron.khinkalyator.features.meets.domain.MeetId
 import me.nemiron.khinkalyator.features.meets.page.widgets.MeetCard
 
 @Composable
-fun MeetsUi(
+fun MeetsPageUi(
     component: MeetsPageComponent,
     modifier: Modifier = Modifier
 ) {
@@ -42,13 +43,13 @@ fun MeetsUi(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun MeetsCards(
     component: MeetsPageComponent,
     fabButtonPadding: Dp,
     modifier: Modifier = Modifier
 ) {
-    // FIXME: add ItemPlacement animation
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(top = 24.dp, bottom = fabButtonPadding),
@@ -57,7 +58,8 @@ private fun MeetsCards(
         items(items = component.meetsViewData, key = { it.id }) { meet ->
             MeetCard(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 16.dp)
+                    .animateItemPlacement(),
                 data = meet,
                 onCardClick = { component.onMeetClick(meet.id) }
             )
@@ -67,9 +69,9 @@ private fun MeetsCards(
 
 @Preview(showBackground = true)
 @Composable
-private fun MeetsUiPreview() {
+private fun MeetsPagePreview() {
     KhinkalyatorTheme {
-        MeetsUi(PreviewMeetsPageComponent())
+        MeetsPageUi(PreviewMeetsPageComponent())
     }
 }
 

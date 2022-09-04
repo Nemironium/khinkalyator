@@ -1,5 +1,6 @@
 package me.nemiron.khinkalyator.features.people.page.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -40,6 +41,7 @@ fun PeoplePageUi(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun PeopleList(
     component: PeoplePageComponent,
@@ -47,13 +49,13 @@ private fun PeopleList(
     modifier: Modifier = Modifier
 ) {
     // FIXME: add swipe-to-dismiss effect
-    // FIXME: add ItemPlacement animation
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(top = 16.dp, bottom = fabButtonPadding)
     ) {
         items(items = component.peopleViewData, key = { it.id }) { person ->
             BigPersonItem(
+                modifier = Modifier.animateItemPlacement(),
                 data = person,
                 onClick = { component.onPersonClick((person.id)) }
             )
