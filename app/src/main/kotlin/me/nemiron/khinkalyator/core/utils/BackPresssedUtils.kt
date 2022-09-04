@@ -3,12 +3,18 @@ package me.nemiron.khinkalyator.core.utils
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
-import com.arkivanov.essenty.backpressed.BackPressedHandlerOwner
+import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedDispatcherOwner
+import com.arkivanov.essenty.backhandler.BackCallback
+import com.arkivanov.essenty.backhandler.backHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import me.aartikov.sesame.dialog.DialogControl
 
 fun dispatchOnBackPressed(context: Context) {
-    val activity = context.getActivity() ?: return
-    activity.onBackPressed()
+    val activity = context.getActivity() as? ComponentActivity ?: return
+    activity.onBackPressedDispatcher.onBackPressed()
 }
 
 fun Context.getActivity(): Activity? = when (this) {
@@ -17,14 +23,18 @@ fun Context.getActivity(): Activity? = when (this) {
     else -> null
 }
 
-fun <T : Any, R : Any> DialogControl<T, R>.dismissOnBackPressed(owner: BackPressedHandlerOwner) {
-    owner.backPressedHandler.register {
-        if (isShowing) {
-            dismiss()
-            true
-        } else false
+// TODO: check that works is fine
+fun <T : Any, R : Any> DialogControl<T, R>.dismissOnBackPressed(
+    owner: OnBackPressedDispatcherOwner,
+    coroutineScope: CoroutineScope
+) {
+    val backCallback = BackCallback(isEnabled = false) {
+        dismiss()
     }
-}
 
-val <T : Any, R : Any> DialogControl<T, R>.isShowing: Boolean
-    get() = stateFlow.value is DialogControl.State.Shown
+    stateFlow.onEach { state ->
+        val isShowing = state is DialogControl.State.Shown
+        backCallback.isEnabled = isShowing
+    }.launchIn(coroutineScope)
+    owner.backHandler().register(backCallback)
+}
