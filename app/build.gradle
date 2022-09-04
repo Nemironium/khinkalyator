@@ -12,14 +12,14 @@ android {
         minSdk min_sdk_version
         targetSdk target_sdk_version
 
-        // TODO: настроить Github CI для автоматической генерации на основе кол-ва коммитов
+        // TODO: set Github CI for automatic versionCode generation basec on commit number
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    // TODO: настроить обфускацию для быстродействия Compose
+    // TODO: set obfusctaion for better Compose performance
     buildTypes {
         release {
             minifyEnabled false
@@ -34,7 +34,6 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
-        useIR = true
         freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 
