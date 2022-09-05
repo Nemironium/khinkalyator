@@ -60,7 +60,6 @@ class RealRestaurantDetailsComponent(
         )
     )
 
-    // FIXME: correct textTransformation
     override val phoneInputControl = InputControl(
         initialText = "",
         singleLine = true,
