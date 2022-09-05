@@ -24,6 +24,7 @@ import me.nemiron.khinkalyator.core.utils.TextTransformations
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.features.phone.domain.Phone
 import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
+import me.nemiron.khinkalyator.features.restaraunts.menu.ui.DishViewData
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Address
 
 class RealRestaurantDetailsComponent(
@@ -32,6 +33,12 @@ class RealRestaurantDetailsComponent(
     private val state: RestaurantDetailsComponent.State,
     private val onOutput: (RestaurantDetailsComponent.Output) -> Unit
 ) : RestaurantDetailsComponent, ComponentContext by componentContext {
+
+    private val coroutineScope = componentCoroutineScope()
+
+    private val stateData by derivedStateOf {
+        RestaurantStateData(state.name, state.address, state.phone)
+    }
 
     override val nameInputControl = InputControl(
         initialText = "",
@@ -53,7 +60,6 @@ class RealRestaurantDetailsComponent(
         )
     )
 
-    // FIXME: correct textTransformation
     override val phoneInputControl = InputControl(
         initialText = "",
         singleLine = true,
@@ -65,9 +71,8 @@ class RealRestaurantDetailsComponent(
         textTransformation = TextTransformations.PhoneNumber
     )
 
-    override val dishesViewData by derivedStateOf {
-        state.dishesViewData
-    }
+    override val dishesViewData: List<DishViewData>
+        get() = state.dishesViewData
 
     override val title by derivedStateOf {
         state.name?.ifBlank { null }?.let {
@@ -93,12 +98,6 @@ class RealRestaurantDetailsComponent(
         }
     }
 
-    private val coroutineScope = componentCoroutineScope()
-
-    private val stateData by derivedStateOf {
-        RestaurantStateData(state.name, state.address, state.phone)
-    }
-
     private val validator = coroutineScope.formValidator {
         features = listOf(HideErrorOnValueChanged, SetFocusOnFirstInvalidControlAfterValidation)
 
@@ -115,7 +114,7 @@ class RealRestaurantDetailsComponent(
     }
 
     init {
-        // TODO: подумай, можно ли как-то объединить или упростить
+        // TODO: maybe it can be simpler
         lifecycle.doOnCreate {
             snapshotFlow { stateData }
                 .onEach(::setTextFields)

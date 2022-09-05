@@ -41,6 +41,8 @@ class RealMenuDetailsComponent(
         )
     )
 
+    private val coroutineScope = componentCoroutineScope()
+
     override val dishesViewData by derivedStateOf {
         state.dishesViewData.map { dish ->
             val isShouldBeSelected = dish.id == selectedDish?.id
@@ -79,8 +81,6 @@ class RealMenuDetailsComponent(
             imeAction = ImeAction.Done
         )
     )
-
-    private val coroutineScope = componentCoroutineScope()
 
     private val validator = coroutineScope.formValidator {
         features = listOf(HideErrorOnValueChanged, SetFocusOnFirstInvalidControlAfterValidation)

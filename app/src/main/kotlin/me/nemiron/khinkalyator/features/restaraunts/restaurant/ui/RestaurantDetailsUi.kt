@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.FabPosition
@@ -26,6 +28,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.insets.ui.Scaffold
@@ -65,8 +68,7 @@ fun RestaurantDetailsUi(
         },
         floatingActionButton = {
             KhContainedButton(
-                modifier = Modifier
-                    .navigationBarsPadding(),
+                modifier = Modifier.navigationBarsPadding(),
                 text = stringResource(R.string.restaurant_details_submit_button),
                 onClick = component::onSubmitClick,
                 enabled = component.isButtonActive
@@ -77,11 +79,9 @@ fun RestaurantDetailsUi(
             Column(
                 modifier = Modifier
                     .padding(contentPadding)
-                    .padding(
-                        top = 24.dp,
-                        start = 16.dp,
-                        end = 16.dp
-                    ),
+                    .padding(horizontal = 16.dp)
+                    .navigationBarsPadding()
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 RestaurantTextFields(
@@ -91,6 +91,7 @@ fun RestaurantDetailsUi(
                 )
                 DishesContent(
                     dishes = component.dishesViewData,
+                    fabButtonPadding = 120.dp,
                     onAddMenuClick = component::onDishAddClick,
                     onDishClick = component::onDishClick
                 )
@@ -123,6 +124,7 @@ private fun RestaurantTextFields(
     addressInputControl: InputControl,
     phoneInputControl: InputControl
 ) {
+    Spacer(Modifier.height(24.dp))
     KhOutlinedTextField(
         inputControl = nameInputControl,
         placeholder = stringResource(R.string.restaurant_details_name_placeholder),
@@ -163,6 +165,7 @@ private fun RestaurantTextFields(
 @Composable
 private fun ColumnScope.DishesContent(
     dishes: List<DishViewData>,
+    fabButtonPadding: Dp,
     onAddMenuClick: () -> Unit,
     onDishClick: (id: DishId) -> Unit
 ) {
@@ -179,7 +182,9 @@ private fun ColumnScope.DishesContent(
     }
     Spacer(Modifier.height(16.dp))
     FlowRow(
-        modifier = Modifier.align(Alignment.Start),
+        modifier = Modifier
+            .align(Alignment.Start)
+            .padding(bottom = 8.dp),
         mainAxisSpacing = 8.dp,
         crossAxisSpacing = 8.dp
     ) {
@@ -194,6 +199,7 @@ private fun ColumnScope.DishesContent(
                 onClick = { onDishClick(dish.id) }
             )
         }
+        Spacer(Modifier.height(fabButtonPadding))
     }
 }
 

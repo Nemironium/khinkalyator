@@ -2,17 +2,24 @@ package me.nemiron.khinkalyator.core
 
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.snapshotFlow
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.router.replaceCurrent
-import com.arkivanov.decompose.router.router
+import com.arkivanov.decompose.router.stack.StackNavigation
+import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.replaceCurrent
+import com.arkivanov.essenty.backhandler.BackCallback
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.core.utils.currentConfiguration
+import me.nemiron.khinkalyator.core.utils.currentInstance
 import me.nemiron.khinkalyator.core.utils.toComposeState
 
 /**
- * Абстракция, позволяющая динамически создавать Component [T] и менять его состояние через
- * Configuration [C]
+ * Allows to dynamically create Component [T] and change it state with [configuration]
  */
 class ComponentHolder<C : Parcelable, T : Any>(
     componentContext: ComponentContext,
@@ -21,40 +28,68 @@ class ComponentHolder<C : Parcelable, T : Any>(
     private val componentFactory: (configuration: C, ComponentContext) -> T
 ) : ComponentContext by componentContext {
 
-    private val router = router<Configuration<C>, Child<T>>(
+    private val navigation = StackNavigation<Configuration<C>>()
+
+    private val coroutineScope = componentCoroutineScope()
+
+    private val stack = childStack(
+        source = navigation,
         initialConfiguration = Configuration.None,
         key = "ComponentHolder: $key",
         handleBackButton = removeOnBackPressed,
         childFactory = ::createComponent
     )
 
-    private val routerState by router.state.toComposeState(lifecycle)
+    private val childStackState by stack.toComposeState(lifecycle)
 
-    init {
-        if (removeOnBackPressed) {
-            removeOnBackPressed()
+    private val configurationState by derivedStateOf {
+        childStackState.currentConfiguration
+    }
+
+    private val isConfigurationSet by derivedStateOf {
+        when (configurationState) {
+            is Configuration.Component -> true
+            is Configuration.None -> false
         }
     }
 
+    private val backCallback = BackCallback(isEnabled = false) {
+        configuration = null
+        updateBackCallback(false)
+    }
+
     val component by derivedStateOf {
-        routerState.activeChild.instance.component
+        childStackState.currentInstance.component
     }
 
     var configuration: C?
         get() {
-            router.currentConfiguration
-            return when (val routerConfiguration = router.currentConfiguration) {
+            return when (val routerConfiguration = configurationState) {
                 is Configuration.Component -> routerConfiguration.componentConfiguration
                 is Configuration.None -> null
             }
         }
         set(value) {
             if (value != null) {
-                router.replaceCurrent(Configuration.Component(value))
+                navigation.replaceCurrent(Configuration.Component(value))
             } else {
-                router.replaceCurrent(Configuration.None)
+                navigation.replaceCurrent(Configuration.None)
             }
         }
+
+    init {
+        backHandler.register(backCallback)
+        updateBackCallback(removeOnBackPressed)
+
+        snapshotFlow { isConfigurationSet }
+            .map { it && removeOnBackPressed }
+            .onEach { updateBackCallback(it) }
+            .launchIn(coroutineScope)
+    }
+
+    private fun updateBackCallback(isEnabled: Boolean) {
+        backCallback.isEnabled = isEnabled
+    }
 
     private fun createComponent(
         config: Configuration<C>,
@@ -86,21 +121,10 @@ inline fun <reified C : Parcelable, reified T : Any> ComponentContext.componentH
     removeOnBackPressed: Boolean = false,
     noinline componentFactory: (configuration: C, ComponentContext) -> T
 ): ComponentHolder<C, T> {
-    return ComponentHolder<C, T>(
+    return ComponentHolder(
         componentContext = this,
         key = key,
         removeOnBackPressed = removeOnBackPressed,
         componentFactory = componentFactory
     )
-}
-
-fun <C : Parcelable, T : Any> ComponentHolder<C, T>.removeOnBackPressed() {
-    backPressedHandler.register {
-        if (configuration == null) {
-            false
-        } else {
-            configuration = null
-            true
-        }
-    }
 }

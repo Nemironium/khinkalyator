@@ -2,13 +2,15 @@ package me.nemiron.khinkalyator.root.ui
 
 import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.router.RouterState
-import com.arkivanov.decompose.router.pop
-import com.arkivanov.decompose.router.push
-import com.arkivanov.decompose.router.router
+import com.arkivanov.decompose.router.stack.ChildStack
+import com.arkivanov.decompose.router.stack.StackNavigation
+import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
+import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import me.nemiron.khinkalyator.core.ComponentFactory
+import me.nemiron.khinkalyator.core.utils.log
 import me.nemiron.khinkalyator.core.utils.toComposeState
 import me.nemiron.khinkalyator.features.home.createHomeComponent
 import me.nemiron.khinkalyator.features.home.ui.HomeComponent
@@ -20,13 +22,16 @@ class RealRootComponent(
     private val componentFactory: ComponentFactory
 ) : RootComponent, ComponentContext by componentContext {
 
-    private val router = router<ChildConfiguration, RootComponent.Child>(
+    private val navigation = StackNavigation<ChildConfiguration>()
+
+    private val stack = childStack(
+        source = navigation,
         initialConfiguration = ChildConfiguration.Home,
         handleBackButton = true,
         childFactory = ::createChild
-    )
+    ).log("Root")
 
-    override val routerState: RouterState<*, RootComponent.Child> by router.state.toComposeState(
+    override val childStackState: ChildStack<*, RootComponent.Child> by stack.toComposeState(
         lifecycle
     )
 
@@ -53,14 +58,14 @@ class RealRootComponent(
                 // TODO
             }
             is HomeComponent.Output.NewRestaurantRequested -> {
-                router.push(
+                navigation.push(
                     ChildConfiguration.Restaurant(
                         RestaurantOverviewComponent.Configuration.NewRestaurant
                     )
                 )
             }
             is HomeComponent.Output.RestaurantRequested -> {
-                router.push(
+                navigation.push(
                     ChildConfiguration.Restaurant(
                         RestaurantOverviewComponent.Configuration.EditRestaurant(output.restaurantId)
                     )
@@ -70,7 +75,7 @@ class RealRootComponent(
 
     private fun onRestaurantOutput(output: RestaurantOverviewComponent.Output) =
         when (output) {
-            is RestaurantOverviewComponent.Output.RestaurantCloseRequested -> router.pop()
+            is RestaurantOverviewComponent.Output.RestaurantCloseRequested -> navigation.pop()
         }
 
     private sealed interface ChildConfiguration : Parcelable {

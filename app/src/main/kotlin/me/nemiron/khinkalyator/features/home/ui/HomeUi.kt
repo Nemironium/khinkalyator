@@ -36,7 +36,7 @@ import me.nemiron.khinkalyator.core.theme.additionalColors
 import me.nemiron.khinkalyator.core.theme.appTypography
 import me.nemiron.khinkalyator.core.utils.statusBar
 import me.nemiron.khinkalyator.core.widgets.sheet.ModalBottomSheet
-import me.nemiron.khinkalyator.features.meets.page.ui.MeetsUi
+import me.nemiron.khinkalyator.features.meets.page.ui.MeetsPageUi
 import me.nemiron.khinkalyator.features.meets.page.ui.PreviewMeetsPageComponent
 import me.nemiron.khinkalyator.features.people.page.ui.PeoplePageUi
 import me.nemiron.khinkalyator.features.people.page.ui.PreviewPeoplePageComponent
@@ -74,7 +74,7 @@ fun HomeUi(
                 state = pagerState
             ) { page ->
                 when (pages[page]) {
-                    HomeComponent.Page.Meets -> MeetsUi(component.meetsPageComponent)
+                    HomeComponent.Page.Meets -> MeetsPageUi(component.meetsPageComponent)
                     HomeComponent.Page.Restaurants -> RestaurantsPageUi(component.restaurantsPageComponent)
                     HomeComponent.Page.People -> PeoplePageUi(component.peoplePageComponent)
                 }

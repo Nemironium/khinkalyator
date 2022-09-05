@@ -1,5 +1,6 @@
 package me.nemiron.khinkalyator.features.restaraunts.page.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -42,13 +43,13 @@ fun RestaurantsPageUi(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun RestaurantCards(
     component: RestaurantsPageComponent,
     fabButtonPadding: Dp,
     modifier: Modifier = Modifier
 ) {
-    // FIXME: add ItemPlacement animation
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(top = 24.dp, bottom = fabButtonPadding),
@@ -57,7 +58,8 @@ private fun RestaurantCards(
         items(items = component.restaurantsViewData, key = { it.id }) { restaurant ->
             RestaurantCard(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 16.dp)
+                    .animateItemPlacement(),
                 data = restaurant,
                 onCardClick = { component.onRestaurantClick(restaurant.id) },
                 onCallClick = { component.onRestaurantCallClick(restaurant.id) },

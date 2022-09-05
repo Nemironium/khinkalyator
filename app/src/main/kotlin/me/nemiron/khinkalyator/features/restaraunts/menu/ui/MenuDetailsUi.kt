@@ -1,9 +1,14 @@
 package me.nemiron.khinkalyator.features.restaraunts.menu.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.Text
@@ -75,11 +80,13 @@ fun MenuDetailsUi(
                     .fillMaxSize()
                     .background(MaterialTheme.additionalColors.secondaryBackground)
             ) {
+                val modalPadding = 248.dp
                 DishesContent(
                     modifier = Modifier
                         .align(Alignment.TopStart)
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
+                        .padding(start = 16.dp, end = 16.dp, bottom = modalPadding)
+                        .verticalScroll(rememberScrollState()),
                     dishes = component.dishesViewData,
                     onDishAddClick = component::onDishAddClick,
                     onDishClick = component::onDishClick
@@ -119,8 +126,11 @@ private fun DishesContent(
             style = MaterialTheme.appTypography.head3
         )
         Spacer(Modifier.height(16.dp))
+        // FIXME: if selected element not on screen, then row must be scrolled
         FlowRow(
-            modifier = Modifier.align(Alignment.Start),
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(bottom = 8.dp),
             mainAxisSpacing = 8.dp,
             crossAxisSpacing = 8.dp
         ) {
@@ -171,13 +181,17 @@ private fun DishModal(
                 Text(
                     modifier = Modifier
                         .weight(1f)
-                        .padding(top = 8.dp, end = 12.dp),
+                        .padding(top = 8.dp, bottom = 8.dp, end = 12.dp),
                     text = title.resolve(),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.appTypography.medium
                 )
-                if (isDeleteVisible) {
+                AnimatedVisibility(
+                    visible = isDeleteVisible,
+                    enter = fadeIn(),
+                    exit = fadeOut()
+                ) {
                     IconWithBackground(
                         painter = painterResource(R.drawable.ic_delete_32),
                         contentColor = MaterialTheme.colors.onSurface,
@@ -186,7 +200,7 @@ private fun DishModal(
                     )
                 }
             }
-            Spacer(Modifier.height(10.dp))
+            Spacer(Modifier.height(4.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -250,7 +264,7 @@ private fun DishModal(
 
 @Preview(showBackground = true)
 @Composable
-private fun DishUiPreview() {
+private fun MenuDetailsPreview() {
     KhinkalyatorTheme {
         MenuDetailsUi(PreviewMenuDetailsComponent())
     }
