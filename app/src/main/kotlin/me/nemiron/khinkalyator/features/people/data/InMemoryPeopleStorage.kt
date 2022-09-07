@@ -95,7 +95,7 @@ class InMemoryPeopleStorage : PeopleStorage {
         }
     }
 
-    // FIXME: support emoji updating
+    // TODO: support emoji updating
     override suspend fun updatePerson(
         id: PersonId,
         newName: String,

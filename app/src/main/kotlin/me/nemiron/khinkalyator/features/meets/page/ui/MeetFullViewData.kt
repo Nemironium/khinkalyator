@@ -5,8 +5,8 @@ import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.features.initials.ui.InitialsViewData
 import me.nemiron.khinkalyator.features.initials.ui.toInitialsViewData
-import me.nemiron.khinkalyator.features.meets.domain.Meet
-import me.nemiron.khinkalyator.features.meets.domain.MeetId
+import me.nemiron.khinkalyator.features.meets.meet.domain.Meet
+import me.nemiron.khinkalyator.features.meets.meet.domain.MeetId
 import kotlin.math.absoluteValue
 
 data class MeetFullViewData(
@@ -21,7 +21,7 @@ data class MeetFullViewData(
 fun Meet.toMeetFullViewData(): MeetFullViewData {
     val date = when (type) {
         is Meet.Type.Active -> LocalizedString.resource(R.string.meets_today_date)
-        is Meet.Type.Archived -> type.dateTime.date.format()
+        is Meet.Type.Archived -> type.createTime.date.format()
     }
 
     return MeetFullViewData(
