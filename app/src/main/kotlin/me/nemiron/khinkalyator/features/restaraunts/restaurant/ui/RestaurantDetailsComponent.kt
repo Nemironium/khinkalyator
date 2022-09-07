@@ -4,6 +4,7 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import me.aartikov.sesame.compose.form.control.InputControl
 import me.aartikov.sesame.localizedstring.LocalizedString
+import me.nemiron.khinkalyator.core.widgets.OverflowMenuData
 import me.nemiron.khinkalyator.features.phone.domain.Phone
 import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
 import me.nemiron.khinkalyator.features.restaraunts.menu.ui.DishViewData
@@ -19,15 +20,13 @@ interface RestaurantDetailsComponent {
 
     val dishesViewData: List<DishViewData>
 
+    val menuData: OverflowMenuData?
+
     val title: LocalizedString
 
     val isButtonActive: Boolean
 
-    val isDeleteActionVisible: Boolean
-
     fun onSubmitClick()
-
-    fun onRestaurantDeleteClick()
 
     fun onDishAddClick()
 

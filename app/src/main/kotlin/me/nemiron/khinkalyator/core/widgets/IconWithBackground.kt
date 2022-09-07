@@ -58,7 +58,7 @@ fun IconWithBackground(
 
 @Preview
 @Composable
-fun IconsWithBackgroundPreview() {
+private fun IconsWithBackgroundPreview() {
     KhinkalyatorTheme {
         Column {
             IconWithBackground(painterResource(R.drawable.ic_share_40))

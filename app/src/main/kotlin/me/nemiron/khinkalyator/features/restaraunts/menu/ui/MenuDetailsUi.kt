@@ -126,11 +126,9 @@ private fun DishesContent(
             style = MaterialTheme.appTypography.head3
         )
         Spacer(Modifier.height(16.dp))
-        // FIXME: if selected element not on screen, then row must be scrolled
+        // TODO: if selected element not on screen, then row must be scrolled
         FlowRow(
-            modifier = Modifier
-                .align(Alignment.Start)
-                .padding(bottom = 8.dp),
+            modifier = Modifier.padding(bottom = 8.dp),
             mainAxisSpacing = 8.dp,
             crossAxisSpacing = 8.dp
         ) {

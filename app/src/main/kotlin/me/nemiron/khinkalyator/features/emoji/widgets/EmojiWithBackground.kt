@@ -112,7 +112,7 @@ private fun EmojiWithBackgroundImpl(
 
 @Preview
 @Composable
-fun EmojiWithBackgroundPreview() {
+private fun EmojiWithBackgroundPreview() {
     KhinkalyatorTheme {
         val emoji = Emoji("🐨")
         Column {

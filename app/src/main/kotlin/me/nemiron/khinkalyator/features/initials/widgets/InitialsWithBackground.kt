@@ -99,7 +99,7 @@ fun InitialsWithBackground(
 
 @Preview
 @Composable
-fun InitialsWithBackgroundPreview() {
+private fun InitialsWithBackgroundPreview() {
     KhinkalyatorTheme {
         val data = InitialsViewData("ЖК", Emoji("🐨"))
         Column {

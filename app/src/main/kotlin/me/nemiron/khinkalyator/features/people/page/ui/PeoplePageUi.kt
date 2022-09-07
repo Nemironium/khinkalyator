@@ -37,7 +37,6 @@ import me.nemiron.khinkalyator.core.theme.additionalColors
 import me.nemiron.khinkalyator.core.widgets.KhContainedButton
 import me.nemiron.khinkalyator.features.people.domain.PersonId
 import me.nemiron.khinkalyator.features.people.page.widgets.BigPersonItem
-import timber.log.Timber
 
 @Composable
 fun PeoplePageUi(

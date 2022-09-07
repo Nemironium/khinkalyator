@@ -98,7 +98,7 @@ private fun KhChipImpl(
 
 @Preview
 @Composable
-fun KhChipsPreview() {
+private fun KhChipsPreview() {
     KhinkalyatorTheme {
         Column(
             modifier = Modifier.padding(16.dp),

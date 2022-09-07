@@ -66,7 +66,7 @@ private fun KhOutlinedButtonImpl(
 
 @Preview
 @Composable
-fun KhOutlinedButtonPreview() {
+private fun KhOutlinedButtonPreview() {
     KhinkalyatorTheme {
         KhOutlinedButton(
             text = "Добавить встречу",

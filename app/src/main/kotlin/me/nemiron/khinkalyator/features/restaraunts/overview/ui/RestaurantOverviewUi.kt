@@ -34,7 +34,7 @@ fun RestaurantOverviewUi(
 
 @Preview(showSystemUi = true)
 @Composable
-fun RestaurantOverviewUiPreview() {
+private fun RestaurantOverviewUiPreview() {
     KhinkalyatorTheme {
         RestaurantOverviewUi(PreviewRestaurantOverviewComponent())
     }
