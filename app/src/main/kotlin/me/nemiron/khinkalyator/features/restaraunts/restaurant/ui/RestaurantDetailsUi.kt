@@ -43,6 +43,7 @@ import me.nemiron.khinkalyator.core.widgets.OverflowMenu
 import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
 import me.nemiron.khinkalyator.features.restaraunts.menu.ui.DishViewData
 
+// FIXME: Screen doesn't properly adapt Composables sizes after screenSize config changes
 @Composable
 fun RestaurantDetailsUi(
     component: RestaurantDetailsComponent,

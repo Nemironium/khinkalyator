@@ -60,9 +60,10 @@ fun MenuDetailsUi(
                     navigationIcon = {
                         IconWithBackground(
                             modifier = Modifier.padding(start = 16.dp),
-                            painter = painterResource(R.drawable.ic_restaurant_32),
                             contentColor = MaterialTheme.colors.onSurface,
-                            backgroundColor = MaterialTheme.additionalColors.onSurfaceContainer
+                            backgroundColor = MaterialTheme.additionalColors.onSurfaceContainer,
+                            painter = painterResource(R.drawable.ic_restaurant_32),
+
                         )
                     },
                     backgroundColor = MaterialTheme.additionalColors.secondaryBackground,

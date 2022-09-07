@@ -13,15 +13,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.theme.additionalColors
+import me.nemiron.khinkalyator.core.utils.withElevation
 
 /**
  * Composable for Icon with circle background
@@ -32,6 +36,7 @@ fun IconWithBackground(
     modifier: Modifier = Modifier,
     contentDescription: String? = null,
     shouldBeColored: Boolean = true,
+    elevation: Dp = 0.dp,
     contentColor: Color = MaterialTheme.colors.secondary,
     backgroundColor: Color = MaterialTheme.additionalColors.secondaryContainer,
     onClick: (() -> Unit)? = null
@@ -43,9 +48,11 @@ fun IconWithBackground(
     }
     Box(
         modifier = modifier
+            .shadow(elevation = elevation, shape = CircleShape, clip = false)
+            .zIndex(elevation.value)
             .clip(CircleShape)
             .then(clickableModifier)
-            .background(backgroundColor),
+            .background(getBackgroundColorForElevation(backgroundColor, elevation)),
         contentAlignment = Alignment.Center
     ) {
         Image(
@@ -53,6 +60,15 @@ fun IconWithBackground(
             colorFilter = if (shouldBeColored) ColorFilter.tint(contentColor) else null,
             contentDescription = contentDescription
         )
+    }
+}
+
+@Composable
+private fun getBackgroundColorForElevation(color: Color, elevation: Dp): Color {
+    return if (elevation > 0.dp) {
+        color.withElevation(elevation)
+    } else {
+        color
     }
 }
 
