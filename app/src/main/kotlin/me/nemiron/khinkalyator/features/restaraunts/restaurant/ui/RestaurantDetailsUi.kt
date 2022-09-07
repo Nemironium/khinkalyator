@@ -10,16 +10,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.FabPosition
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -40,12 +34,12 @@ import me.nemiron.khinkalyator.core.theme.additionalColors
 import me.nemiron.khinkalyator.core.theme.appTypography
 import me.nemiron.khinkalyator.core.utils.TextTransformations
 import me.nemiron.khinkalyator.core.utils.resolve
-import me.nemiron.khinkalyator.core.widgets.ActionButton
 import me.nemiron.khinkalyator.core.widgets.IconWithBackground
 import me.nemiron.khinkalyator.core.widgets.KhChip
 import me.nemiron.khinkalyator.core.widgets.KhContainedButton
 import me.nemiron.khinkalyator.core.widgets.KhOutlinedTextField
 import me.nemiron.khinkalyator.core.widgets.KhToolbar
+import me.nemiron.khinkalyator.core.widgets.OverflowMenu
 import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
 import me.nemiron.khinkalyator.features.restaraunts.menu.ui.DishViewData
 
@@ -60,8 +54,8 @@ fun RestaurantDetailsUi(
             KhToolbar(
                 title = component.title.resolve(),
                 actionIcon = {
-                    if (component.isDeleteActionVisible) {
-                        DeleteAction(component::onRestaurantDeleteClick)
+                    component.menuData?.let {
+                        OverflowMenu(it)
                     }
                 }
             )
@@ -84,11 +78,13 @@ fun RestaurantDetailsUi(
                     .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Spacer(Modifier.height(24.dp))
                 RestaurantTextFields(
                     nameInputControl = component.nameInputControl,
                     addressInputControl = component.addressInputControl,
                     phoneInputControl = component.phoneInputControl
                 )
+                Spacer(Modifier.height(32.dp))
                 DishesContent(
                     dishes = component.dishesViewData,
                     fabButtonPadding = 120.dp,
@@ -101,30 +97,11 @@ fun RestaurantDetailsUi(
 }
 
 @Composable
-private fun DeleteAction(onMenuItemClick: () -> Unit) {
-    var isExpanded by remember { mutableStateOf(false) }
-
-    ActionButton(
-        id = R.drawable.ic_overflow_24,
-        onClick = { isExpanded = true }
-    )
-    DropdownMenu(
-        expanded = isExpanded,
-        onDismissRequest = { isExpanded = false },
-    ) {
-        DropdownMenuItem(onClick = onMenuItemClick) {
-            Text(text = stringResource(R.string.restaurant_details_delete_menu_action))
-        }
-    }
-}
-
-@Composable
 private fun RestaurantTextFields(
     nameInputControl: InputControl,
     addressInputControl: InputControl,
     phoneInputControl: InputControl
 ) {
-    Spacer(Modifier.height(24.dp))
     KhOutlinedTextField(
         inputControl = nameInputControl,
         placeholder = stringResource(R.string.restaurant_details_name_placeholder),
@@ -169,18 +146,17 @@ private fun ColumnScope.DishesContent(
     onAddMenuClick: () -> Unit,
     onDishClick: (id: DishId) -> Unit
 ) {
-    Spacer(Modifier.height(32.dp))
     Text(
         modifier = Modifier.align(Alignment.Start),
         text = stringResource(R.string.restaurant_details_menu_title),
         style = MaterialTheme.appTypography.head3
     )
+    Spacer(Modifier.height(16.dp))
     val addDishButtonModifier = if (dishes.isEmpty()) {
         Modifier.fillMaxWidth()
     } else {
         Modifier
     }
-    Spacer(Modifier.height(16.dp))
     FlowRow(
         modifier = Modifier
             .align(Alignment.Start)
@@ -247,10 +223,9 @@ class PreviewRestaurantDetailsComponent : RestaurantDetailsComponent {
     override val dishesViewData: List<DishViewData> = listOf()
     override val title = LocalizedString.resource(R.string.restaurant_details_title_new)
     override val isButtonActive = nameInputControl.text.isNotBlank()
-    override val isDeleteActionVisible = false
+    override val menuData = null
 
     override fun onSubmitClick() = Unit
-    override fun onRestaurantDeleteClick() = Unit
     override fun onDishAddClick() = Unit
     override fun onDishClick(dishId: DishId) = Unit
 }

@@ -93,7 +93,7 @@ class RealHomeComponent(
                 onOutput(HomeComponent.Output.NewMeetRequested)
             }
             is MeetsPageComponent.Output.MeetRequested -> {
-                // TODO
+                onOutput(HomeComponent.Output.MeetRequested(output.meetId))
             }
         }
     }

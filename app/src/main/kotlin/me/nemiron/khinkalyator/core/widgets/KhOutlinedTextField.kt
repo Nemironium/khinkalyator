@@ -139,7 +139,7 @@ private fun ErrorText(
 
 @Preview(showBackground = true)
 @Composable
-fun KhOutlinedTextFieldPreview() {
+private fun KhOutlinedTextFieldPreview() {
     val inputControl = InputControl(
         initialText = "initialText",
         singleLine = true,

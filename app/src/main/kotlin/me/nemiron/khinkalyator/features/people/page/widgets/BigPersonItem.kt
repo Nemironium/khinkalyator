@@ -71,7 +71,7 @@ fun BigPersonItem(
 
 @Preview
 @Composable
-fun BigPersonItemsPreview() {
+private fun BigPersonItemsPreview() {
     KhinkalyatorTheme {
         Column {
             BigPersonItem(

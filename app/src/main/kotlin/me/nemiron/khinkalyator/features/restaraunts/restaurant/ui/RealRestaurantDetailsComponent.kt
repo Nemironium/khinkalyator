@@ -22,6 +22,7 @@ import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.utils.TextTransformations
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
+import me.nemiron.khinkalyator.core.widgets.OverflowMenuData
 import me.nemiron.khinkalyator.features.phone.domain.Phone
 import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
 import me.nemiron.khinkalyator.features.restaraunts.menu.ui.DishViewData
@@ -91,10 +92,13 @@ class RealRestaurantDetailsComponent(
         }
     }
 
-    override val isDeleteActionVisible by derivedStateOf {
+    override val menuData by derivedStateOf {
         when (configuration) {
-            is RestaurantDetailsComponent.Configuration.EditRestaurant -> true
-            is RestaurantDetailsComponent.Configuration.NewRestaurant -> false
+            is RestaurantDetailsComponent.Configuration.EditRestaurant -> OverflowMenuData(
+                title = LocalizedString.resource(R.string.restaurant_details_delete_menu_action),
+                onMenuItemClick = ::onRestaurantDeleteClick
+            )
+            is RestaurantDetailsComponent.Configuration.NewRestaurant -> null
         }
     }
 
@@ -140,7 +144,15 @@ class RealRestaurantDetailsComponent(
         }
     }
 
-    override fun onRestaurantDeleteClick() {
+    override fun onDishAddClick() {
+        onOutput(RestaurantDetailsComponent.Output.NewDishRequested)
+    }
+
+    override fun onDishClick(dishId: DishId) {
+        onOutput(RestaurantDetailsComponent.Output.DishRequested(dishId))
+    }
+
+    private fun onRestaurantDeleteClick() {
         when (configuration) {
             is RestaurantDetailsComponent.Configuration.EditRestaurant -> {
                 onOutput(RestaurantDetailsComponent.Output.RestaurantDeleteRequested)
@@ -149,14 +161,6 @@ class RealRestaurantDetailsComponent(
                 // nothing
             }
         }
-    }
-
-    override fun onDishAddClick() {
-        onOutput(RestaurantDetailsComponent.Output.NewDishRequested)
-    }
-
-    override fun onDishClick(dishId: DishId) {
-        onOutput(RestaurantDetailsComponent.Output.DishRequested(dishId))
     }
 
     private fun setTextFields(stateData: RestaurantStateData) {

@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.domain
+package me.nemiron.khinkalyator.features.meets.meet.domain
 
 import kotlinx.datetime.LocalDateTime
 import me.nemiron.khinkalyator.features.people.domain.Person
@@ -14,7 +14,9 @@ data class Meet(
     val persons: List<Person>
 ) {
     sealed interface Type {
-        object Active : Type
-        data class Archived(val dateTime: LocalDateTime) : Type
+        val createTime: LocalDateTime
+
+        data class Active(override val createTime: LocalDateTime) : Type
+        data class Archived(override val createTime: LocalDateTime) : Type
     }
 }

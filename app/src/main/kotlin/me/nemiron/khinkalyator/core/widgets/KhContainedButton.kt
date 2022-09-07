@@ -91,7 +91,7 @@ private fun KhButtonImpl(
 
 @Preview
 @Composable
-fun KhContainedButtonPreview() {
+private fun KhContainedButtonPreview() {
     KhinkalyatorTheme {
         KhContainedButton(
             text = "Добавить встречу",

@@ -7,4 +7,11 @@
     <string name="meets_today_date">Сегодня</string>
     <string name="meets_previous_date">Встреча от %s</string>
     <string name="meets_date_format">%s.%s.%s</string>
+
+    <!-- CreateMeet -->
+    <string name="create_meet_title">Новая встреча</string>
+    <string name="create_meet_restaurants_header">Выбор ресторана</string>
+    <string name="create_meet_people_header">Выбор участников</string>
+    <string name="create_meet_people_add_title">Друга</string>
+
 </resources>
