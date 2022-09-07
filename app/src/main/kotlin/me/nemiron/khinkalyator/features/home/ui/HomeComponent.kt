@@ -1,6 +1,7 @@
 package me.nemiron.khinkalyator.features.home.ui
 
 import kotlinx.coroutines.flow.Flow
+import me.nemiron.khinkalyator.features.meets.meet.domain.MeetId
 import me.nemiron.khinkalyator.features.meets.page.ui.MeetsPageComponent
 import me.nemiron.khinkalyator.features.people.page.ui.PeoplePageComponent
 import me.nemiron.khinkalyator.features.people.person.ui.PersonComponent
@@ -24,6 +25,7 @@ interface HomeComponent {
 
     sealed interface Output {
         object NewMeetRequested : Output
+        class MeetRequested(val meetId: MeetId) : Output
         object NewRestaurantRequested : Output
         class RestaurantRequested(val restaurantId: RestaurantId) : Output
     }

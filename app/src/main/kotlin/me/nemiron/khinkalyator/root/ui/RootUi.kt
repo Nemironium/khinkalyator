@@ -18,6 +18,8 @@ import me.nemiron.khinkalyator.core.utils.LocalApplyDarkStatusBarIcons
 import me.nemiron.khinkalyator.core.utils.createFakeChildStack
 import me.nemiron.khinkalyator.features.home.ui.HomeUi
 import me.nemiron.khinkalyator.features.home.ui.PreviewHomeComponent
+import me.nemiron.khinkalyator.features.meets.create.ui.CreateMeetUi
+import me.nemiron.khinkalyator.features.meets.meet.ui.MeetUi
 import me.nemiron.khinkalyator.features.restaraunts.overview.ui.RestaurantOverviewUi
 
 @OptIn(ExperimentalDecomposeApi::class)
@@ -31,14 +33,16 @@ fun RootUi(
         stack = component.childStackState,
         animation = stackAnimation { child: Child.Created<Any, RootComponent.Child>, otherChild, direction ->
             when (child.instance) {
-                is RootComponent.Child.Restaurant -> slide()
-                is RootComponent.Child.Home -> fade()
+                is RootComponent.Child.Meet, is RootComponent.Child.Restaurant -> slide()
+                is RootComponent.Child.Home, is RootComponent.Child.CreateMeet -> fade()
             }
         },
         modifier = modifier
     ) {
         when (val child = it.instance) {
             is RootComponent.Child.Home -> HomeUi(child.component)
+            is RootComponent.Child.CreateMeet -> CreateMeetUi(child.component)
+            is RootComponent.Child.Meet -> MeetUi(child.component)
             is RootComponent.Child.Restaurant -> RestaurantOverviewUi(child.component)
         }
     }

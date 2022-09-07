@@ -7,6 +7,7 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
+import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import me.nemiron.khinkalyator.core.ComponentFactory
@@ -14,6 +15,10 @@ import me.nemiron.khinkalyator.core.utils.log
 import me.nemiron.khinkalyator.core.utils.toComposeState
 import me.nemiron.khinkalyator.features.home.createHomeComponent
 import me.nemiron.khinkalyator.features.home.ui.HomeComponent
+import me.nemiron.khinkalyator.features.meets.create.ui.CreateMeetComponent
+import me.nemiron.khinkalyator.features.meets.createCreateMeetComponent
+import me.nemiron.khinkalyator.features.meets.createMeetComponent
+import me.nemiron.khinkalyator.features.meets.meet.domain.MeetId
 import me.nemiron.khinkalyator.features.restaraunts.createRestaurantOverviewComponent
 import me.nemiron.khinkalyator.features.restaraunts.overview.ui.RestaurantOverviewComponent
 
@@ -43,6 +48,17 @@ class RealRootComponent(
             is ChildConfiguration.Home -> RootComponent.Child.Home(
                 componentFactory.createHomeComponent(componentContext, ::onHomeOutput)
             )
+            is ChildConfiguration.CreateMeet -> RootComponent.Child.CreateMeet(
+                componentFactory.createCreateMeetComponent(
+                    componentContext,
+                    ::onCreateMeetOutput
+                )
+            )
+            is ChildConfiguration.Meet -> RootComponent.Child.Meet(
+                componentFactory.createMeetComponent(
+                    componentContext, childConfig.meetId
+                )
+            )
             is ChildConfiguration.Restaurant -> RootComponent.Child.Restaurant(
                 componentFactory.createRestaurantOverviewComponent(
                     componentContext,
@@ -55,7 +71,10 @@ class RealRootComponent(
     private fun onHomeOutput(output: HomeComponent.Output) =
         when (output) {
             is HomeComponent.Output.NewMeetRequested -> {
-                // TODO
+                navigation.push(ChildConfiguration.CreateMeet)
+            }
+            is HomeComponent.Output.MeetRequested -> {
+                navigation.push(ChildConfiguration.Meet(output.meetId))
             }
             is HomeComponent.Output.NewRestaurantRequested -> {
                 navigation.push(
@@ -73,6 +92,20 @@ class RealRootComponent(
             }
         }
 
+    private fun onCreateMeetOutput(output: CreateMeetComponent.Output) =
+        when (output) {
+            is CreateMeetComponent.Output.MeetCreated -> {
+                navigation.replaceCurrent(ChildConfiguration.Meet(output.meetId))
+            }
+            is CreateMeetComponent.Output.NewRestaurantRequested -> {
+                navigation.push(
+                    ChildConfiguration.Restaurant(
+                        RestaurantOverviewComponent.Configuration.NewRestaurant
+                    )
+                )
+            }
+        }
+
     private fun onRestaurantOutput(output: RestaurantOverviewComponent.Output) =
         when (output) {
             is RestaurantOverviewComponent.Output.RestaurantCloseRequested -> navigation.pop()
@@ -81,6 +114,12 @@ class RealRootComponent(
     private sealed interface ChildConfiguration : Parcelable {
         @Parcelize
         object Home : ChildConfiguration
+
+        @Parcelize
+        object CreateMeet : ChildConfiguration
+
+        @Parcelize
+        class Meet(val meetId: MeetId) : ChildConfiguration
 
         @Parcelize
         class Restaurant(
