@@ -25,6 +25,7 @@ import androidx.compose.ui.zIndex
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.theme.additionalColors
+import me.nemiron.khinkalyator.core.utils.contentKhColorFor
 import me.nemiron.khinkalyator.core.utils.withElevation
 
 /**
@@ -33,12 +34,12 @@ import me.nemiron.khinkalyator.core.utils.withElevation
 @Composable
 fun IconWithBackground(
     painter: Painter,
+    backgroundColor: Color,
     modifier: Modifier = Modifier,
     contentDescription: String? = null,
     shouldBeColored: Boolean = true,
     elevation: Dp = 0.dp,
-    contentColor: Color = MaterialTheme.colors.secondary,
-    backgroundColor: Color = MaterialTheme.additionalColors.secondaryContainer,
+    contentColor: Color = contentKhColorFor(backgroundColor),
     onClick: (() -> Unit)? = null
 ) {
     val clickableModifier = if (onClick != null) {
@@ -77,11 +78,16 @@ private fun getBackgroundColorForElevation(color: Color, elevation: Dp): Color {
 private fun IconsWithBackgroundPreview() {
     KhinkalyatorTheme {
         Column {
-            IconWithBackground(painterResource(R.drawable.ic_share_40))
+            IconWithBackground(
+                painter = painterResource(R.drawable.ic_share_40),
+                backgroundColor = MaterialTheme.additionalColors.secondaryContainer
+            )
             Spacer(Modifier.height(16.dp))
-            IconWithBackground(painterResource(R.drawable.ic_share_40)) {
-                // nothing
-            }
+            IconWithBackground(
+                painter = painterResource(R.drawable.ic_share_40),
+                backgroundColor = MaterialTheme.additionalColors.secondaryContainer,
+                onClick = { }
+            )
         }
     }
 }

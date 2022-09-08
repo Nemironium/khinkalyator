@@ -146,6 +146,7 @@ class RealMenuDetailsComponent(
             *  snapshotFlow не отработает
             *  TODO: подумай, как можно этого избежать
             * */
+            selectedDish = null
             setTextFields(null, true)
         }
     }
@@ -183,7 +184,7 @@ class RealMenuDetailsComponent(
 
     private fun setTextFields(dish: Dish?, focusToName: Boolean = false) {
         nameInputControl.text = dish?.name.orEmpty()
-        priceInputControl.text = dish?.price?.toString().orEmpty()
+        priceInputControl.text = dish?.price?.value?.toString().orEmpty()
         if (focusToName) {
             nameInputControl.hasFocus = true
         }

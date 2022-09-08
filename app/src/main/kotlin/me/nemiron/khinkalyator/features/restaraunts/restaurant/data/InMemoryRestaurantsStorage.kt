@@ -9,6 +9,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Dish
 import me.nemiron.khinkalyator.features.phone.domain.Phone
+import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Price
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Address
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Restaurant
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
@@ -27,22 +28,22 @@ class InMemoryRestaurantsStorage : RestaurantsStorage {
                 Dish(
                     id = Random.nextLong(),
                     name = "Хинкали с грибами и сыром",
-                    price = 95.0
+                    price = Price(95.0)
                 ),
                 Dish(
                     id = Random.nextLong(),
                     name = "Хинкали с бараниной",
-                    price = 90.0
+                    price = Price(90.0)
                 ),
                 Dish(
                     id = Random.nextLong(),
                     name = "Хачапури по-аджарски S",
-                    price = 450.0
+                    price = Price(450.0)
                 ),
                 Dish(
                     id = Random.nextLong(),
                     name = "Чай в чайнике",
-                    price = 250.0
+                    price = Price(250.0)
                 )
             )
         ),
@@ -55,17 +56,17 @@ class InMemoryRestaurantsStorage : RestaurantsStorage {
                 Dish(
                     id = Random.nextLong(),
                     name = "Хинкали со шпинатом и сыром",
-                    price = 125.0
+                    price = Price(125.0)
                 ),
                 Dish(
                     id = Random.nextLong(),
                     name = "Хинкали с говядиной и свининой",
-                    price = 85.0
+                    price = Price(85.0)
                 ),
                 Dish(
                     id = Random.nextLong(),
                     name = "Хачапури по-аджарски M",
-                    price = 550.0
+                    price = Price(550.0)
                 )
             )
         ),
@@ -78,22 +79,22 @@ class InMemoryRestaurantsStorage : RestaurantsStorage {
                 Dish(
                     id = Random.nextLong(),
                     name = "Хинкали с бараниной",
-                    price = 50.0
+                    price = Price(50.0)
                 ),
                 Dish(
                     id = Random.nextLong(),
                     name = "Хинкали с сыром",
-                    price = 55.0
+                    price = Price(55.0)
                 ),
                 Dish(
                     id = Random.nextLong(),
                     name = "Хинкали с говядиной и свининой",
-                    price = 45.0
+                    price = Price(45.0)
                 ),
                 Dish(
                     id = Random.nextLong(),
                     name = "Хачапури по-мегрельски",
-                    price = 450.0
+                    price = Price(450.0)
                 )
             )
         )

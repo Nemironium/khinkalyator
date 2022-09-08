@@ -14,7 +14,7 @@ private object RawColors {
     val blackMain: Color = Color(0xFF353535)
     val blackText: Color = Color(0xFF000000)
     val blackAlpha50: Color = Color(0x80000000)
-    val blackAlpha70: Color = Color(0xB2000000)
+    val lightGrey: Color = Color(0xFF4B4B4C)
     val purpleButton: Color = Color(0xFF8779D3)
     val whiteMain: Color = Color(0xFFFFFFFF)
     val whiteBack: Color = Color(0xFFFBFAFD)
@@ -47,9 +47,10 @@ private object RawColors {
 data class AdditionalColors(
     val secondaryContainer: Color = RawColors.purpleBack,
     val secondaryOnSurface: Color = RawColors.silver,
+    // FIXME: не используется
     val secondaryOnBackground: Color = RawColors.tapa,
     val secondaryOnPrimary: Color = RawColors.blackAlpha50,
-    val secondaryBackground: Color = RawColors.blackAlpha70,
+    val secondaryBackground: Color = RawColors.lightGrey,
     val onSurfaceContainer: Color = RawColors.grayVeryLight
 )
 

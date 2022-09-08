@@ -109,7 +109,6 @@ private fun RestaurantTextFields(
         leadingIcon = {
             IconWithBackground(
                 painter = painterResource(R.drawable.ic_restaurant_32),
-                contentColor = MaterialTheme.colors.onSurface,
                 backgroundColor = MaterialTheme.additionalColors.onSurfaceContainer
             )
         }
@@ -121,7 +120,6 @@ private fun RestaurantTextFields(
         leadingIcon = {
             IconWithBackground(
                 painter = painterResource(R.drawable.ic_location_32),
-                contentColor = MaterialTheme.colors.onSurface,
                 backgroundColor = MaterialTheme.additionalColors.onSurfaceContainer
             )
         }
@@ -133,7 +131,6 @@ private fun RestaurantTextFields(
         leadingIcon = {
             IconWithBackground(
                 painter = painterResource(R.drawable.ic_phone_32),
-                contentColor = MaterialTheme.colors.onSurface,
                 backgroundColor = MaterialTheme.additionalColors.onSurfaceContainer
             )
         }

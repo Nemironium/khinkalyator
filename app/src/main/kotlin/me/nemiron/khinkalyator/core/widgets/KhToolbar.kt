@@ -1,6 +1,10 @@
 package me.nemiron.khinkalyator.core.widgets
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -10,12 +14,56 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.ui.TopAppBar
 import me.nemiron.khinkalyator.R
+import me.nemiron.khinkalyator.core.theme.additionalColors
+import me.nemiron.khinkalyator.core.theme.appTypography
+import me.nemiron.khinkalyator.core.utils.contentKhColorFor
 import me.nemiron.khinkalyator.core.utils.dispatchOnBackPressed
 import me.nemiron.khinkalyator.core.utils.statusBar
+
+@Composable
+fun KhModalToolbar(
+    title: String,
+    logoIcon: @Composable (RowScope.() -> Unit),
+    modifier: Modifier = Modifier,
+    additionalTitle: String? = null,
+    backgroundColor: Color = MaterialTheme.additionalColors.secondaryBackground,
+    statusBarModifier: Modifier = Modifier.statusBar(backgroundColor, true)
+) {
+    val textColor = contentKhColorFor(backgroundColor)
+
+    Row(
+        modifier = modifier
+            .background(backgroundColor)
+            .then(statusBarModifier),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        logoIcon()
+        Text(
+            modifier = Modifier.weight(0.65f),
+            text = title,
+            style = MaterialTheme.appTypography.head2,
+            color = textColor,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+        additionalTitle?.let {
+            Text(
+                modifier = Modifier.weight(0.35f),
+                text = additionalTitle,
+                textAlign = TextAlign.End,
+                style = MaterialTheme.appTypography.head2,
+                color = textColor,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    }
+}
 
 @Composable
 fun KhToolbar(

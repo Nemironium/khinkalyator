@@ -10,7 +10,6 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -40,10 +38,10 @@ import me.nemiron.khinkalyator.core.theme.appTypography
 import me.nemiron.khinkalyator.core.utils.consumeOnTapGestures
 import me.nemiron.khinkalyator.core.utils.dismissOnTapOutsideElements
 import me.nemiron.khinkalyator.core.utils.resolve
-import me.nemiron.khinkalyator.core.utils.statusBar
 import me.nemiron.khinkalyator.core.widgets.*
 import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Dish
 import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
+import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Price
 import kotlin.random.Random
 
 @Composable
@@ -53,33 +51,24 @@ fun MenuDetailsUi(
 ) {
     Scaffold(
         modifier = modifier.dismissOnTapOutsideElements(),
+        backgroundColor = MaterialTheme.additionalColors.secondaryBackground,
         topBar = {
-            ProvideTextStyle(value = TextStyle(color = MaterialTheme.colors.onSecondary)) {
-                KhToolbar(
-                    title = component.topTitle.resolve(),
-                    navigationIcon = {
-                        IconWithBackground(
-                            modifier = Modifier.padding(start = 16.dp),
-                            contentColor = MaterialTheme.colors.onSurface,
-                            backgroundColor = MaterialTheme.additionalColors.onSurfaceContainer,
-                            painter = painterResource(R.drawable.ic_restaurant_32),
-
-                        )
-                    },
-                    backgroundColor = MaterialTheme.additionalColors.secondaryBackground,
-                    statusBarModifier = Modifier.statusBar(
-                        color = MaterialTheme.additionalColors.secondaryBackground,
-                        darkIcons = true
+            KhModalToolbar(
+                title = component.topTitle.resolve(),
+                logoIcon = {
+                    IconWithBackground(
+                        modifier = Modifier.padding(start = 16.dp),
+                        painter = painterResource(R.drawable.ic_restaurant_32),
+                        backgroundColor = MaterialTheme.additionalColors.onSurfaceContainer,
                     )
-                )
-            }
+                }
+            )
         },
         content = { paddingValues ->
             Box(
                 modifier = Modifier
                     .padding(paddingValues)
                     .fillMaxSize()
-                    .background(MaterialTheme.additionalColors.secondaryBackground)
             ) {
                 val modalPadding = 248.dp
                 DishesContent(
@@ -193,7 +182,6 @@ private fun DishModal(
                 ) {
                     IconWithBackground(
                         painter = painterResource(R.drawable.ic_delete_32),
-                        contentColor = MaterialTheme.colors.onSurface,
                         backgroundColor = MaterialTheme.additionalColors.onSurfaceContainer,
                         onClick = onDishDeleteClick
                     )
@@ -213,7 +201,6 @@ private fun DishModal(
                     leadingIcon = {
                         IconWithBackground(
                             painter = painterResource(R.drawable.ic_food_32),
-                            contentColor = MaterialTheme.colors.onSurface,
                             backgroundColor = MaterialTheme.additionalColors.onSurfaceContainer
                         )
                     }
@@ -227,7 +214,7 @@ private fun DishModal(
                     placeholder = stringResource(R.string.menu_details_price_placeholder),
                     trailingIcon = {
                         Text(
-                            text = stringResource(R.string.menu_details_price_postfix),
+                            text = stringResource(R.string.common_currency_symbol),
                             color = Color.Black
                         )
                     },
@@ -274,22 +261,22 @@ private class PreviewMenuDetailsComponent : MenuDetailsComponent {
         Dish(
             id = Random.nextLong(),
             name = "Хинкали с грибами и сыром",
-            price = 95.0
+            price = Price(95.0)
         ),
         Dish(
             id = Random.nextLong(),
             name = "Хинкали с бараниной",
-            price = 90.0
+            price = Price(90.0)
         ),
         Dish(
             id = Random.nextLong(),
             name = "Хачапури по-аджарски S",
-            price = 450.0
+            price = Price(450.0)
         ),
         Dish(
             id = Random.nextLong(),
             name = "Чай в чайнике",
-            price = 250.0
+            price = Price(250.0)
         )
     ).map(Dish::toDishViewData)
 

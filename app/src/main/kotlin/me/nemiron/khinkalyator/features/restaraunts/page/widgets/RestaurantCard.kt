@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
+import me.nemiron.khinkalyator.core.theme.additionalColors
 import me.nemiron.khinkalyator.core.theme.appTypography
 import me.nemiron.khinkalyator.core.utils.resolve
 import me.nemiron.khinkalyator.core.widgets.IconWithBackground
@@ -86,13 +87,19 @@ private fun IconActions(
         horizontalArrangement = Arrangement.End
     ) {
         if (phoneIconVisible) {
-            IconWithBackground(painterResource(R.drawable.ic_phone_40)) {
+            IconWithBackground(
+                painter = painterResource(R.drawable.ic_phone_40),
+                backgroundColor = MaterialTheme.additionalColors.secondaryContainer
+            ) {
                 onCallClick()
             }
             Spacer(Modifier.width(12.dp))
         }
 
-        IconWithBackground(painterResource(R.drawable.ic_share_40)) {
+        IconWithBackground(
+            painter = painterResource(R.drawable.ic_share_40),
+            backgroundColor = MaterialTheme.additionalColors.secondaryContainer
+        ) {
             onShareClick()
         }
     }

@@ -188,9 +188,8 @@ private fun AddPersonItem(onClick: () -> Unit, modifier: Modifier = Modifier) {
                 .size(64.dp)
                 .align(Alignment.CenterHorizontally),
             painter = painterResource(R.drawable.ic_plus_32),
+            backgroundColor = MaterialTheme.colors.surface,
             elevation = 2.dp,
-            contentColor = MaterialTheme.colors.onSurface,
-            backgroundColor = MaterialTheme.colors.surface
         )
     }
 }
