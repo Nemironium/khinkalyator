@@ -13,15 +13,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.theme.additionalColors
+import me.nemiron.khinkalyator.core.utils.contentKhColorFor
+import me.nemiron.khinkalyator.core.utils.withElevation
 
 /**
  * Composable for Icon with circle background
@@ -29,11 +34,12 @@ import me.nemiron.khinkalyator.core.theme.additionalColors
 @Composable
 fun IconWithBackground(
     painter: Painter,
+    backgroundColor: Color,
     modifier: Modifier = Modifier,
     contentDescription: String? = null,
     shouldBeColored: Boolean = true,
-    contentColor: Color = MaterialTheme.colors.secondary,
-    backgroundColor: Color = MaterialTheme.additionalColors.secondaryContainer,
+    elevation: Dp = 0.dp,
+    contentColor: Color = contentKhColorFor(backgroundColor),
     onClick: (() -> Unit)? = null
 ) {
     val clickableModifier = if (onClick != null) {
@@ -43,9 +49,11 @@ fun IconWithBackground(
     }
     Box(
         modifier = modifier
+            .shadow(elevation = elevation, shape = CircleShape, clip = false)
+            .zIndex(elevation.value)
             .clip(CircleShape)
             .then(clickableModifier)
-            .background(backgroundColor),
+            .background(getBackgroundColorForElevation(backgroundColor, elevation)),
         contentAlignment = Alignment.Center
     ) {
         Image(
@@ -56,16 +64,30 @@ fun IconWithBackground(
     }
 }
 
+@Composable
+private fun getBackgroundColorForElevation(color: Color, elevation: Dp): Color {
+    return if (elevation > 0.dp) {
+        color.withElevation(elevation)
+    } else {
+        color
+    }
+}
+
 @Preview
 @Composable
 private fun IconsWithBackgroundPreview() {
     KhinkalyatorTheme {
         Column {
-            IconWithBackground(painterResource(R.drawable.ic_share_40))
+            IconWithBackground(
+                painter = painterResource(R.drawable.ic_share_40),
+                backgroundColor = MaterialTheme.additionalColors.secondaryContainer
+            )
             Spacer(Modifier.height(16.dp))
-            IconWithBackground(painterResource(R.drawable.ic_share_40)) {
-                // nothing
-            }
+            IconWithBackground(
+                painter = painterResource(R.drawable.ic_share_40),
+                backgroundColor = MaterialTheme.additionalColors.secondaryContainer,
+                onClick = { }
+            )
         }
     }
 }

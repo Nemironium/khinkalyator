@@ -5,7 +5,7 @@ typealias DishId = Long
 data class Dish(
     val id: DishId,
     val name: String,
-    val price: Double,
+    val price: Price,
     // TODO: for future features
     val discount: Discount? = null
 ) {
@@ -18,3 +18,8 @@ data class Dish(
         data class Absolut(val value: Double) : Discount
     }
 }
+
+@JvmInline
+value class Price(val value: Double)
+
+fun Double.toPrice(): Price = Price(this)

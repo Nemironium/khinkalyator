@@ -4,5 +4,7 @@
     <!-- Common -->
     <string name="common_empty_error">Поле не может быть пустым</string>
     <string name="common_value_is_not_valid_error">Неверно введено значение</string>
+    <string name="common_currency_symbol">₽</string>
+    <string name="common_amount_with_currency">%s %s</string>
 
 </resources>

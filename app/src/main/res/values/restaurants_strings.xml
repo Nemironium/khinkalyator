@@ -19,7 +19,6 @@
     <string name="menu_details_dish_title_edit">Редактировать позицию</string>
     <string name="menu_details_name_placeholder">Название блюда</string>
     <string name="menu_details_price_placeholder">Цена</string>
-    <string name="menu_details_price_postfix">₽</string>
     <string name="menu_details_submit_button">Готово</string>
     <string name="menu_details_more_button">Ещё блюдо</string>
 

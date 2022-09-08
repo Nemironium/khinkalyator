@@ -8,7 +8,7 @@ class CreateDishUseCase {
         return Dish(
             id = previousDishId ?: Random.nextLong(),
             name = name,
-            price = price
+            price = Price(price)
         )
     }
 }

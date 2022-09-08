@@ -49,7 +49,6 @@ fun PersonUi(
             leadingIcon = {
                 IconWithBackground(
                     painter = painterResource(R.drawable.ic_man_32),
-                    contentColor = MaterialTheme.colors.onSurface,
                     backgroundColor = MaterialTheme.additionalColors.onSurfaceContainer
                 )
             }
@@ -61,7 +60,6 @@ fun PersonUi(
             leadingIcon = {
                 IconWithBackground(
                     painter = painterResource(R.drawable.ic_phone_32),
-                    contentColor = MaterialTheme.colors.onSurface,
                     backgroundColor = MaterialTheme.additionalColors.onSurfaceContainer
                 )
             }

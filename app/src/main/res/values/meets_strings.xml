@@ -14,4 +14,7 @@
     <string name="create_meet_people_header">Выбор участников</string>
     <string name="create_meet_people_add_title">Друга</string>
 
+    <!-- MeetSession -->
+    <string name="meet_session_name_with_count">%s %d</string>
+
 </resources>

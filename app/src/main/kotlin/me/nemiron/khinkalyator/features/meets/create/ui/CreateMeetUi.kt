@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -44,7 +43,7 @@ import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Restaurant
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-// FIXME: какая-то проблема с модалкой создания персонажа (не переживает смену конфигурации, например при увелечении размере экрана)
+// FIXME: Screen doesn't properly adapt Composables sizes after screenSize config changes
 fun CreateMeetUi(
     component: CreateMeetComponent,
     modifier: Modifier = Modifier
@@ -144,6 +143,9 @@ private fun ColumnScope.PeopleContent(
     onPersonAddClick: () -> Unit,
     onPersonClick: (id: RestaurantId) -> Unit
 ) {
+    val gridItemWidth = 84.dp
+    val gridItemHeight = 110.dp
+
     Text(
         modifier = Modifier.padding(horizontal = 16.dp),
         text = stringResource(R.string.create_meet_people_header),
@@ -151,37 +153,43 @@ private fun ColumnScope.PeopleContent(
     )
     Spacer(Modifier.height(16.dp))
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 84.dp),
+        columns = GridCells.Adaptive(gridItemWidth),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         item {
-            ImageWithText(
+            AddPersonItem(
                 modifier = Modifier
-                    .size(width = 84.dp, height = 110.dp)
+                    .size(gridItemWidth, gridItemHeight)
                     .padding(top = 6.dp),
-                textPadding = PaddingValues(start = 4.dp, end = 4.dp, top = 14.dp),
-                title = stringResource(R.string.create_meet_people_add_title),
                 onClick = onPersonAddClick
-            ) {
-                IconWithBackground(
-                    modifier = Modifier
-                        .size(64.dp)
-                        .align(Alignment.CenterHorizontally),
-                    painter = painterResource(R.drawable.ic_plus_32),
-                    contentColor = MaterialTheme.colors.onSurface,
-                    backgroundColor = MaterialTheme.colors.surface
-                )
-            }
+            )
         }
 
         items(items = people, key = { it.id }) { person ->
             MediumPersonItem(
-                modifier = Modifier
-                    .width(84.dp)
-                    .height(110.dp),
+                modifier = Modifier.size(gridItemWidth, gridItemHeight),
                 data = person,
                 onClick = { onPersonClick(person.id) }
             )
         }
+    }
+}
+
+@Composable
+private fun AddPersonItem(onClick: () -> Unit, modifier: Modifier = Modifier) {
+    ImageWithText(
+        modifier = modifier,
+        textPadding = PaddingValues(start = 4.dp, end = 4.dp, top = 14.dp),
+        title = stringResource(R.string.create_meet_people_add_title),
+        onClick = onClick
+    ) {
+        IconWithBackground(
+            modifier = Modifier
+                .size(64.dp)
+                .align(Alignment.CenterHorizontally),
+            painter = painterResource(R.drawable.ic_plus_32),
+            backgroundColor = MaterialTheme.colors.surface,
+            elevation = 2.dp,
+        )
     }
 }
