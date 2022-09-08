@@ -2,12 +2,14 @@ package me.nemiron.khinkalyator.core.widgets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -15,6 +17,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,12 +39,41 @@ fun KhChip(
 ) {
     KhChipImpl(
         modifier = modifier,
-        paddingValues = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
+        contentPadding = PaddingValues(vertical = 10.dp, horizontal = 16.dp),
         onClick = onClick,
         elevation = elevation,
         isSelected = isSelected
     ) {
-        Text(text = text, style = MaterialTheme.appTypography.text1)
+        Text(
+            text = text,
+            style = MaterialTheme.appTypography.text1
+        )
+    }
+}
+
+@Composable
+fun KhChip(
+    text: String,
+    onClick: () -> Unit,
+    icon: @Composable RowScope.() -> Unit,
+    modifier: Modifier = Modifier,
+    elevation: Dp = 2.dp,
+    isSelected: Boolean = false
+) {
+    KhChipImpl(
+        modifier = modifier,
+        contentPadding = PaddingValues(top = 4.dp, bottom = 4.dp, start = 16.dp, end = 4.dp),
+        onClick = onClick,
+        elevation = elevation,
+        isSelected = isSelected
+    ) {
+        Text(
+            modifier = Modifier.align(Alignment.CenterVertically),
+            text = text,
+            style = MaterialTheme.appTypography.text1
+        )
+        Spacer(Modifier.width(4.dp))
+        icon()
     }
 }
 
@@ -54,7 +86,8 @@ fun KhChip(
 ) {
     KhChipImpl(
         modifier = modifier,
-        paddingValues = PaddingValues(4.dp),
+        contentPadding = PaddingValues(4.dp),
+        contentArrangement = Arrangement.Center,
         onClick = onClick,
         elevation = elevation,
         isSelected = false
@@ -73,8 +106,9 @@ private fun KhChipImpl(
     elevation: Dp,
     isSelected: Boolean,
     modifier: Modifier = Modifier,
-    paddingValues: PaddingValues = PaddingValues(),
-    content: @Composable BoxScope.() -> Unit
+    contentPadding: PaddingValues = PaddingValues(),
+    contentArrangement: Arrangement.Horizontal = Arrangement.Start,
+    content: @Composable RowScope.() -> Unit
 ) {
     val color = if (isSelected) {
         MaterialTheme.additionalColors.secondaryContainer
@@ -88,9 +122,9 @@ private fun KhChipImpl(
         color = color,
         elevation = elevation
     ) {
-        Box(
-            modifier = Modifier.padding(paddingValues),
-            contentAlignment = Alignment.Center,
+        Row(
+            modifier = Modifier.padding(contentPadding),
+            horizontalArrangement = contentArrangement,
             content = content
         )
     }
@@ -116,6 +150,16 @@ private fun KhChipsPreview() {
             KhChip(
                 modifier = Modifier.fillMaxWidth(),
                 painter = painterResource(R.drawable.ic_plus_32),
+                onClick = { }
+            )
+            KhChip(
+                text = "Хачапури по-имеритински 1",
+                icon = {
+                    IconWithBackground(
+                        painterResource(R.drawable.ic_plus_32),
+                        backgroundColor = Color.White
+                    )
+                },
                 onClick = { }
             )
         }
