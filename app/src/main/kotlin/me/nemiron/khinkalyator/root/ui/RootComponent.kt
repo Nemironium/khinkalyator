@@ -3,8 +3,8 @@ package me.nemiron.khinkalyator.root.ui
 import com.arkivanov.decompose.router.stack.ChildStack
 import me.nemiron.khinkalyator.features.home.ui.HomeComponent
 import me.nemiron.khinkalyator.features.meets.create.ui.CreateMeetComponent
-import me.nemiron.khinkalyator.features.meets.meet.ui.MeetComponent
-import me.nemiron.khinkalyator.features.restaraunts.overview.ui.RestaurantOverviewComponent
+import me.nemiron.khinkalyator.features.meets.meet_session_overview.ui.MeetSessionOverviewComponent
+import me.nemiron.khinkalyator.features.restaraunts.restaurant_overview.ui.RestaurantOverviewComponent
 
 interface RootComponent {
     val childStackState: ChildStack<*, Child>
@@ -12,7 +12,7 @@ interface RootComponent {
     sealed interface Child {
         class Home(val component: HomeComponent) : Child
         class CreateMeet(val component: CreateMeetComponent) : Child
-        class Meet(val component: MeetComponent) : Child
+        class MeetSession(val component: MeetSessionOverviewComponent) : Child
         class Restaurant(val component: RestaurantOverviewComponent) : Child
     }
 }

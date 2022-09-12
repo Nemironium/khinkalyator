@@ -76,7 +76,7 @@ fun CreateMeetUi(
                 )
                 Spacer(Modifier.height(32.dp))
                 PeopleContent(
-                    people = component.personsViewData,
+                    people = component.peopleViewData,
                     onPersonAddClick = component::onPersonAddClick,
                     onPersonClick = component::onPersonClick
                 )

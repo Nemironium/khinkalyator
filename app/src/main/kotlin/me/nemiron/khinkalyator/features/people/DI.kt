@@ -10,8 +10,8 @@ import me.nemiron.khinkalyator.features.people.domain.GetPersonByIdUseCase
 import me.nemiron.khinkalyator.features.people.domain.DeletePersonUseCase
 import me.nemiron.khinkalyator.features.people.domain.ObserveActivePeopleUseCase
 import me.nemiron.khinkalyator.features.people.domain.UpdatePersonUseCase
-import me.nemiron.khinkalyator.features.people.page.ui.PeoplePageComponent
-import me.nemiron.khinkalyator.features.people.page.ui.RealPeoplePageComponent
+import me.nemiron.khinkalyator.features.people.home_page.ui.PeoplePageComponent
+import me.nemiron.khinkalyator.features.people.home_page.ui.RealPeoplePageComponent
 import me.nemiron.khinkalyator.features.people.person.ui.PersonComponent
 import me.nemiron.khinkalyator.features.people.person.ui.RealPersonComponent
 import org.koin.core.component.get

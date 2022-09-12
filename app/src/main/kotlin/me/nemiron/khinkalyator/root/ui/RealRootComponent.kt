@@ -17,10 +17,11 @@ import me.nemiron.khinkalyator.features.home.createHomeComponent
 import me.nemiron.khinkalyator.features.home.ui.HomeComponent
 import me.nemiron.khinkalyator.features.meets.create.ui.CreateMeetComponent
 import me.nemiron.khinkalyator.features.meets.createCreateMeetComponent
-import me.nemiron.khinkalyator.features.meets.createMeetComponent
-import me.nemiron.khinkalyator.features.meets.meet.domain.MeetId
+import me.nemiron.khinkalyator.features.meets.createMeetSessionOverviewComponent
+import me.nemiron.khinkalyator.features.meets.domain.MeetId
+import me.nemiron.khinkalyator.features.meets.meet_session_overview.ui.MeetSessionOverviewComponent
 import me.nemiron.khinkalyator.features.restaraunts.createRestaurantOverviewComponent
-import me.nemiron.khinkalyator.features.restaraunts.overview.ui.RestaurantOverviewComponent
+import me.nemiron.khinkalyator.features.restaraunts.restaurant_overview.ui.RestaurantOverviewComponent
 
 class RealRootComponent(
     componentContext: ComponentContext,
@@ -54,9 +55,11 @@ class RealRootComponent(
                     ::onCreateMeetOutput
                 )
             )
-            is ChildConfiguration.Meet -> RootComponent.Child.Meet(
-                componentFactory.createMeetComponent(
-                    componentContext, childConfig.meetId
+            is ChildConfiguration.MeetSession -> RootComponent.Child.MeetSession(
+                componentFactory.createMeetSessionOverviewComponent(
+                    componentContext,
+                    childConfig.meetId,
+                    ::onMeetSessionOutput
                 )
             )
             is ChildConfiguration.Restaurant -> RootComponent.Child.Restaurant(
@@ -74,7 +77,7 @@ class RealRootComponent(
                 navigation.push(ChildConfiguration.CreateMeet)
             }
             is HomeComponent.Output.MeetRequested -> {
-                navigation.push(ChildConfiguration.Meet(output.meetId))
+                navigation.push(ChildConfiguration.MeetSession(output.meetId))
             }
             is HomeComponent.Output.NewRestaurantRequested -> {
                 navigation.push(
@@ -95,7 +98,7 @@ class RealRootComponent(
     private fun onCreateMeetOutput(output: CreateMeetComponent.Output) =
         when (output) {
             is CreateMeetComponent.Output.MeetCreated -> {
-                navigation.replaceCurrent(ChildConfiguration.Meet(output.meetId))
+                navigation.replaceCurrent(ChildConfiguration.MeetSession(output.meetId))
             }
             is CreateMeetComponent.Output.NewRestaurantRequested -> {
                 navigation.push(
@@ -104,6 +107,11 @@ class RealRootComponent(
                     )
                 )
             }
+        }
+
+    private fun onMeetSessionOutput(output: MeetSessionOverviewComponent.Output) =
+        when(output) {
+            is MeetSessionOverviewComponent.Output.MeetSessionCloseRequested -> navigation.pop()
         }
 
     private fun onRestaurantOutput(output: RestaurantOverviewComponent.Output) =
@@ -119,7 +127,7 @@ class RealRootComponent(
         object CreateMeet : ChildConfiguration
 
         @Parcelize
-        class Meet(val meetId: MeetId) : ChildConfiguration
+        class MeetSession(val meetId: MeetId) : ChildConfiguration
 
         @Parcelize
         class Restaurant(
