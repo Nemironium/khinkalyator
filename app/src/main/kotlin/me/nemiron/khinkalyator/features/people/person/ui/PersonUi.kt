@@ -76,7 +76,7 @@ fun PersonUi(
 
 @Preview(showBackground = true)
 @Composable
-private fun PersonUiPreview() {
+private fun PersonPreview() {
     KhinkalyatorTheme {
         PersonUi(PreviewPersonComponent())
     }

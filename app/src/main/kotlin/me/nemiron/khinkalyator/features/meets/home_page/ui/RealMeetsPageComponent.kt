@@ -1,13 +1,13 @@
-package me.nemiron.khinkalyator.features.meets.page.ui
+package me.nemiron.khinkalyator.features.meets.home_page.ui
 
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.ComponentContext
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.core.utils.toComposeState
-import me.nemiron.khinkalyator.features.meets.meet.domain.Meet
-import me.nemiron.khinkalyator.features.meets.meet.domain.MeetId
-import me.nemiron.khinkalyator.features.meets.meet.domain.ObserveMeetsUseCase
+import me.nemiron.khinkalyator.features.meets.domain.Meet
+import me.nemiron.khinkalyator.features.meets.domain.MeetId
+import me.nemiron.khinkalyator.features.meets.domain.ObserveMeetsUseCase
 
 class RealMeetsPageComponent(
     componentContext: ComponentContext,
@@ -23,7 +23,7 @@ class RealMeetsPageComponent(
     )
 
     override val meetsViewData by derivedStateOf {
-        meetsState.map(Meet::toMeetFullViewData)
+        meetsState.map(Meet::toMeetHomePageViewData)
     }
 
     override fun onMeetAddClick() {

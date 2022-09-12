@@ -1,15 +1,15 @@
-package me.nemiron.khinkalyator.features.meets.page.ui
+package me.nemiron.khinkalyator.features.meets.home_page.ui
 
 import kotlinx.datetime.LocalDate
 import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.features.initials.ui.InitialsViewData
 import me.nemiron.khinkalyator.features.initials.ui.toInitialsViewData
-import me.nemiron.khinkalyator.features.meets.meet.domain.Meet
-import me.nemiron.khinkalyator.features.meets.meet.domain.MeetId
+import me.nemiron.khinkalyator.features.meets.domain.Meet
+import me.nemiron.khinkalyator.features.meets.domain.MeetId
 import kotlin.math.absoluteValue
 
-data class MeetFullViewData(
+data class MeetHomePageViewData(
     val id: MeetId,
     val date: LocalizedString,
     val title: LocalizedString,
@@ -18,18 +18,18 @@ data class MeetFullViewData(
     val isActive: Boolean
 )
 
-fun Meet.toMeetFullViewData(): MeetFullViewData {
+fun Meet.toMeetHomePageViewData(): MeetHomePageViewData {
     val date = when (type) {
         is Meet.Type.Active -> LocalizedString.resource(R.string.meets_today_date)
         is Meet.Type.Archived -> type.createTime.date.format()
     }
 
-    return MeetFullViewData(
+    return MeetHomePageViewData(
         id = id,
         date = date,
         title = LocalizedString.raw(restaurant.name),
         subtitle = LocalizedString.raw(restaurant.address?.value.orEmpty()),
-        initials = persons.toInitialsViewData(),
+        initials = people.toInitialsViewData(),
         isActive = type is Meet.Type.Active
     )
 }

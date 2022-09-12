@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.people.page.widgets
+package me.nemiron.khinkalyator.features.people.home_page.widgets
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,11 +23,11 @@ import me.nemiron.khinkalyator.core.theme.appTypography
 import me.nemiron.khinkalyator.core.utils.resolve
 import me.nemiron.khinkalyator.features.emoji.domain.Emoji
 import me.nemiron.khinkalyator.features.emoji.widgets.BigEmojiWithBackground
-import me.nemiron.khinkalyator.features.people.page.ui.PersonFullViewData
+import me.nemiron.khinkalyator.features.people.home_page.ui.PersonHomePageViewData
 
 @Composable
-fun BigPersonItem(
-    data: PersonFullViewData,
+fun PersonHomePageCard(
+    data: PersonHomePageViewData,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -71,11 +71,11 @@ fun BigPersonItem(
 
 @Preview
 @Composable
-private fun BigPersonItemsPreview() {
+private fun PersonHomePageCardPreview() {
     KhinkalyatorTheme {
         Column {
-            BigPersonItem(
-                data = PersonFullViewData(
+            PersonHomePageCard(
+                data = PersonHomePageViewData(
                     id = 1L,
                     name = LocalizedString.raw("Томочка Тараненко"),
                     phone = LocalizedString.raw("8 (999) 385 - 23 - 91"),
@@ -84,8 +84,8 @@ private fun BigPersonItemsPreview() {
                 onClick = { }
             )
 
-            BigPersonItem(
-                data = PersonFullViewData(
+            PersonHomePageCard(
+                data = PersonHomePageViewData(
                     id = 1L,
                     name = LocalizedString.raw("Жека Кауров"),
                     phone = null,

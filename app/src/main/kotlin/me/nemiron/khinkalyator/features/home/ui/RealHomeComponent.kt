@@ -14,13 +14,13 @@ import me.nemiron.khinkalyator.core.componentHolder
 import me.nemiron.khinkalyator.core.keyboard.CloseKeyboardService
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.features.meets.createMeetsPageComponent
-import me.nemiron.khinkalyator.features.meets.page.ui.MeetsPageComponent
+import me.nemiron.khinkalyator.features.meets.home_page.ui.MeetsPageComponent
 import me.nemiron.khinkalyator.features.people.createPeoplePageComponent
 import me.nemiron.khinkalyator.features.people.createPersonComponent
-import me.nemiron.khinkalyator.features.people.page.ui.PeoplePageComponent
+import me.nemiron.khinkalyator.features.people.home_page.ui.PeoplePageComponent
 import me.nemiron.khinkalyator.features.people.person.ui.PersonComponent
 import me.nemiron.khinkalyator.features.restaraunts.createRestaurantsPageComponent
-import me.nemiron.khinkalyator.features.restaraunts.page.ui.RestaurantsPageComponent
+import me.nemiron.khinkalyator.features.restaraunts.home_page.ui.RestaurantsPageComponent
 
 class RealHomeComponent(
     componentContext: ComponentContext,

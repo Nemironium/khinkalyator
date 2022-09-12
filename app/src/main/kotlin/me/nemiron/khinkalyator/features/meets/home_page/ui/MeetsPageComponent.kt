@@ -1,10 +1,10 @@
-package me.nemiron.khinkalyator.features.meets.page.ui
+package me.nemiron.khinkalyator.features.meets.home_page.ui
 
-import me.nemiron.khinkalyator.features.meets.meet.domain.MeetId
+import me.nemiron.khinkalyator.features.meets.domain.MeetId
 
 interface MeetsPageComponent {
 
-    val meetsViewData: List<MeetFullViewData>
+    val meetsViewData: List<MeetHomePageViewData>
 
     fun onMeetAddClick()
 

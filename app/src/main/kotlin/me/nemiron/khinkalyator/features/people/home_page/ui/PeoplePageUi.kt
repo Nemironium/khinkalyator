@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.people.page.ui
+package me.nemiron.khinkalyator.features.people.home_page.ui
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -35,8 +35,9 @@ import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.theme.additionalColors
 import me.nemiron.khinkalyator.core.widgets.KhContainedButton
+import me.nemiron.khinkalyator.features.people.domain.Person
 import me.nemiron.khinkalyator.features.people.domain.PersonId
-import me.nemiron.khinkalyator.features.people.page.widgets.BigPersonItem
+import me.nemiron.khinkalyator.features.people.home_page.widgets.PersonHomePageCard
 
 @Composable
 fun PeoplePageUi(
@@ -68,7 +69,7 @@ fun PeoplePageUi(
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 private fun PeopleList(
-    peopleViewData: List<PersonFullViewData>,
+    peopleViewData: List<PersonHomePageViewData>,
     onPersonClick: (personId: PersonId) -> Unit,
     onPersonDeleteClick: (personId: PersonId) -> Unit,
     fabButtonPadding: Dp,
@@ -124,7 +125,7 @@ private fun PeopleList(
                         )
                     }
                 }, dismissContent = {
-                    BigPersonItem(
+                    PersonHomePageCard(
                         modifier = Modifier.animateItemPlacement(),
                         data = person,
                         onClick = { onPersonClick((person.id)) }
@@ -137,14 +138,14 @@ private fun PeopleList(
 
 @Preview(showBackground = true)
 @Composable
-private fun PeoplePageUiPreview() {
+private fun PeoplePagePreview() {
     KhinkalyatorTheme {
         PeoplePageUi(PreviewPeoplePageComponent())
     }
 }
 
 class PreviewPeoplePageComponent : PeoplePageComponent {
-    override val peopleViewData: List<PersonFullViewData> = emptyList()
+    override val peopleViewData = Person.MOCKS.map(Person::toPersonHomePageViewData)
 
     override fun onPersonAddClick() = Unit
     override fun onPersonDeleteClick(personId: PersonId) = Unit

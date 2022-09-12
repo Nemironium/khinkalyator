@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.people.page.ui
+package me.nemiron.khinkalyator.features.people.home_page.ui
 
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -26,7 +26,7 @@ class RealPeoplePageComponent(
     )
 
     override val peopleViewData by derivedStateOf {
-        peopleState.map(Person::toPersonFullViewData)
+        peopleState.map(Person::toPersonHomePageViewData)
     }
 
     override fun onPersonAddClick() {

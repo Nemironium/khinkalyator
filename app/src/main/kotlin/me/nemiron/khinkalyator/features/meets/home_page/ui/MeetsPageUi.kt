@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.page.ui
+package me.nemiron.khinkalyator.features.meets.home_page.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -18,8 +18,9 @@ import com.google.accompanist.insets.ui.Scaffold
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.widgets.KhContainedButton
-import me.nemiron.khinkalyator.features.meets.meet.domain.MeetId
-import me.nemiron.khinkalyator.features.meets.page.widgets.MeetCard
+import me.nemiron.khinkalyator.features.meets.domain.Meet
+import me.nemiron.khinkalyator.features.meets.domain.MeetId
+import me.nemiron.khinkalyator.features.meets.home_page.widgets.MeetHomePageCard
 
 @Composable
 fun MeetsPageUi(
@@ -30,16 +31,13 @@ fun MeetsPageUi(
         modifier = modifier,
         floatingActionButton = {
             KhContainedButton(
-                modifier = Modifier
-                    .navigationBarsPadding(),
+                modifier = Modifier.navigationBarsPadding(),
                 text = stringResource(R.string.meets_add_button),
                 onClick = component::onMeetAddClick
             )
         },
         floatingActionButtonPosition = FabPosition.Center,
-        content = {
-            MeetsCards(component, fabButtonPadding = 100.dp)
-        }
+        content = { MeetsCards(component, fabButtonPadding = 100.dp) }
     )
 }
 
@@ -56,7 +54,7 @@ private fun MeetsCards(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(items = component.meetsViewData, key = { it.id }) { meet ->
-            MeetCard(
+            MeetHomePageCard(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .animateItemPlacement(),
@@ -76,9 +74,7 @@ private fun MeetsPagePreview() {
 }
 
 class PreviewMeetsPageComponent : MeetsPageComponent {
-
-    override val meetsViewData: List<MeetFullViewData> = emptyList()
-
+    override val meetsViewData = Meet.MOCKS.map(Meet::toMeetHomePageViewData)
     override fun onMeetAddClick() = Unit
     override fun onMeetClick(meetId: MeetId) = Unit
 }

@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.page.widgets
+package me.nemiron.khinkalyator.features.meets.home_page.widgets
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -27,11 +27,11 @@ import me.nemiron.khinkalyator.core.utils.resolve
 import me.nemiron.khinkalyator.features.emoji.domain.Emoji
 import me.nemiron.khinkalyator.features.initials.ui.InitialsViewData
 import me.nemiron.khinkalyator.features.initials.widgets.InitialsBlock
-import me.nemiron.khinkalyator.features.meets.page.ui.MeetFullViewData
+import me.nemiron.khinkalyator.features.meets.home_page.ui.MeetHomePageViewData
 
 @Composable
-fun MeetCard(
-    data: MeetFullViewData,
+fun MeetHomePageCard(
+    data: MeetHomePageViewData,
     onCardClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -64,7 +64,7 @@ fun MeetCard(
 
 @Composable
 private fun InfoBlock(
-    data: MeetFullViewData,
+    data: MeetHomePageViewData,
     modifier: Modifier = Modifier
 ) {
     Column(modifier) {
@@ -95,7 +95,7 @@ private fun InfoBlock(
 
 @Composable
 private fun PeopleBlock(
-    data: MeetFullViewData,
+    data: MeetHomePageViewData,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -118,7 +118,7 @@ private fun PeopleBlock(
 
 @Preview(showSystemUi = true)
 @Composable
-private fun MeetCardPreview() {
+private fun MeetHomePageCardPreview() {
     KhinkalyatorTheme {
         val initialsData = listOf(
             InitialsViewData("КЕ", Emoji("🐨")),
@@ -127,7 +127,7 @@ private fun MeetCardPreview() {
             InitialsViewData("РЧ", Emoji("🐮")),
             InitialsViewData("ЭЗ", Emoji("🐼"))
         )
-        val meetData = MeetFullViewData(
+        val meetData = MeetHomePageViewData(
             id = 1L,
             date = LocalizedString.resource(R.string.meets_today_date),
             title = LocalizedString.raw("Каха"),
@@ -139,7 +139,7 @@ private fun MeetCardPreview() {
         Box(
             modifier = Modifier.padding(16.dp)
         ) {
-            MeetCard(
+            MeetHomePageCard(
                 data = meetData,
                 onCardClick = { }
             )

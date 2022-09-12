@@ -1,10 +1,10 @@
-package me.nemiron.khinkalyator.features.people.page.ui
+package me.nemiron.khinkalyator.features.people.home_page.ui
 
 import me.nemiron.khinkalyator.features.people.domain.PersonId
 
 interface PeoplePageComponent {
 
-    val peopleViewData: List<PersonFullViewData>
+    val peopleViewData: List<PersonHomePageViewData>
 
     fun onPersonAddClick()
 
