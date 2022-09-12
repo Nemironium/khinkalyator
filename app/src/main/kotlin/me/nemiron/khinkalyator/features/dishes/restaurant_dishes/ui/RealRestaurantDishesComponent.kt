@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.menu.ui
+package me.nemiron.khinkalyator.features.dishes.restaurant_dishes.ui
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.derivedStateOf
@@ -22,17 +22,19 @@ import me.aartikov.sesame.compose.form.validation.form.formValidator
 import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.CreateDishUseCase
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Dish
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
+import me.nemiron.khinkalyator.features.dishes.domain.CreateDishUseCase
+import me.nemiron.khinkalyator.features.dishes.domain.Dish
+import me.nemiron.khinkalyator.features.dishes.domain.DishId
+import me.nemiron.khinkalyator.features.dishes.ui.DishesComponent
 
-class RealMenuDetailsComponent(
+// FIXME: насколько такая "композиция" из DishesComponent норм?
+class RealRestaurantDishesComponent(
     componentContext: ComponentContext,
-    configuration: MenuDetailsComponent.Configuration,
-    private val state: MenuDetailsComponent.State,
-    private val onOutput: (MenuDetailsComponent.Output) -> Unit,
+    configuration: RestaurantDishesComponent.Configuration,
+    private val state: RestaurantDishesComponent.State,
+    private val onOutput: (RestaurantDishesComponent.Output) -> Unit,
     private val createDish: CreateDishUseCase
-) : MenuDetailsComponent, ComponentContext by componentContext {
+) : RestaurantDishesComponent, DishesComponent, ComponentContext by componentContext {
 
     private var selectedDish by mutableStateOf(
         getInitialDish(
@@ -52,13 +54,15 @@ class RealMenuDetailsComponent(
 
     override val isDeleteActionVisible by derivedStateOf { selectedDish != null }
 
-    override val topTitle = LocalizedString.resource(R.string.menu_details_title)
+    override val dishesComponent = this
+
+    override val topTitle = LocalizedString.resource(R.string.restaurant_dishes_title)
 
     override val bottomTitle by derivedStateOf {
         val resourceId = if (selectedDish != null) {
-            R.string.menu_details_dish_title_edit
+            R.string.restaurant_dishes_dish_title_edit
         } else {
-            R.string.menu_details_dish_title_new
+            R.string.restaurant_dishes_dish_title_new
         }
         LocalizedString.resource(resourceId)
     }
@@ -133,7 +137,7 @@ class RealMenuDetailsComponent(
     override fun onSubmitClick() {
         if (validator.validate().isValid) {
             mutateState()
-            onOutput(MenuDetailsComponent.Output.MenuCloseRequested)
+            onOutput(RestaurantDishesComponent.Output.DishesCloseRequested)
         }
     }
 
@@ -152,14 +156,14 @@ class RealMenuDetailsComponent(
     }
 
     private fun getInitialDish(
-        configuration: MenuDetailsComponent.Configuration,
+        configuration: RestaurantDishesComponent.Configuration,
         allDishes: List<Dish>
     ): Dish? =
         when (configuration) {
-            is MenuDetailsComponent.Configuration.AddDish -> {
+            is RestaurantDishesComponent.Configuration.AddDish -> {
                 null
             }
-            is MenuDetailsComponent.Configuration.EditDish -> {
+            is RestaurantDishesComponent.Configuration.EditDish -> {
                 allDishes.firstOrNull { it.id == configuration.selectedDishId }
             }
         }

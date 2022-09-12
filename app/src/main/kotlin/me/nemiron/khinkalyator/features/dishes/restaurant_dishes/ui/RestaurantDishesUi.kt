@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.menu.ui
+package me.nemiron.khinkalyator.features.dishes.restaurant_dishes.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -26,7 +26,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.insets.ui.Scaffold
 import me.aartikov.sesame.compose.form.control.InputControl
 import me.aartikov.sesame.localizedstring.LocalizedString
@@ -39,14 +38,12 @@ import me.nemiron.khinkalyator.core.utils.consumeOnTapGestures
 import me.nemiron.khinkalyator.core.utils.dismissOnTapOutsideElements
 import me.nemiron.khinkalyator.core.utils.resolve
 import me.nemiron.khinkalyator.core.widgets.*
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Dish
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Price
-import kotlin.random.Random
+import me.nemiron.khinkalyator.features.dishes.ui.DishesUi
+import me.nemiron.khinkalyator.features.dishes.ui.PreviewDishesComponent
 
 @Composable
-fun MenuDetailsUi(
-    component: MenuDetailsComponent,
+fun RestaurantDishesUi(
+    component: RestaurantDishesComponent,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -71,15 +68,13 @@ fun MenuDetailsUi(
                     .fillMaxSize()
             ) {
                 val modalPadding = 248.dp
-                DishesContent(
+                DishesUi(
                     modifier = Modifier
                         .align(Alignment.TopStart)
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp, bottom = modalPadding)
                         .verticalScroll(rememberScrollState()),
-                    dishes = component.dishesViewData,
-                    onDishAddClick = component::onDishAddClick,
-                    onDishClick = component::onDishClick
+                    component = component.dishesComponent
                 )
                 DishModal(
                     modifier = Modifier
@@ -98,45 +93,6 @@ fun MenuDetailsUi(
             }
         }
     )
-}
-
-@Composable
-private fun DishesContent(
-    dishes: List<DishViewData>,
-    onDishAddClick: () -> Unit,
-    onDishClick: (id: DishId) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Column(modifier) {
-        Spacer(Modifier.height(16.dp))
-        Text(
-            modifier = Modifier.align(Alignment.Start),
-            text = stringResource(R.string.menu_details_title),
-            color = MaterialTheme.colors.onSecondary,
-            style = MaterialTheme.appTypography.head3
-        )
-        Spacer(Modifier.height(16.dp))
-        // TODO: if selected element not on screen, then row must be scrolled
-        FlowRow(
-            modifier = Modifier.padding(bottom = 8.dp),
-            mainAxisSpacing = 8.dp,
-            crossAxisSpacing = 8.dp
-        ) {
-            if (dishes.isNotEmpty()) {
-                KhChip(
-                    painter = painterResource(R.drawable.ic_plus_32),
-                    onClick = onDishAddClick
-                )
-            }
-            dishes.forEach { dish ->
-                KhChip(
-                    text = dish.name.resolve(),
-                    isSelected = dish.isSelected,
-                    onClick = { onDishClick(dish.id) }
-                )
-            }
-        }
-    }
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -197,7 +153,7 @@ private fun DishModal(
                         .fillMaxWidth()
                         .weight(0.65f),
                     inputControl = nameInputControl,
-                    placeholder = stringResource(R.string.menu_details_name_placeholder),
+                    placeholder = stringResource(R.string.restaurant_dishes_name_placeholder),
                     leadingIcon = {
                         IconWithBackground(
                             painter = painterResource(R.drawable.ic_food_32),
@@ -211,7 +167,7 @@ private fun DishModal(
                         .fillMaxWidth()
                         .weight(0.35f),
                     inputControl = priceInputControl,
-                    placeholder = stringResource(R.string.menu_details_price_placeholder),
+                    placeholder = stringResource(R.string.restaurant_dishes_price_placeholder),
                     trailingIcon = {
                         Text(
                             text = stringResource(R.string.common_currency_symbol),
@@ -232,7 +188,7 @@ private fun DishModal(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
-                    text = stringResource(R.string.menu_details_more_button),
+                    text = stringResource(R.string.restaurant_dishes_more_button),
                     onClick = onDishNextClick
                 )
                 Spacer(Modifier.width(8.dp))
@@ -240,7 +196,7 @@ private fun DishModal(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
-                    text = stringResource(R.string.menu_details_submit_button),
+                    text = stringResource(R.string.restaurant_dishes_submit_button),
                     onClick = onSubmitClick
                 )
             }
@@ -250,35 +206,14 @@ private fun DishModal(
 
 @Preview(showBackground = true)
 @Composable
-private fun MenuDetailsPreview() {
+private fun RestaurantDishesPreview() {
     KhinkalyatorTheme {
-        MenuDetailsUi(PreviewMenuDetailsComponent())
+        RestaurantDishesUi(PreviewRestaurantDishesComponent())
     }
 }
 
-private class PreviewMenuDetailsComponent : MenuDetailsComponent {
-    override val dishesViewData: List<DishViewData> = listOf(
-        Dish(
-            id = Random.nextLong(),
-            name = "Хинкали с грибами и сыром",
-            price = Price(95.0)
-        ),
-        Dish(
-            id = Random.nextLong(),
-            name = "Хинкали с бараниной",
-            price = Price(90.0)
-        ),
-        Dish(
-            id = Random.nextLong(),
-            name = "Хачапури по-аджарски S",
-            price = Price(450.0)
-        ),
-        Dish(
-            id = Random.nextLong(),
-            name = "Чай в чайнике",
-            price = Price(250.0)
-        )
-    ).map(Dish::toDishViewData)
+private class PreviewRestaurantDishesComponent : RestaurantDishesComponent {
+    override val dishesComponent = PreviewDishesComponent()
 
     override val topTitle = LocalizedString.raw("Меню")
     override val bottomTitle = LocalizedString.raw("Добавить позицию в меню")
@@ -304,13 +239,7 @@ private class PreviewMenuDetailsComponent : MenuDetailsComponent {
 
     override val isDeleteActionVisible = false
 
-    override fun onDishAddClick() = Unit
-
     override fun onDishNextClick() = Unit
-
     override fun onDishDeleteClick() = Unit
-
     override fun onSubmitClick() = Unit
-
-    override fun onDishClick(dishId: DishId) = Unit
 }

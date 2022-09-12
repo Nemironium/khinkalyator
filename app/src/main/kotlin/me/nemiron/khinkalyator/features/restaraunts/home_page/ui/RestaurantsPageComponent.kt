@@ -1,10 +1,10 @@
-package me.nemiron.khinkalyator.features.restaraunts.page.ui
+package me.nemiron.khinkalyator.features.restaraunts.home_page.ui
 
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
 
 interface RestaurantsPageComponent {
 
-    val restaurantsViewData: List<RestaurantFullViewData>
+    val restaurantsViewData: List<RestaurantHomePageViewData>
 
     fun onRestaurantAddClick()
 

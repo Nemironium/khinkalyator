@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.menu.domain
+package me.nemiron.khinkalyator.features.dishes.domain
 
 import kotlin.random.Random
 

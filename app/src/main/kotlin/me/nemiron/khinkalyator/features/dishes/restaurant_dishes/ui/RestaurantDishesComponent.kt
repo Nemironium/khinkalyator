@@ -1,14 +1,17 @@
-package me.nemiron.khinkalyator.features.restaraunts.menu.ui
+package me.nemiron.khinkalyator.features.dishes.restaurant_dishes.ui
 
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import me.aartikov.sesame.compose.form.control.InputControl
 import me.aartikov.sesame.localizedstring.LocalizedString
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Dish
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
+import me.nemiron.khinkalyator.features.dishes.domain.Dish
+import me.nemiron.khinkalyator.features.dishes.domain.DishId
+import me.nemiron.khinkalyator.features.dishes.ui.DishViewData
+import me.nemiron.khinkalyator.features.dishes.ui.DishesComponent
 
-interface MenuDetailsComponent {
-    val dishesViewData: List<DishViewData>
+interface RestaurantDishesComponent {
+
+    val dishesComponent: DishesComponent
 
     val topTitle: LocalizedString
 
@@ -19,10 +22,6 @@ interface MenuDetailsComponent {
     val priceInputControl: InputControl
 
     val isDeleteActionVisible: Boolean
-
-    fun onDishAddClick()
-
-    fun onDishClick(dishId: DishId)
 
     fun onDishDeleteClick()
 
@@ -51,6 +50,6 @@ interface MenuDetailsComponent {
     }
 
     sealed interface Output {
-        object MenuCloseRequested : Output
+        object DishesCloseRequested : Output
     }
 }

@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.page.ui
+package me.nemiron.khinkalyator.features.restaraunts.home_page.ui
 
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -23,7 +23,7 @@ class RealRestaurantsPageComponent(
     )
 
     override val restaurantsViewData by derivedStateOf {
-        restaurantsState.map(Restaurant::toRestaurantFullViewData)
+        restaurantsState.map(Restaurant::toRestaurantHomePageViewData)
     }
 
     override fun onRestaurantAddClick() {

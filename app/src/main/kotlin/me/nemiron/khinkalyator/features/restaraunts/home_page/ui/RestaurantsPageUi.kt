@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.page.ui
+package me.nemiron.khinkalyator.features.restaraunts.home_page.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +19,8 @@ import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.widgets.KhContainedButton
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
-import me.nemiron.khinkalyator.features.restaraunts.page.widgets.RestaurantCard
+import me.nemiron.khinkalyator.features.restaraunts.home_page.widgets.RestaurantHomePageCard
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Restaurant
 
 @Composable
 fun RestaurantsPageUi(
@@ -37,9 +38,7 @@ fun RestaurantsPageUi(
             )
         },
         floatingActionButtonPosition = FabPosition.Center,
-        content = {
-            RestaurantCards(component, fabButtonPadding = 100.dp)
-        }
+        content = { RestaurantCards(component, fabButtonPadding = 100.dp) }
     )
 }
 
@@ -56,7 +55,7 @@ private fun RestaurantCards(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(items = component.restaurantsViewData, key = { it.id }) { restaurant ->
-            RestaurantCard(
+            RestaurantHomePageCard(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .animateItemPlacement(),
@@ -71,7 +70,7 @@ private fun RestaurantCards(
 
 @Preview(showBackground = true)
 @Composable
-private fun RestaurantsPageUiPreview() {
+private fun RestaurantsPagePreview() {
     KhinkalyatorTheme {
         RestaurantsPageUi(PreviewRestaurantsPageComponent())
     }
@@ -79,7 +78,8 @@ private fun RestaurantsPageUiPreview() {
 
 class PreviewRestaurantsPageComponent : RestaurantsPageComponent {
 
-    override val restaurantsViewData: List<RestaurantFullViewData> = emptyList()
+    override val restaurantsViewData =
+        Restaurant.MOCKS.map(Restaurant::toRestaurantHomePageViewData)
 
     override fun onRestaurantAddClick() = Unit
     override fun onRestaurantClick(restaurantId: RestaurantId) = Unit

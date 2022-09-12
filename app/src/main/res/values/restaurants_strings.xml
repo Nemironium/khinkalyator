@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Common -->
+    <string name="dishes_title">Меню</string>
 
     <!-- RestaurantsPage -->
     <string name="restaurants_add_button">Добавить ресторан</string>
@@ -9,17 +11,17 @@
     <string name="restaurant_details_name_placeholder">Название ресторана</string>
     <string name="restaurant_details_address_placeholder">Адрес</string>
     <string name="restaurant_details_phone_placeholder">Телефон</string>
-    <string name="restaurant_details_menu_title">Меню</string>
+    <string name="restaurant_details_dishes_title">Меню</string>
     <string name="restaurant_details_submit_button">Готово</string>
     <string name="restaurant_details_delete_menu_action">Удалить ресторан</string>
 
-    <!-- MenuDetails -->
-    <string name="menu_details_title">Меню</string>
-    <string name="menu_details_dish_title_new">Добавить позицию в меню</string>
-    <string name="menu_details_dish_title_edit">Редактировать позицию</string>
-    <string name="menu_details_name_placeholder">Название блюда</string>
-    <string name="menu_details_price_placeholder">Цена</string>
-    <string name="menu_details_submit_button">Готово</string>
-    <string name="menu_details_more_button">Ещё блюдо</string>
+    <!-- RestaurantDishes -->
+    <string name="restaurant_dishes_title">Меню</string>
+    <string name="restaurant_dishes_dish_title_new">Добавить позицию в меню</string>
+    <string name="restaurant_dishes_dish_title_edit">Редактировать позицию</string>
+    <string name="restaurant_dishes_name_placeholder">Название блюда</string>
+    <string name="restaurant_dishes_price_placeholder">Цена</string>
+    <string name="restaurant_dishes_submit_button">Готово</string>
+    <string name="restaurant_dishes_more_button">Ещё блюдо</string>
 
 </resources>

@@ -1,11 +1,11 @@
-package me.nemiron.khinkalyator.features.restaraunts.overview.ui
+package me.nemiron.khinkalyator.features.restaraunts.restaurant_overview.ui
 
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import me.nemiron.khinkalyator.features.restaraunts.menu.ui.MenuDetailsComponent
+import me.nemiron.khinkalyator.features.dishes.restaurant_dishes.ui.RestaurantDishesComponent
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.ui.RestaurantDetailsComponent
+import me.nemiron.khinkalyator.features.restaraunts.details.ui.RestaurantDetailsComponent
 
 interface RestaurantOverviewComponent {
 
@@ -22,7 +22,7 @@ interface RestaurantOverviewComponent {
 
     sealed interface Child {
         class RestaurantDetails(val component: RestaurantDetailsComponent) : Child
-        class MenuDetails(val component: MenuDetailsComponent) : Child
+        class RestaurantDishes(val component: RestaurantDishesComponent) : Child
     }
 
     sealed interface Output {

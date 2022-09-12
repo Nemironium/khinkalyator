@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.overview.ui
+package me.nemiron.khinkalyator.features.restaraunts.restaurant_overview.ui
 
 import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.ComponentContext
@@ -16,16 +16,16 @@ import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.core.utils.log
 import me.nemiron.khinkalyator.core.utils.toComposeState
 import me.nemiron.khinkalyator.features.phone.domain.Phone
-import me.nemiron.khinkalyator.features.restaraunts.createMenuDetailsComponent
+import me.nemiron.khinkalyator.features.dishes.createRestaurantDishesComponent
 import me.nemiron.khinkalyator.features.restaraunts.createRestaurantDetailsComponent
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Dish
-import me.nemiron.khinkalyator.features.restaraunts.menu.ui.MenuDetailsComponent
+import me.nemiron.khinkalyator.features.dishes.domain.Dish
+import me.nemiron.khinkalyator.features.dishes.restaurant_dishes.ui.RestaurantDishesComponent
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.AddRestaurantUseCase
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Address
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.DeleteRestaurantByIdUseCase
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.GetRestaurantByIdUseCase
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.UpdateRestaurantUseCase
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.ui.RestaurantDetailsComponent
+import me.nemiron.khinkalyator.features.restaraunts.details.ui.RestaurantDetailsComponent
 
 class RealRestaurantOverviewComponent(
     componentContext: ComponentContext,
@@ -38,7 +38,7 @@ class RealRestaurantOverviewComponent(
     private val deleteRestaurantById: DeleteRestaurantByIdUseCase
 ) : RestaurantOverviewComponent, ComponentContext by componentContext {
 
-    private val commonState = State()
+    private val commonRestaurantState = RestaurantState()
 
     private val navigation = StackNavigation<ChildConfiguration>()
 
@@ -68,16 +68,16 @@ class RealRestaurantOverviewComponent(
                 componentFactory.createRestaurantDetailsComponent(
                     componentContext = componentContext,
                     configuration = config.restaurantConfiguration,
-                    state = commonState,
+                    state = commonRestaurantState,
                     onOutput = ::onRestaurantDetailsOutput
                 )
             )
-            is ChildConfiguration.MenuDetails -> RestaurantOverviewComponent.Child.MenuDetails(
-                componentFactory.createMenuDetailsComponent(
+            is ChildConfiguration.RestaurantDishes -> RestaurantOverviewComponent.Child.RestaurantDishes(
+                componentFactory.createRestaurantDishesComponent(
                     componentContext = componentContext,
-                    configuration = config.menuConfiguration,
-                    state = commonState,
-                    onOutput = ::onMenuDetailsOutput
+                    configuration = config.dishesConfiguration,
+                    state = commonRestaurantState,
+                    onOutput = ::onRestaurantDishesOutput
                 )
             )
         }
@@ -86,15 +86,15 @@ class RealRestaurantOverviewComponent(
         return when (output) {
             is RestaurantDetailsComponent.Output.DishRequested -> {
                 navigation.push(
-                    ChildConfiguration.MenuDetails(
-                        MenuDetailsComponent.Configuration.EditDish(output.dishId)
+                    ChildConfiguration.RestaurantDishes(
+                        RestaurantDishesComponent.Configuration.EditDish(output.dishId)
                     )
                 )
             }
             is RestaurantDetailsComponent.Output.NewDishRequested -> {
                 navigation.push(
-                    ChildConfiguration.MenuDetails(
-                        MenuDetailsComponent.Configuration.AddDish
+                    ChildConfiguration.RestaurantDishes(
+                        RestaurantDishesComponent.Configuration.AddDish
                     )
                 )
             }
@@ -104,17 +104,17 @@ class RealRestaurantOverviewComponent(
             is RestaurantDetailsComponent.Output.RestaurantSaveRequested -> {
                 createOrUpdateRestaurant(
                     configuration = configuration,
-                    name = commonState.name,
-                    address = commonState.address,
-                    phone = commonState.phone,
-                    dishes = commonState.dishes
+                    name = commonRestaurantState.name,
+                    address = commonRestaurantState.address,
+                    phone = commonRestaurantState.phone,
+                    dishes = commonRestaurantState.dishes
                 )
             }
         }
     }
 
-    private fun onMenuDetailsOutput(output: MenuDetailsComponent.Output) = when (output) {
-        MenuDetailsComponent.Output.MenuCloseRequested -> navigation.pop()
+    private fun onRestaurantDishesOutput(output: RestaurantDishesComponent.Output) = when (output) {
+        RestaurantDishesComponent.Output.DishesCloseRequested -> navigation.pop()
     }
 
     private fun loadRestaurant() {
@@ -123,10 +123,10 @@ class RealRestaurantOverviewComponent(
                 coroutineScope.launch {
                     val data = getRestaurantById(configuration.restaurantId)
                     data?.let { restaurant ->
-                        commonState.setName(restaurant.name)
-                        restaurant.phone?.let(commonState::setPhone)
-                        restaurant.address?.let(commonState::setAddress)
-                        commonState.setDishes(restaurant.menu)
+                        commonRestaurantState.setName(restaurant.name)
+                        restaurant.phone?.let(commonRestaurantState::setPhone)
+                        restaurant.address?.let(commonRestaurantState::setAddress)
+                        commonRestaurantState.setDishes(restaurant.dishes)
                     }
                 }
             }
@@ -192,8 +192,8 @@ class RealRestaurantOverviewComponent(
         ) : ChildConfiguration
 
         @Parcelize
-        class MenuDetails(
-            val menuConfiguration: MenuDetailsComponent.Configuration
+        class RestaurantDishes(
+            val dishesConfiguration: RestaurantDishesComponent.Configuration
         ) : ChildConfiguration
     }
 }

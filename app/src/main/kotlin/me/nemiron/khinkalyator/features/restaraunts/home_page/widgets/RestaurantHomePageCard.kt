@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.page.widgets
+package me.nemiron.khinkalyator.features.restaraunts.home_page.widgets
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -26,11 +26,11 @@ import me.nemiron.khinkalyator.core.theme.additionalColors
 import me.nemiron.khinkalyator.core.theme.appTypography
 import me.nemiron.khinkalyator.core.utils.resolve
 import me.nemiron.khinkalyator.core.widgets.IconWithBackground
-import me.nemiron.khinkalyator.features.restaraunts.page.ui.RestaurantFullViewData
+import me.nemiron.khinkalyator.features.restaraunts.home_page.ui.RestaurantHomePageViewData
 
 @Composable
-fun RestaurantCard(
-    data: RestaurantFullViewData,
+fun RestaurantHomePageCard(
+    data: RestaurantHomePageViewData,
     onCardClick: () -> Unit,
     onCallClick: () -> Unit,
     onShareClick: () -> Unit,
@@ -107,13 +107,13 @@ private fun IconActions(
 
 @Preview(showSystemUi = true)
 @Composable
-private fun RestaurantCardPreview() {
+private fun RestaurantHomePageCardPreview() {
     KhinkalyatorTheme {
         Box(
             modifier = Modifier.padding(16.dp)
         ) {
-            RestaurantCard(
-                data = RestaurantFullViewData(
+            RestaurantHomePageCard(
+                data = RestaurantHomePageViewData(
                     id = 1L,
                     title = LocalizedString.raw("Каха"),
                     subtitle = LocalizedString.raw("Рубинштейна, 24"),

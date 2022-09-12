@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.overview.ui
+package me.nemiron.khinkalyator.features.restaraunts.restaurant_overview.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,9 +9,9 @@ import com.arkivanov.decompose.extensions.compose.jetpack.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.jetpack.stack.animation.stackAnimation
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.utils.createFakeChildStack
-import me.nemiron.khinkalyator.features.restaraunts.menu.ui.MenuDetailsUi
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.ui.PreviewRestaurantDetailsComponent
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.ui.RestaurantDetailsUi
+import me.nemiron.khinkalyator.features.dishes.restaurant_dishes.ui.RestaurantDishesUi
+import me.nemiron.khinkalyator.features.restaraunts.details.ui.PreviewRestaurantDetailsComponent
+import me.nemiron.khinkalyator.features.restaraunts.details.ui.RestaurantDetailsUi
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
@@ -20,12 +20,12 @@ fun RestaurantOverviewUi(
     modifier: Modifier = Modifier
 ) {
     Children(
+        modifier = modifier,
         stack = component.childStackState,
-        animation = stackAnimation(fade()),
-        modifier = modifier
+        animation = stackAnimation(fade())
     ) { child ->
         when (val instance = child.instance) {
-            is RestaurantOverviewComponent.Child.MenuDetails -> MenuDetailsUi(instance.component)
+            is RestaurantOverviewComponent.Child.RestaurantDishes -> RestaurantDishesUi(instance.component)
             is RestaurantOverviewComponent.Child.RestaurantDetails -> RestaurantDetailsUi(instance.component)
         }
     }
@@ -34,7 +34,7 @@ fun RestaurantOverviewUi(
 
 @Preview(showSystemUi = true)
 @Composable
-private fun RestaurantOverviewUiPreview() {
+private fun RestaurantOverviewPreview() {
     KhinkalyatorTheme {
         RestaurantOverviewUi(PreviewRestaurantOverviewComponent())
     }

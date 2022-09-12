@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.restaurant.ui
+package me.nemiron.khinkalyator.features.restaraunts.details.ui
 
 import android.util.Patterns
 import androidx.compose.foundation.text.KeyboardOptions
@@ -24,8 +24,8 @@ import me.nemiron.khinkalyator.core.utils.TextTransformations
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.core.widgets.OverflowMenuData
 import me.nemiron.khinkalyator.features.phone.domain.Phone
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
-import me.nemiron.khinkalyator.features.restaraunts.menu.ui.DishViewData
+import me.nemiron.khinkalyator.features.dishes.domain.DishId
+import me.nemiron.khinkalyator.features.dishes.ui.DishViewData
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Address
 
 class RealRestaurantDetailsComponent(

@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.restaurant.ui
+package me.nemiron.khinkalyator.features.restaraunts.details.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -40,8 +40,8 @@ import me.nemiron.khinkalyator.core.widgets.KhContainedButton
 import me.nemiron.khinkalyator.core.widgets.KhOutlinedTextField
 import me.nemiron.khinkalyator.core.widgets.KhToolbar
 import me.nemiron.khinkalyator.core.widgets.OverflowMenu
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
-import me.nemiron.khinkalyator.features.restaraunts.menu.ui.DishViewData
+import me.nemiron.khinkalyator.features.dishes.domain.DishId
+import me.nemiron.khinkalyator.features.dishes.ui.DishViewData
 
 // FIXME: Screen doesn't properly adapt Composables sizes after screenSize config changes
 @Composable
@@ -89,7 +89,7 @@ fun RestaurantDetailsUi(
                 DishesContent(
                     dishes = component.dishesViewData,
                     fabButtonPadding = 120.dp,
-                    onAddMenuClick = component::onDishAddClick,
+                    onDishAddClick = component::onDishAddClick,
                     onDishClick = component::onDishClick
                 )
             }
@@ -141,12 +141,12 @@ private fun RestaurantTextFields(
 private fun ColumnScope.DishesContent(
     dishes: List<DishViewData>,
     fabButtonPadding: Dp,
-    onAddMenuClick: () -> Unit,
+    onDishAddClick: () -> Unit,
     onDishClick: (id: DishId) -> Unit
 ) {
     Text(
         modifier = Modifier.align(Alignment.Start),
-        text = stringResource(R.string.restaurant_details_menu_title),
+        text = stringResource(R.string.restaurant_details_dishes_title),
         style = MaterialTheme.appTypography.head3
     )
     Spacer(Modifier.height(16.dp))
@@ -165,11 +165,11 @@ private fun ColumnScope.DishesContent(
         KhChip(
             modifier = addDishButtonModifier,
             painter = painterResource(R.drawable.ic_plus_32),
-            onClick = onAddMenuClick
+            onClick = onDishAddClick
         )
         dishes.forEach { dish ->
             KhChip(
-                text = dish.name.resolve(),
+                text = dish.title.resolve(),
                 onClick = { onDishClick(dish.id) }
             )
         }
@@ -179,7 +179,7 @@ private fun ColumnScope.DishesContent(
 
 @Preview(showBackground = true)
 @Composable
-private fun RestaurantUiPreview() {
+private fun RestaurantPreview() {
     KhinkalyatorTheme {
         RestaurantDetailsUi(PreviewRestaurantDetailsComponent())
     }
