@@ -1,49 +1,36 @@
 package me.nemiron.khinkalyator.features.home.ui
 
-import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
-import androidx.compose.material.TabRowDefaults
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.ui.Scaffold
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
-import me.nemiron.khinkalyator.core.theme.additionalColors
-import me.nemiron.khinkalyator.core.theme.appTypography
 import me.nemiron.khinkalyator.core.utils.statusBar
+import me.nemiron.khinkalyator.core.widgets.KhTabRow
+import me.nemiron.khinkalyator.core.widgets.TabRowPage
 import me.nemiron.khinkalyator.core.widgets.sheet.ModalBottomSheet
-import me.nemiron.khinkalyator.features.meets.page.ui.MeetsPageUi
-import me.nemiron.khinkalyator.features.meets.page.ui.PreviewMeetsPageComponent
-import me.nemiron.khinkalyator.features.people.page.ui.PeoplePageUi
-import me.nemiron.khinkalyator.features.people.page.ui.PreviewPeoplePageComponent
+import me.nemiron.khinkalyator.features.meets.home_page.ui.MeetsPageUi
+import me.nemiron.khinkalyator.features.meets.home_page.ui.PreviewMeetsPageComponent
+import me.nemiron.khinkalyator.features.people.home_page.ui.PeoplePageUi
+import me.nemiron.khinkalyator.features.people.home_page.ui.PreviewPeoplePageComponent
 import me.nemiron.khinkalyator.features.people.person.ui.PersonUi
 import me.nemiron.khinkalyator.features.people.person.ui.PreviewPersonComponent
-import me.nemiron.khinkalyator.features.restaraunts.page.ui.PreviewRestaurantsPageComponent
-import me.nemiron.khinkalyator.features.restaraunts.page.ui.RestaurantsPageUi
+import me.nemiron.khinkalyator.features.restaraunts.home_page.ui.PreviewRestaurantsPageComponent
+import me.nemiron.khinkalyator.features.restaraunts.home_page.ui.RestaurantsPageUi
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalComposeUiApi::class)
 @Composable
@@ -52,7 +39,7 @@ fun HomeUi(
     modifier: Modifier = Modifier
 ) {
     val pagerState = rememberPagerState()
-    val pages = remember { HomeComponent.Page.values().asList() }
+    val pages = remember { Page.values().asList() }
 
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -65,7 +52,7 @@ fun HomeUi(
     Scaffold(
         modifier = modifier.statusBar(MaterialTheme.colors.primary),
         topBar = {
-            PagerTabRow(pagerState, pages)
+            KhTabRow(pagerState, pages)
         },
         content = { contentPadding ->
             HorizontalPager(
@@ -74,17 +61,16 @@ fun HomeUi(
                 state = pagerState
             ) { page ->
                 when (pages[page]) {
-                    HomeComponent.Page.Meets -> MeetsPageUi(component.meetsPageComponent)
-                    HomeComponent.Page.Restaurants -> RestaurantsPageUi(component.restaurantsPageComponent)
-                    HomeComponent.Page.People -> PeoplePageUi(component.peoplePageComponent)
+                    Page.Meets -> MeetsPageUi(component.meetsPageComponent)
+                    Page.Restaurants -> RestaurantsPageUi(component.restaurantsPageComponent)
+                    Page.People -> PeoplePageUi(component.peoplePageComponent)
                 }
             }
         }
     )
 
     ModalBottomSheet(
-        modifier = modifier
-            .imePadding(),
+        modifier = modifier.imePadding(),
         data = component.personComponent,
         onDismiss = component::onPersonDismissed
     ) {
@@ -92,70 +78,21 @@ fun HomeUi(
     }
 }
 
-@OptIn(ExperimentalPagerApi::class)
-@Composable
-private fun PagerTabRow(
-    state: PagerState,
-    pages: List<HomeComponent.Page>,
-    indicatorHeight: Dp = 5.dp
-) {
-    val coroutineScope = rememberCoroutineScope()
-
-    TabRow(
-        modifier = Modifier.height(56.dp),
-        selectedTabIndex = state.currentPage,
-        indicator = { tabPositions ->
-            TabRowDefaults.Indicator(
-                modifier = Modifier.pagerTabIndicatorOffset(state, tabPositions),
-                height = indicatorHeight
-            )
-        }
-    ) {
-        pages.forEachIndexed { index, page ->
-            PageTab(
-                tabRes = page.stringRes,
-                isSelected = state.currentPage == index,
-                onClick = {
-                    coroutineScope.launch {
-                        state.animateScrollToPage(index)
-                    }
-                }
-            )
-        }
+private enum class Page : TabRowPage {
+    Meets {
+        override val stringRes = R.string.home_meets_tab
+    },
+    Restaurants {
+        override val stringRes = R.string.home_restaurants_tab
+    },
+    People {
+        override val stringRes = R.string.home_people_tab
     }
 }
-
-@Composable
-private fun PageTab(
-    @StringRes tabRes: Int,
-    isSelected: Boolean,
-    onClick: () -> Unit
-) {
-    Tab(
-        text = {
-            Text(
-                text = stringResource(tabRes),
-                style = MaterialTheme.appTypography.head3
-            )
-        },
-        selected = isSelected,
-        onClick = onClick,
-        selectedContentColor = MaterialTheme.colors.onPrimary,
-        unselectedContentColor = MaterialTheme.additionalColors.secondaryOnPrimary
-    )
-}
-
-@get:StringRes
-private val HomeComponent.Page.stringRes: Int
-    get() = when (this) {
-        HomeComponent.Page.Meets -> R.string.home_meets_tab
-        HomeComponent.Page.Restaurants -> R.string.home_restaurants_tab
-        HomeComponent.Page.People -> R.string.home_people_tab
-    }
 
 @Preview(showBackground = true)
 @Composable
-private fun HomeUiPreview() {
+private fun HomePreview() {
     KhinkalyatorTheme {
         HomeUi(PreviewHomeComponent())
     }
