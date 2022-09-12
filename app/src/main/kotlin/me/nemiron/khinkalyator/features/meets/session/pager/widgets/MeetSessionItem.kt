@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.meet_session_pager.widgets
+package me.nemiron.khinkalyator.features.meets.session.pager.widgets
 
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.layout.Arrangement
@@ -39,10 +39,10 @@ import me.nemiron.khinkalyator.features.initials.widgets.BigInitialsWithBackgrou
 import me.nemiron.khinkalyator.features.initials.widgets.InitialsBlock
 import me.nemiron.khinkalyator.features.people.domain.PersonId
 import me.nemiron.khinkalyator.features.dishes.domain.DishId
-import me.nemiron.khinkalyator.features.meets.meet_session_pager.ui.MeetDishViewData
-import me.nemiron.khinkalyator.features.meets.meet_session_pager.ui.MeetSessionDishViewData
+import me.nemiron.khinkalyator.features.meets.session.pager.ui.MeetDishViewData
+import me.nemiron.khinkalyator.features.meets.session.pager.ui.MeetSessionDishViewData
 import me.nemiron.khinkalyator.features.people.ui.PersonViewData
-import me.nemiron.khinkalyator.features.meets.meet_session_pager.ui.MeetSessionPersonViewData
+import me.nemiron.khinkalyator.features.meets.session.pager.ui.MeetSessionPersonViewData
 
 @Composable
 fun MeetSessionItem(

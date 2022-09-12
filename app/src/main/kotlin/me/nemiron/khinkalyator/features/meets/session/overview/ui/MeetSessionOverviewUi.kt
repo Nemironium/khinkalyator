@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.meet_session_overview.ui
+package me.nemiron.khinkalyator.features.meets.session.overview.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,9 +9,9 @@ import com.arkivanov.decompose.extensions.compose.jetpack.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.jetpack.stack.animation.stackAnimation
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.utils.createFakeChildStack
-import me.nemiron.khinkalyator.features.meets.meet_session_details.ui.MeetSessionDetailsUi
-import me.nemiron.khinkalyator.features.meets.meet_session_pager.ui.MeetSessionPagerUi
-import me.nemiron.khinkalyator.features.meets.meet_session_pager.ui.PreviewMeetSessionPagerComponent
+import me.nemiron.khinkalyator.features.meets.session.details.ui.MeetSessionDetailsUi
+import me.nemiron.khinkalyator.features.meets.session.pager.ui.MeetSessionPagerUi
+import me.nemiron.khinkalyator.features.meets.session.pager.ui.PreviewMeetSessionPagerComponent
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable

@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.meet_session_pager.ui
+package me.nemiron.khinkalyator.features.meets.session.pager.ui
 
 import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R

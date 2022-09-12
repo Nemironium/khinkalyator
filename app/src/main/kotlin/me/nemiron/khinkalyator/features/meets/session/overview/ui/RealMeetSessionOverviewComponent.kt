@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.meet_session_overview.ui
+package me.nemiron.khinkalyator.features.meets.session.overview.ui
 
 import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.ComponentContext
@@ -17,9 +17,9 @@ import me.nemiron.khinkalyator.features.meets.createMeetSessionCheckComponent
 import me.nemiron.khinkalyator.features.meets.createMeetSessionDetailsComponent
 import me.nemiron.khinkalyator.features.meets.createMeetSessionPagerComponent
 import me.nemiron.khinkalyator.features.meets.domain.MeetId
-import me.nemiron.khinkalyator.features.meets.meet_session_check.ui.MeetSessionCheckComponent
-import me.nemiron.khinkalyator.features.meets.meet_session_details.ui.MeetSessionDetailsComponent
-import me.nemiron.khinkalyator.features.meets.meet_session_pager.ui.MeetSessionPagerComponent
+import me.nemiron.khinkalyator.features.meets.session.check.ui.MeetSessionCheckComponent
+import me.nemiron.khinkalyator.features.meets.session.details.ui.MeetSessionDetailsComponent
+import me.nemiron.khinkalyator.features.meets.session.pager.ui.MeetSessionPagerComponent
 
 class RealMeetSessionOverviewComponent(
     componentContext: ComponentContext,

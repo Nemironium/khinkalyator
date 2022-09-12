@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.meet_session_check.ui
+package me.nemiron.khinkalyator.features.meets.session.check.ui
 
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize

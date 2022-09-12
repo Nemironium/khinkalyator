@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.meet_session_pager.ui
+package me.nemiron.khinkalyator.features.meets.session.pager.ui
 
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -11,7 +11,7 @@ import me.nemiron.khinkalyator.core.widgets.OverflowMenuData
 import me.nemiron.khinkalyator.features.dishes.domain.DishId
 import me.nemiron.khinkalyator.features.dishes.ui.formatted
 import me.nemiron.khinkalyator.features.meets.domain.MeetId
-import me.nemiron.khinkalyator.features.meets.domain.ObserveMeetSessionUseCase
+import me.nemiron.khinkalyator.features.meets.session.domain.ObserveMeetSessionUseCase
 import me.nemiron.khinkalyator.features.people.domain.PersonId
 
 class RealMeetSessionPagerComponent(

@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.meet_session_check.ui
+package me.nemiron.khinkalyator.features.meets.session.check.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

@@ -3,7 +3,7 @@ package me.nemiron.khinkalyator.root.ui
 import com.arkivanov.decompose.router.stack.ChildStack
 import me.nemiron.khinkalyator.features.home.ui.HomeComponent
 import me.nemiron.khinkalyator.features.meets.create.ui.CreateMeetComponent
-import me.nemiron.khinkalyator.features.meets.meet_session_overview.ui.MeetSessionOverviewComponent
+import me.nemiron.khinkalyator.features.meets.session.overview.ui.MeetSessionOverviewComponent
 import me.nemiron.khinkalyator.features.restaraunts.restaurant_overview.ui.RestaurantOverviewComponent
 
 interface RootComponent {

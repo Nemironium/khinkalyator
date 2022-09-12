@@ -19,7 +19,7 @@ import me.nemiron.khinkalyator.core.utils.createFakeChildStack
 import me.nemiron.khinkalyator.features.home.ui.HomeUi
 import me.nemiron.khinkalyator.features.home.ui.PreviewHomeComponent
 import me.nemiron.khinkalyator.features.meets.create.ui.CreateMeetUi
-import me.nemiron.khinkalyator.features.meets.meet_session_overview.ui.MeetSessionOverviewUi
+import me.nemiron.khinkalyator.features.meets.session.overview.ui.MeetSessionOverviewUi
 import me.nemiron.khinkalyator.features.restaraunts.restaurant_overview.ui.RestaurantOverviewUi
 
 @OptIn(ExperimentalDecomposeApi::class)

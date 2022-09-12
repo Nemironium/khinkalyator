@@ -4,6 +4,9 @@ import me.nemiron.khinkalyator.features.people.domain.Person
 import me.nemiron.khinkalyator.features.dishes.domain.Dish
 import me.nemiron.khinkalyator.features.dishes.domain.Price
 import me.nemiron.khinkalyator.features.dishes.domain.toPrice
+import me.nemiron.khinkalyator.features.meets.domain.Meet
+import me.nemiron.khinkalyator.features.meets.domain.MeetDish
+import me.nemiron.khinkalyator.features.meets.domain.MeetId
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Restaurant
 
 data class MeetSession(

@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.meet_session_pager.ui
+package me.nemiron.khinkalyator.features.meets.session.pager.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -37,7 +37,7 @@ import me.nemiron.khinkalyator.core.widgets.TabRowPage
 import me.nemiron.khinkalyator.features.dishes.domain.DishId
 import me.nemiron.khinkalyator.features.dishes.ui.formatted
 import me.nemiron.khinkalyator.features.meets.domain.MeetSession
-import me.nemiron.khinkalyator.features.meets.meet_session_pager.widgets.MeetSessionItem
+import me.nemiron.khinkalyator.features.meets.session.pager.widgets.MeetSessionItem
 import me.nemiron.khinkalyator.features.people.domain.PersonId
 
 @OptIn(ExperimentalPagerApi::class)
