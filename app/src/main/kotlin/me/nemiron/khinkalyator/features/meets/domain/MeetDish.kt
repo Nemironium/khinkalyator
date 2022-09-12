@@ -1,7 +1,7 @@
-package me.nemiron.khinkalyator.features.meets.meet.domain
+package me.nemiron.khinkalyator.features.meets.domain
 
 import me.nemiron.khinkalyator.features.people.domain.Person
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Dish
+import me.nemiron.khinkalyator.features.dishes.domain.Dish
 
 data class MeetDish(
     val dish: Dish,
@@ -12,6 +12,6 @@ data class MeetDish(
 
         data class Individual(override val count: Int) : DishQuantity
 
-        data class Shared(override val count: Int, val persons: List<Person>) : DishQuantity
+        data class Shared(override val count: Int, val people: List<Person>) : DishQuantity
     }
 }

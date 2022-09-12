@@ -1,15 +1,17 @@
-package me.nemiron.khinkalyator.features.meets.meet.ui
+package me.nemiron.khinkalyator.features.meets.meet_session_pager.ui
 
 import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.features.initials.ui.InitialsViewData
 import me.nemiron.khinkalyator.features.initials.ui.toInitialsViewData
-import me.nemiron.khinkalyator.features.meets.meet.domain.MeetDish
-import me.nemiron.khinkalyator.features.meets.meet.domain.MeetSession
+import me.nemiron.khinkalyator.features.meets.domain.MeetDish
+import me.nemiron.khinkalyator.features.meets.domain.MeetSession
 import me.nemiron.khinkalyator.features.people.domain.PersonId
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Price
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.toPrice
-import java.text.DecimalFormat
+import me.nemiron.khinkalyator.features.dishes.domain.toPrice
+import me.nemiron.khinkalyator.features.dishes.ui.formatted
+import me.nemiron.khinkalyator.features.meets.domain.onlyNotEmptyOrders
+import me.nemiron.khinkalyator.features.meets.domain.sum
+import me.nemiron.khinkalyator.features.people.domain.Person
 
 data class MeetSessionPersonViewData(
     val personId: PersonId,
@@ -20,15 +22,26 @@ data class MeetSessionPersonViewData(
 )
 
 fun MeetSession.toMeetSessionPersonViewData(personId: PersonId): MeetSessionPersonViewData {
-    val person = persons.first { it.id == personId }
-    val meetDishes = orders[person].orEmpty()
+    val person = people.first { it.id == personId }
+    return toMeetSessionPersonViewData(person)
+}
+
+fun MeetSession.toMeetSessionPeopleViewData(): List<MeetSessionPersonViewData> {
+    return people.map(::toMeetSessionPersonViewData)
+}
+
+fun MeetSession.toMeetSessionPersonViewData(person: Person): MeetSessionPersonViewData {
+    val meetDishes = orders[person]
+        .orEmpty()
+        .onlyNotEmptyOrders()
+
     val sumFormatted = meetDishes
-        .sumOf { it.dish.price.value * it.quantity.count }
+        .sum()
         .toPrice()
         .formatted()
 
     return MeetSessionPersonViewData(
-        personId = personId,
+        personId = person.id,
         initials = person.toInitialsViewData(),
         name = LocalizedString.raw(person.name),
         overallSum = LocalizedString.resource(
@@ -38,13 +51,4 @@ fun MeetSession.toMeetSessionPersonViewData(personId: PersonId): MeetSessionPers
         ),
         dishes = meetDishes.map(MeetDish::toMeetDishViewData)
     )
-}
-
-private const val PricePattern = "###,###.##"
-
-// FIXME: move to another package
-fun Price.formatted(): String {
-    return DecimalFormat(PricePattern)
-        .format(value)
-        .replace(",", ", ")
 }

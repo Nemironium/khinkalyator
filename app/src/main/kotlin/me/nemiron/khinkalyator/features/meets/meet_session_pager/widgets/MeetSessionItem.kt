@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.meet.widgets
+package me.nemiron.khinkalyator.features.meets.meet_session_pager.widgets
 
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.layout.Arrangement
@@ -37,12 +37,12 @@ import me.nemiron.khinkalyator.features.emoji.domain.Emoji
 import me.nemiron.khinkalyator.features.initials.ui.InitialsViewData
 import me.nemiron.khinkalyator.features.initials.widgets.BigInitialsWithBackground
 import me.nemiron.khinkalyator.features.initials.widgets.InitialsBlock
-import me.nemiron.khinkalyator.features.meets.meet.ui.MeetDishViewData
-import me.nemiron.khinkalyator.features.meets.meet.ui.MeetPersonViewData
-import me.nemiron.khinkalyator.features.meets.meet.ui.MeetSessionDishViewData
-import me.nemiron.khinkalyator.features.meets.meet.ui.MeetSessionPersonViewData
 import me.nemiron.khinkalyator.features.people.domain.PersonId
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.DishId
+import me.nemiron.khinkalyator.features.dishes.domain.DishId
+import me.nemiron.khinkalyator.features.meets.meet_session_pager.ui.MeetDishViewData
+import me.nemiron.khinkalyator.features.meets.meet_session_pager.ui.MeetSessionDishViewData
+import me.nemiron.khinkalyator.features.people.ui.PersonViewData
+import me.nemiron.khinkalyator.features.meets.meet_session_pager.ui.MeetSessionPersonViewData
 
 @Composable
 fun MeetSessionItem(
@@ -72,7 +72,7 @@ fun MeetSessionItem(
 fun MeetSessionItem(
     data: MeetSessionDishViewData,
     onAddDishClick: (dishId: DishId) -> Unit,
-    onPersonClick: (dishId: DishId, personId: PersonId) -> Unit,
+    onPersonClick: (dishId: DishId) -> Unit,
     modifier: Modifier = Modifier
 ) {
     MeetSessionItemImpl(
@@ -90,10 +90,10 @@ fun MeetSessionItem(
             )
         },
         items = {
-            PersonsForDish(
-                persons = data.persons,
+            PeopleForDish(
+                people = data.people,
                 onAddDishClick = { onAddDishClick(data.dishId) },
-                onPersonClick = { dishId -> onPersonClick(data.dishId, dishId) }
+                onPersonClick = { onPersonClick(data.dishId) }
             )
         }
     )
@@ -136,12 +136,12 @@ private fun ColumnScope.DishesForPerson(
 }
 
 @Composable
-private fun ColumnScope.PersonsForDish(
-    persons: List<MeetPersonViewData>,
+private fun ColumnScope.PeopleForDish(
+    people: List<PersonViewData>,
     onAddDishClick: () -> Unit,
-    onPersonClick: (personId: PersonId) -> Unit
+    onPersonClick: () -> Unit
 ) {
-    if (persons.isEmpty()) {
+    if (people.isEmpty()) {
         AddButtonBig(onAddDishClick)
     } else {
         LazyRow(
@@ -149,10 +149,10 @@ private fun ColumnScope.PersonsForDish(
             verticalAlignment = Alignment.CenterVertically
         ) {
             item { AddButtonSmall(onAddDishClick) }
-            items(items = persons, key = { it.personId }) { person ->
+            items(items = people, key = { it.personId }) { person ->
                 KhChip(
-                    text = person.name.resolve(),
-                    onClick = { onPersonClick(person.personId) }
+                    text = person.title.resolve(),
+                    onClick = onPersonClick
                 )
             }
         }
@@ -274,9 +274,9 @@ private fun MeetSessionItemPreview() {
                     dishId = 1,
                     name = LocalizedString.raw("Капучино"),
                     price = LocalizedString.raw("200 ₽"),
-                    persons = emptyList()
+                    people = emptyList()
                 ),
-                onPersonClick = { _, _ -> },
+                onPersonClick = { },
                 onAddDishClick = { }
             )
 
@@ -285,13 +285,13 @@ private fun MeetSessionItemPreview() {
                     dishId = 1,
                     name = LocalizedString.raw("Хачапури по-имеритински"),
                     price = LocalizedString.raw("4500 ₽"),
-                    persons = listOf(
-                        MeetPersonViewData(1, LocalizedString.raw("Кауров Евгений")),
-                        MeetPersonViewData(2, LocalizedString.raw("Элина Зайникеева")),
-                        MeetPersonViewData(3, LocalizedString.raw("Корешин Владимир")),
+                    people = listOf(
+                        PersonViewData(1, LocalizedString.raw("Кауров Евгений"), false),
+                        PersonViewData(2, LocalizedString.raw("Элина Зайникеева"), false),
+                        PersonViewData(3, LocalizedString.raw("Корешин Владимир"), false),
                     )
                 ),
-                onPersonClick = { _, _ -> },
+                onPersonClick = { },
                 onAddDishClick = { }
             )
         }

@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.meet.widgets
+package me.nemiron.khinkalyator.features.meets.meet_session_details.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

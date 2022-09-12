@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.meets.meet.domain
+package me.nemiron.khinkalyator.features.meets.domain
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -15,20 +15,20 @@ class CreateMeetUseCase(
 ) {
     suspend operator fun invoke(restaurantId: RestaurantId, personIds: List<PersonId>): MeetId {
         val restaurant = restaurantsStorage.getRestaurant(restaurantId)
-        val persons = personIds.mapNotNull { peopleStorage.getPerson(it) }
+        val people = personIds.mapNotNull { peopleStorage.getPerson(it) }
 
         // TODO: add custom app-specific exception
         return when {
             restaurant == null -> {
                 throw NoSuchElementException()
             }
-            persons.size != personIds.size -> {
+            people.size != personIds.size -> {
                 throw NoSuchElementException()
             }
             else -> {
                 val currentTimeZone = TimeZone.currentSystemDefault()
                 val todayDate = Clock.System.now().toLocalDateTime(currentTimeZone)
-                meetsStorage.createMeet(restaurant, persons, todayDate)
+                meetsStorage.createMeet(restaurant, people, todayDate)
             }
         }
     }

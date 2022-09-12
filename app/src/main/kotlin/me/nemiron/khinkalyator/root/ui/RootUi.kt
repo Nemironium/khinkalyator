@@ -19,8 +19,8 @@ import me.nemiron.khinkalyator.core.utils.createFakeChildStack
 import me.nemiron.khinkalyator.features.home.ui.HomeUi
 import me.nemiron.khinkalyator.features.home.ui.PreviewHomeComponent
 import me.nemiron.khinkalyator.features.meets.create.ui.CreateMeetUi
-import me.nemiron.khinkalyator.features.meets.meet.ui.MeetUi
-import me.nemiron.khinkalyator.features.restaraunts.overview.ui.RestaurantOverviewUi
+import me.nemiron.khinkalyator.features.meets.meet_session_overview.ui.MeetSessionOverviewUi
+import me.nemiron.khinkalyator.features.restaraunts.restaurant_overview.ui.RestaurantOverviewUi
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
@@ -31,9 +31,9 @@ fun RootUi(
     SystemBarColors()
     Children(
         stack = component.childStackState,
-        animation = stackAnimation { child: Child.Created<Any, RootComponent.Child>, otherChild, direction ->
+        animation = stackAnimation { child: Child.Created<Any, RootComponent.Child>, _, _ ->
             when (child.instance) {
-                is RootComponent.Child.Meet, is RootComponent.Child.Restaurant -> slide()
+                is RootComponent.Child.MeetSession, is RootComponent.Child.Restaurant -> slide()
                 is RootComponent.Child.Home, is RootComponent.Child.CreateMeet -> fade()
             }
         },
@@ -42,7 +42,7 @@ fun RootUi(
         when (val child = it.instance) {
             is RootComponent.Child.Home -> HomeUi(child.component)
             is RootComponent.Child.CreateMeet -> CreateMeetUi(child.component)
-            is RootComponent.Child.Meet -> MeetUi(child.component)
+            is RootComponent.Child.MeetSession -> MeetSessionOverviewUi(child.component)
             is RootComponent.Child.Restaurant -> RestaurantOverviewUi(child.component)
         }
     }
@@ -65,7 +65,7 @@ private fun SystemBarColors() {
 
 @Preview(showBackground = true)
 @Composable
-private fun RootUiPreview() {
+private fun RootPreview() {
     KhinkalyatorTheme {
         RootUi(PreviewRootComponent())
     }

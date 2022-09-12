@@ -11,14 +11,13 @@ import me.nemiron.khinkalyator.core.ComponentHolder
 import me.nemiron.khinkalyator.core.componentHolder
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.core.utils.toComposeState
-import me.nemiron.khinkalyator.features.meets.meet.domain.CreateMeetUseCase
+import me.nemiron.khinkalyator.features.meets.domain.CreateMeetUseCase
 import me.nemiron.khinkalyator.features.people.createPersonComponent
 import me.nemiron.khinkalyator.features.people.domain.ObserveActivePeopleUseCase
 import me.nemiron.khinkalyator.features.people.domain.PersonId
 import me.nemiron.khinkalyator.features.people.person.ui.PersonComponent
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.ObserveRestaurantsUseCase
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
-import timber.log.Timber
 
 class RealCreateMeetComponent(
     componentContext: ComponentContext,
@@ -67,7 +66,7 @@ class RealCreateMeetComponent(
         }
     }
 
-    override val personsViewData by derivedStateOf {
+    override val peopleViewData by derivedStateOf {
         peopleState.map { person ->
             val isSelected = selectedPersonIds.contains(person.id)
             person.toPersonSimpleViewData(isSelected)
@@ -77,16 +76,13 @@ class RealCreateMeetComponent(
     override val buttonState by derivedStateOf {
         val selectedPersonIdsCount = selectedPersonIds.size
         val isRestaurantSelected = selectedRestaurantId != null
-        Timber.tag("BUTTON_TAG").d("calculating buttonState: isRestaurant=$isRestaurantSelected idsCount=$selectedPersonIdsCount")
 
-        val temp = when {
+        when {
             isRestaurantSelected && selectedPersonIdsCount == 1 -> KhinkaliButtonState.OneKhinkali
             isRestaurantSelected && selectedPersonIdsCount == 2 -> KhinkaliButtonState.TwoKhinkali
             isRestaurantSelected && selectedPersonIdsCount > 2 -> KhinkaliButtonState.TwoKhinkaliJoy
             else -> KhinkaliButtonState.Invisible
         }
-        Timber.tag("BUTTON_TAG").d("new buttonState=$temp")
-        temp
     }
 
     override fun onPersonDismissed() {
