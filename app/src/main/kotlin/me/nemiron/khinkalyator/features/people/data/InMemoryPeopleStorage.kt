@@ -16,56 +16,7 @@ import kotlin.random.Random
 
 class InMemoryPeopleStorage : PeopleStorage {
 
-    private val mockedPeople = listOf(
-        Person(
-            id = Random.nextLong(),
-            name = "Ритуза",
-            phone = null,
-            emoji = Emoji("🐵")
-        ),
-        Person(
-            id = Random.nextLong(),
-            name = "Элина Зайникеева",
-            phone = null,
-            emoji = Emoji("🐰")
-        ),
-        Person(
-            id = Random.nextLong(),
-            name = "Павел Александров",
-            phone = Phone("89041930639"),
-            emoji = Emoji("🐙")
-        ),
-        Person(
-            id = Random.nextLong(),
-            name = "Жека Кауров",
-            phone = null,
-            emoji = Emoji("🐨")
-        ),
-        Person(
-            id = Random.nextLong(),
-            name = "Томочка Тараненко",
-            phone = null,
-            emoji = Emoji("🦄")
-        ),
-        Person(
-            id = Random.nextLong(),
-            name = "Тёма Шанин",
-            phone = null,
-            emoji = Emoji("🐼")
-        ),
-        Person(
-            id = Random.nextLong(),
-            name = "Макс Цекин",
-            phone = null,
-            emoji = Emoji("🐮")
-        ),
-        Person(
-            id = Random.nextLong(),
-            name = "Настя Станкова",
-            phone = null,
-            emoji = Emoji("🐱")
-        )
-    ).associateBy { it.id }
+    private val mockedPeople = Person.MOCKS.associateBy(Person::id)
 
     private val stateFlow = MutableStateFlow(mockedPeople)
 
@@ -119,9 +70,7 @@ class InMemoryPeopleStorage : PeopleStorage {
     override suspend fun getPerson(id: PersonId): Person? {
         return stateFlow
             .asStateFlow()
-            .map { peopleMap ->
-                peopleMap[id]
-            }
+            .map { peopleMap -> peopleMap[id] }
             .first()
     }
 }

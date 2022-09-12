@@ -1,7 +1,7 @@
 package me.nemiron.khinkalyator.features.restaraunts.restaurant.domain
 
 import kotlinx.coroutines.flow.Flow
-import me.nemiron.khinkalyator.features.restaraunts.menu.domain.Dish
+import me.nemiron.khinkalyator.features.dishes.domain.Dish
 import me.nemiron.khinkalyator.features.phone.domain.Phone
 
 interface RestaurantsStorage {
