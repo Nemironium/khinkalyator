@@ -19,12 +19,12 @@ class RealMeetSessionPagerComponent(
     meetId: MeetId,
     override val initialPage: MeetSessionPagerComponent.Page,
     private val onOutput: (MeetSessionPagerComponent.Output) -> Unit,
-    observeMeetSessionUseCase: ObserveMeetSessionUseCase
+    observeMeetSession: ObserveMeetSessionUseCase
 ) : MeetSessionPagerComponent, ComponentContext by componentContext {
 
     private val coroutineScope = componentCoroutineScope()
 
-    private val meetSessionState by observeMeetSessionUseCase(meetId).toComposeState(
+    private val meetSessionState by observeMeetSession(meetId).toComposeState(
         initialValue = null,
         coroutineScope = coroutineScope
     )

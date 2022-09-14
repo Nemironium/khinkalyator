@@ -16,6 +16,8 @@ import me.nemiron.khinkalyator.features.meets.session.check.ui.MeetSessionCheckC
 import me.nemiron.khinkalyator.features.meets.session.check.ui.RealMeetSessionCheckComponent
 import me.nemiron.khinkalyator.features.meets.session.details.ui.MeetSessionDetailsComponent
 import me.nemiron.khinkalyator.features.meets.session.details.ui.RealMeetSessionDetailsComponent
+import me.nemiron.khinkalyator.features.meets.session.domain.ArchiveMeetSessionUseCase
+import me.nemiron.khinkalyator.features.meets.session.domain.DeleteMeetSessionUseCase
 import me.nemiron.khinkalyator.features.meets.session.overview.ui.MeetSessionOverviewComponent
 import me.nemiron.khinkalyator.features.meets.session.overview.ui.RealMeetSessionOverviewComponent
 import me.nemiron.khinkalyator.features.meets.session.pager.ui.MeetSessionPagerComponent
@@ -29,6 +31,8 @@ import org.koin.dsl.module
 val meetsModule = module {
     singleOf(::InMemoryMeetsStorage) { bind<MeetsStorage>() }
     factoryOf(::CreateMeetUseCase)
+    factoryOf(::ArchiveMeetSessionUseCase)
+    factoryOf(::DeleteMeetSessionUseCase)
     factoryOf(::ObserveMeetsUseCase)
     factoryOf(::ObserveMeetSessionUseCase)
 }
@@ -67,6 +71,9 @@ fun ComponentFactory.createMeetSessionOverviewComponent(
         componentContext,
         meetId,
         onOutput,
+        get(),
+        get(),
+        get(),
         get()
     )
 }

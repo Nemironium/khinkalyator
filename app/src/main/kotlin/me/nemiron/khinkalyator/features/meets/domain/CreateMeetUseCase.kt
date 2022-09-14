@@ -28,7 +28,7 @@ class CreateMeetUseCase(
             else -> {
                 val currentTimeZone = TimeZone.currentSystemDefault()
                 val todayDate = Clock.System.now().toLocalDateTime(currentTimeZone)
-                meetsStorage.createMeet(restaurant, people, todayDate)
+                meetsStorage.createMeetSession(restaurant, people, todayDate)
             }
         }
     }

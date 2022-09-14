@@ -10,11 +10,13 @@ interface MeetsStorage {
 
     fun observeMeetSession(meetId: MeetId): Flow<MeetSession?>
 
-    suspend fun createMeet(
+    suspend fun createMeetSession(
         restaurant: Restaurant,
         people: List<Person>,
         createDate: LocalDateTime
     ): MeetId
 
     suspend fun getMeet(id: MeetId): Meet?
+
+    suspend fun getMeetSession(id: MeetId): MeetSession?
 }

@@ -42,7 +42,7 @@ class InMemoryMeetsStorage : MeetsStorage {
             }
     }
 
-    override suspend fun createMeet(
+    override suspend fun createMeetSession(
         restaurant: Restaurant,
         people: List<Person>,
         createDate: LocalDateTime
@@ -60,6 +60,15 @@ class InMemoryMeetsStorage : MeetsStorage {
 
     override suspend fun getMeet(id: MeetId): Meet? {
         return meetsStateFlow
+            .asStateFlow()
+            .map { meetsMap ->
+                meetsMap[id]
+            }
+            .first()
+    }
+
+    override suspend fun getMeetSession(id: MeetId): MeetSession? {
+        return sessionsStateFlow
             .asStateFlow()
             .map { meetsMap ->
                 meetsMap[id]

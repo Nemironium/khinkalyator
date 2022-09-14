@@ -1,5 +1,6 @@
 package me.nemiron.khinkalyator.features.meets.session.overview.ui
 
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.parcelable.Parcelable
@@ -8,25 +9,36 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.push
+import kotlinx.coroutines.launch
 import me.nemiron.khinkalyator.core.ComponentFactory
 import me.nemiron.khinkalyator.core.ComponentHolder
 import me.nemiron.khinkalyator.core.componentHolder
+import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.core.utils.log
 import me.nemiron.khinkalyator.core.utils.toComposeState
 import me.nemiron.khinkalyator.features.meets.createMeetSessionCheckComponent
 import me.nemiron.khinkalyator.features.meets.createMeetSessionDetailsComponent
 import me.nemiron.khinkalyator.features.meets.createMeetSessionPagerComponent
 import me.nemiron.khinkalyator.features.meets.domain.MeetId
+import me.nemiron.khinkalyator.features.meets.domain.MeetSession
 import me.nemiron.khinkalyator.features.meets.session.check.ui.MeetSessionCheckComponent
 import me.nemiron.khinkalyator.features.meets.session.details.ui.MeetSessionDetailsComponent
+import me.nemiron.khinkalyator.features.meets.session.domain.ArchiveMeetSessionUseCase
+import me.nemiron.khinkalyator.features.meets.session.domain.DeleteMeetSessionUseCase
+import me.nemiron.khinkalyator.features.meets.session.domain.ObserveMeetSessionUseCase
 import me.nemiron.khinkalyator.features.meets.session.pager.ui.MeetSessionPagerComponent
 
 class RealMeetSessionOverviewComponent(
     componentContext: ComponentContext,
     private val meetId: MeetId,
     private val onOutput: (MeetSessionOverviewComponent.Output) -> Unit,
-    private val componentFactory: ComponentFactory
+    private val componentFactory: ComponentFactory,
+    observeMeetSession: ObserveMeetSessionUseCase,
+    private val deleteMeetSession: DeleteMeetSessionUseCase,
+    private val archiveMeetSession: ArchiveMeetSessionUseCase
 ) : MeetSessionOverviewComponent, ComponentContext by componentContext {
+
+    private val coroutineScope = componentCoroutineScope()
 
     private val navigation = StackNavigation<ChildConfiguration>()
 
@@ -52,6 +64,14 @@ class RealMeetSessionOverviewComponent(
             )
         }
 
+    private val meetSessionState by observeMeetSession(meetId).toComposeState(
+        initialValue = null,
+        coroutineScope = coroutineScope
+    )
+
+    private val sessionType by derivedStateOf {
+        meetSessionState?.type ?: MeetSession.Type.Completed
+    }
 
     override val childStackState: ChildStack<*, MeetSessionOverviewComponent.Child> by stack.toComposeState(
         lifecycle
@@ -85,45 +105,66 @@ class RealMeetSessionOverviewComponent(
             )
         }
 
-    private fun onPagerOutput(output: MeetSessionPagerComponent.Output) =
+    private fun onPagerOutput(output: MeetSessionPagerComponent.Output) {
         when (output) {
             is MeetSessionPagerComponent.Output.CheckRequested -> {
-                // TODO: check status of current meet session and set correct configuration
-                checkComponentHolder.configuration =
-                    MeetSessionCheckComponent.Configuration.ActiveSession(meetId)
+                val configuration = when (sessionType) {
+                    MeetSession.Type.Active -> MeetSessionCheckComponent.Configuration.ActiveSession(
+                        meetId
+                    )
+                    MeetSession.Type.Completed -> MeetSessionCheckComponent.Configuration.ArchivedSession(
+                        meetId
+                    )
+                }
+                checkComponentHolder.configuration = configuration
             }
             is MeetSessionPagerComponent.Output.DeleteRequested -> {
-                // TODO: delete current meet  via UseCase
-                onOutput(MeetSessionOverviewComponent.Output.MeetSessionCloseRequested)
+                coroutineScope.launch {
+                    deleteMeetSession(meetId)
+                    onOutput(MeetSessionOverviewComponent.Output.MeetSessionCloseRequested)
+                }
             }
             is MeetSessionPagerComponent.Output.DishDetailsRequested -> {
-                navigation.push(
-                    ChildConfiguration.Details(
-                        MeetSessionDetailsComponent.Configuration.DishDetails(
-                            meetId = meetId,
-                            dishId = output.dishId
+                if (sessionType == MeetSession.Type.Active) {
+                    navigation.push(
+                        ChildConfiguration.Details(
+                            MeetSessionDetailsComponent.Configuration.DishDetails(
+                                meetId = meetId,
+                                dishId = output.dishId
+                            )
                         )
                     )
-                )
+                } else {
+                    // TODO: show error message like snack
+                }
             }
             is MeetSessionPagerComponent.Output.PersonDetailsRequested -> {
-                navigation.push(
-                    ChildConfiguration.Details(
-                        MeetSessionDetailsComponent.Configuration.PersonDetails(
-                            meetId = meetId,
-                            personId = output.personId,
-                            selectedDishId = output.selectedDishId
+                if (sessionType == MeetSession.Type.Active) {
+                    navigation.push(
+                        ChildConfiguration.Details(
+                            MeetSessionDetailsComponent.Configuration.PersonDetails(
+                                meetId = meetId,
+                                personId = output.personId,
+                                selectedDishId = output.selectedDishId
+                            )
                         )
                     )
-                )
+                } else {
+                    // TODO: show error message like snack
+                }
             }
         }
+    }
 
-    private fun onCheckOutput(output: MeetSessionCheckComponent.Output) = when (output) {
-        MeetSessionCheckComponent.Output.SessionEndRequested -> {
-            checkComponentHolder.configuration = null
-            // TODO: set current meet as archived via UseCase
-            onOutput(MeetSessionOverviewComponent.Output.MeetSessionCloseRequested)
+    private fun onCheckOutput(output: MeetSessionCheckComponent.Output) {
+        when (output) {
+            MeetSessionCheckComponent.Output.SessionEndRequested -> {
+                coroutineScope.launch {
+                    checkComponentHolder.configuration = null
+                    archiveMeetSession(meetId)
+                    onOutput(MeetSessionOverviewComponent.Output.MeetSessionCloseRequested)
+                }
+            }
         }
     }
 
