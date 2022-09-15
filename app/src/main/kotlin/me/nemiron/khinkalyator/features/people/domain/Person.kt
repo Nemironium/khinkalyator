@@ -12,21 +12,12 @@ data class Person(
     val emoji: Emoji,
     val status: Status = Status.Active
 ) {
-    enum class Status(val code: Int) {
-        Deleted(-1),
-        Active(0)
+    enum class Status(val code: Long) {
+        Archived(0),
+        Active(1)
     }
 
-    // TODO: support Person deleting and replacing it with DELETED model
     companion object {
-        private val DELETED = Person(
-            id = -1,
-            name = "",
-            phone = null,
-            emoji = Emoji("☠️"),
-            status = Status.Deleted
-        )
-
         val MOCKS = listOf(
             Person(
                 id = 1,

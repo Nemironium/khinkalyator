@@ -5,15 +5,16 @@ import me.nemiron.khinkalyator.features.emoji.domain.Emoji
 import me.nemiron.khinkalyator.features.phone.domain.Phone
 
 interface PeopleStorage {
-    fun observePeople(): Flow<List<Person>>
+    fun observeActivePeople(): Flow<List<Person>>
 
     suspend fun deletePerson(id: PersonId)
 
     suspend fun addPerson(
         name: String,
         phone: Phone?,
-        emoji: Emoji
-    )
+        emoji: Emoji,
+        status: Person.Status = Person.Status.Active
+    ): PersonId
 
     suspend fun updatePerson(
         id: PersonId,

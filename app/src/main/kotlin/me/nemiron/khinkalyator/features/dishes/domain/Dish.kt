@@ -7,7 +7,8 @@ data class Dish(
     val name: String,
     val price: Price,
     // TODO: for future features
-    val discount: Discount? = null
+    val discount: Discount? = null,
+    val status: Status = Status.Active
 ) {
 
     val isDiscounted: Boolean
@@ -16,6 +17,11 @@ data class Dish(
     sealed interface Discount {
         data class Percent(val value: Int) : Discount
         data class Absolut(val value: Double) : Discount
+    }
+
+    enum class Status(val code: Long) {
+        Archived(0),
+        Active(1)
     }
 
     companion object {

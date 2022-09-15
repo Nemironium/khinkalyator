@@ -16,7 +16,7 @@ import me.nemiron.khinkalyator.features.people.createPersonComponent
 import me.nemiron.khinkalyator.features.people.domain.ObserveActivePeopleUseCase
 import me.nemiron.khinkalyator.features.people.domain.PersonId
 import me.nemiron.khinkalyator.features.people.person.ui.PersonComponent
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.ObserveRestaurantsUseCase
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.ObserveActiveRestaurantsUseCase
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
 
 class RealCreateMeetComponent(
@@ -24,7 +24,7 @@ class RealCreateMeetComponent(
     private val onOutput: (CreateMeetComponent.Output) -> Unit,
     componentFactory: ComponentFactory,
     private val createMeet: CreateMeetUseCase,
-    observeRestaurants: ObserveRestaurantsUseCase,
+    observeActiveRestaurants: ObserveActiveRestaurantsUseCase,
     observeActivePeople: ObserveActivePeopleUseCase
 ) : CreateMeetComponent, ComponentContext by componentContext {
 
@@ -34,7 +34,7 @@ class RealCreateMeetComponent(
 
     private val coroutineScope = componentCoroutineScope()
 
-    private val restaurantsState by observeRestaurants().toComposeState(
+    private val restaurantsState by observeActiveRestaurants().toComposeState(
         initialValue = emptyList(),
         coroutineScope = coroutineScope
     )

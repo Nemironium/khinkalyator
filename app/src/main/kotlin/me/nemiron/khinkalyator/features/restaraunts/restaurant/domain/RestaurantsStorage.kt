@@ -5,7 +5,7 @@ import me.nemiron.khinkalyator.features.dishes.domain.Dish
 import me.nemiron.khinkalyator.features.phone.domain.Phone
 
 interface RestaurantsStorage {
-    fun observeRestaurants(): Flow<List<Restaurant>>
+    fun observeActiveRestaurants(): Flow<List<Restaurant>>
 
     suspend fun deleteRestaurant(id: RestaurantId)
 
@@ -13,8 +13,9 @@ interface RestaurantsStorage {
         name: String,
         address: Address?,
         phone: Phone?,
-        dishes: List<Dish>
-    )
+        dishes: List<Dish>,
+        status: Restaurant.Status = Restaurant.Status.Active
+    ): RestaurantId
 
     suspend fun updateRestaurant(
         id: RestaurantId,

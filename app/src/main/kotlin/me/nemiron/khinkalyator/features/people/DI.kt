@@ -3,7 +3,7 @@ package me.nemiron.khinkalyator.features.people
 import com.arkivanov.decompose.ComponentContext
 import me.nemiron.khinkalyator.core.ComponentFactory
 import me.nemiron.khinkalyator.features.emoji.domain.EmojiProvider
-import me.nemiron.khinkalyator.features.people.data.InMemoryPeopleStorage
+import me.nemiron.khinkalyator.features.people.data.DatabasePeopleStorage
 import me.nemiron.khinkalyator.features.people.domain.PeopleStorage
 import me.nemiron.khinkalyator.features.people.domain.AddPersonUseCase
 import me.nemiron.khinkalyator.features.people.domain.GetPersonByIdUseCase
@@ -21,7 +21,7 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val peopleModule = module {
-    singleOf(::InMemoryPeopleStorage) { bind<PeopleStorage>() }
+    singleOf(::DatabasePeopleStorage) { bind<PeopleStorage>() }
     singleOf(::EmojiProvider)
     factoryOf(::AddPersonUseCase)
     factoryOf(::GetPersonByIdUseCase)

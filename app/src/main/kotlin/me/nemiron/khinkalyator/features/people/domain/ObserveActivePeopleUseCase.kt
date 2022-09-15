@@ -7,7 +7,7 @@ class ObserveActivePeopleUseCase(
     private val peopleStorage: PeopleStorage
 ) {
     operator fun invoke(): Flow<List<Person>> {
-        return peopleStorage.observePeople()
+        return peopleStorage.observeActivePeople()
             .map { peopleList ->
                 peopleList.filter { it.status == Person.Status.Active }
             }

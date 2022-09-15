@@ -10,7 +10,7 @@ class UpdatePersonUseCase(
         peopleStorage.updatePerson(
             id = personId,
             newName = name,
-            newPhone = phone?.let { Phone(it) }
+            newPhone = phone?.let(::Phone)
         )
     }
 }

@@ -10,8 +10,14 @@ data class Restaurant(
     val name: String,
     val address: Address?,
     val phone: Phone?,
-    val dishes: List<Dish>
+    val dishes: List<Dish>,
+    val status: Status = Status.Active
 ) {
+    enum class Status(val code: Long) {
+        Archived(0),
+        Active(1)
+    }
+
     companion object {
         val MOCKS = listOf(
             Restaurant(
