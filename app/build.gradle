@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'com.squareup.sqldelight'
 }
 
 android {
@@ -67,23 +68,29 @@ dependencies {
     implementation libs.coroutines.core
     implementation libs.coroutines.android
 
+    // TODO: use coil dependency
     // UI
     implementation libs.compose.ui
     implementation libs.compose.material2
     implementation libs.compose.preview
     implementation libs.compose.activity
     implementation libs.appcompat
-    implementation libs.coil
+    //implementation libs.coil
     implementation libs.splashscreen
     debugImplementation libs.compose.tooling
 
+    // TODO: use placeholder dependency
     // Accompanist
     implementation libs.accompanist.systemuicontroller
-    implementation libs.accompanist.placeholder
+    //implementation libs.accompanist.placeholder
     implementation libs.accompanist.insetsui
     implementation libs.accompanist.pager
     implementation libs.accompanist.pagerindicators
     implementation libs.accompanist.flowlayout
+
+    // SQLDelight
+    implementation libs.sqldelight.driver
+    implementation libs.sqldelight.extensions
 
     // Architecture
     implementation libs.bundles.sesame
@@ -94,4 +101,10 @@ dependencies {
 
     // Debugging
     implementation libs.timber
+}
+
+sqldelight {
+    KhinkalytorDatabase {
+        schemaOutputDirectory = file("src/main/sqldelight/schema")
+    }
 }
