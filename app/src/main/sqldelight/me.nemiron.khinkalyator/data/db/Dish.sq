@@ -12,6 +12,9 @@ CREATE TABLE DishEntity (
 insertOrReplace:
 INSERT OR REPLACE INTO DishEntity(id, restaurantId, name, price) VALUES (?, ?, ?, ?);
 
+getRowsCount:
+SELECT COUNT(*) FROM DishEntity;
+
 updateName:
 UPDATE DishEntity SET name = ? WHERE id = :id;
 

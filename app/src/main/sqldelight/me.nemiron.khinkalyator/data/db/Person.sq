@@ -12,8 +12,8 @@ INSERT OR REPLACE INTO PersonEntity VALUES (?, ?, ?, ?, ?);
 getLastInsertedId:
 SELECT last_insert_rowid();
 
-selectAll:
-SELECT * FROM PersonEntity;
+getRowsCount:
+SELECT COUNT(*) FROM PersonEntity;
 
 selectAllActive:
 SELECT * FROM PersonEntity WHERE type = 1;

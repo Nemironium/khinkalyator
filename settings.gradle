@@ -71,6 +71,14 @@ dependencyResolutionManagement {
             version('sqldelight', '1.5.3')
             library('sqldelight-driver', 'com.squareup.sqldelight', 'android-driver').versionRef('sqldelight')
             library('sqldelight-extensions', 'com.squareup.sqldelight', 'coroutines-extensions-jvm').versionRef('sqldelight')
+            bundle('sqldelight', ['sqldelight-driver', 'sqldelight-extensions'])
+
+            // Multiplatform key-value storage
+            version('settings', '1.0.0-alpha01')
+            library('multiplatform-settings', 'com.russhwolf', 'multiplatform-settings').versionRef('settings')
+            library('multiplatform-settings-no-arg', 'com.russhwolf', 'multiplatform-settings-no-arg').versionRef('settings')
+            library('multiplatform-settings-coroutines', 'com.russhwolf', 'multiplatform-settings-coroutines').versionRef('settings')
+            bundle('multiplatformsettings', ['multiplatform-settings', 'multiplatform-settings-no-arg', 'multiplatform-settings-coroutines'])
         }
     }
 }

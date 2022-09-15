@@ -6,6 +6,8 @@ import android.content.ContextWrapper
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedDispatcherOwner
 import com.arkivanov.essenty.backhandler.BackCallback
+import com.arkivanov.essenty.backhandler.BackHandler
+import com.arkivanov.essenty.backhandler.BackHandlerOwner
 import com.arkivanov.essenty.backhandler.backHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.launchIn
@@ -25,7 +27,7 @@ fun Context.getActivity(): Activity? = when (this) {
 
 // TODO: check that works is fine
 fun <T : Any, R : Any> DialogControl<T, R>.dismissOnBackPressed(
-    owner: OnBackPressedDispatcherOwner,
+    owner: BackHandlerOwner,
     coroutineScope: CoroutineScope
 ) {
     val backCallback = BackCallback(isEnabled = false) {
@@ -36,5 +38,5 @@ fun <T : Any, R : Any> DialogControl<T, R>.dismissOnBackPressed(
         val isShowing = state is DialogControl.State.Shown
         backCallback.isEnabled = isShowing
     }.launchIn(coroutineScope)
-    owner.backHandler().register(backCallback)
+    owner.backHandler.register(backCallback)
 }

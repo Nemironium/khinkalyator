@@ -1,0 +1,14 @@
+insertDefaultPeople:
+INSERT INTO PersonEntity(id, name, emoji) VALUES (1, 'Рита', '🐵'), (2, 'Павел', '🐙'), (3, 'Жека', '🐨'), (4, 'Тома', '🦄'), (5, 'Макс', '🐮'), (6, 'Тёма', '🐼');
+
+insertDefaultRestaurant:
+INSERT INTO RestaurantEntity(id, name, address) VALUES (1, 'Каха Бар', 'Большой проспект П.С. 82');
+
+insertDefaultDishes:
+INSERT INTO DishEntity(id, restaurantId, name, price) VALUES (1, 1, 'Хинкали с говядиной', 85), (2, 1, 'Хинкали с бараниной', 85), (3, 1, 'Хинкали со шпинатом и сыром', 100), (4, 1, 'Хинкали с растительным мясом', 90), (5, 1, 'Хинкали с грибами', 95), (6, 1, 'Хачапури по-мегрельски', 400), (7, 1, 'Хачапури по-аджарски', 450), (8, 1, 'Чай с кизилом', 300);
+
+deleteDefaultPeople:
+DELETE FROM PersonEntity WHERE id BETWEEN 1 AND 6;
+
+deleteDefaultRestaurant:
+DELETE FROM RestaurantEntity WHERE id = 1;

@@ -2,6 +2,8 @@ package me.nemiron.khinkalyator.core
 
 import android.app.Application
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.russhwolf.settings.Settings
+import com.russhwolf.settings.coroutines.toSuspendSettings
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
@@ -14,16 +16,19 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val coreModule = module {
+    // TODO: (when needed another Dispatcher) add named dependency
+    single { Dispatchers.IO }
     singleOf(::CloseKeyboardServiceImpl) { bind<CloseKeyboardService>() }
     single {
         val driver = provideSqlDriver(androidApplication())
         KhinkalytorDatabase(driver)
     }
-    // TODO: (when needed another Dispatcher) add named dependency
-    single { Dispatchers.IO }
+    single {
+        Settings().toSuspendSettings(get())
+    }
 }
 
-fun provideSqlDriver(app: Application): SqlDriver {
+private fun provideSqlDriver(app: Application): SqlDriver {
     return AndroidSqliteDriver(
         schema = KhinkalytorDatabase.Schema,
         context = app,

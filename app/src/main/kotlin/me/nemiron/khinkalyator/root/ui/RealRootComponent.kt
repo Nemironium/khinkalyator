@@ -12,6 +12,7 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import me.nemiron.khinkalyator.core.ComponentFactory
 import me.nemiron.khinkalyator.core.utils.log
+import me.nemiron.khinkalyator.core.utils.replaceAll
 import me.nemiron.khinkalyator.core.utils.toComposeState
 import me.nemiron.khinkalyator.features.home.createHomeComponent
 import me.nemiron.khinkalyator.features.home.ui.HomeComponent
@@ -22,6 +23,8 @@ import me.nemiron.khinkalyator.features.meets.domain.MeetId
 import me.nemiron.khinkalyator.features.meets.session.overview.ui.MeetSessionOverviewComponent
 import me.nemiron.khinkalyator.features.restaraunts.createRestaurantOverviewComponent
 import me.nemiron.khinkalyator.features.restaraunts.restaurant_overview.ui.RestaurantOverviewComponent
+import me.nemiron.khinkalyator.root.createStartComponent
+import me.nemiron.khinkalyator.root.ui.start.StartComponent
 
 class RealRootComponent(
     componentContext: ComponentContext,
@@ -32,7 +35,7 @@ class RealRootComponent(
 
     private val stack = childStack(
         source = navigation,
-        initialConfiguration = ChildConfiguration.Home,
+        initialConfiguration = ChildConfiguration.Start,
         handleBackButton = true,
         childFactory = ::createChild
     ).log("Root")
@@ -46,6 +49,9 @@ class RealRootComponent(
         componentContext: ComponentContext
     ): RootComponent.Child =
         when (childConfig) {
+            is ChildConfiguration.Start -> RootComponent.Child.Start(
+                componentFactory.createStartComponent(componentContext, ::onStartOutput)
+            )
             is ChildConfiguration.Home -> RootComponent.Child.Home(
                 componentFactory.createHomeComponent(componentContext, ::onHomeOutput)
             )
@@ -70,6 +76,14 @@ class RealRootComponent(
                 )
             )
         }
+
+    private fun onStartOutput(output: StartComponent.Output) {
+        when (output) {
+            is StartComponent.Output.HomeRequested -> {
+                navigation.replaceAll(ChildConfiguration.Home)
+            }
+        }
+    }
 
     private fun onHomeOutput(output: HomeComponent.Output) =
         when (output) {
@@ -120,6 +134,9 @@ class RealRootComponent(
         }
 
     private sealed interface ChildConfiguration : Parcelable {
+        @Parcelize
+        object Start : ChildConfiguration
+
         @Parcelize
         object Home : ChildConfiguration
 

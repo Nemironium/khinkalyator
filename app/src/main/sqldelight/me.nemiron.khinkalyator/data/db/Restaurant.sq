@@ -12,6 +12,9 @@ INSERT OR REPLACE INTO RestaurantEntity VALUES (?, ?, ?, ?, ?);
 getLastInsertedId:
 SELECT last_insert_rowid();
 
+getRowsCount:
+SELECT COUNT(*) FROM RestaurantEntity;
+
 selectAllActiveWithDishes:
 SELECT *
 FROM RestaurantEntity
