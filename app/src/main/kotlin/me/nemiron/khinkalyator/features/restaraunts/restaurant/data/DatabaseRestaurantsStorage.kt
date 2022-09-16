@@ -15,8 +15,7 @@ import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Address
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Restaurant
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantsStorage
-import menemironkhinkalyator.data.db.SelectAllActiveWithDishes
-import menemironkhinkalyator.data.db.SelectByIdWithDishes
+import menemironkhinkalyator.data.db.RestaurantWithDishesEntity
 
 class DatabaseRestaurantsStorage(
     db: KhinkalytorDatabase,
@@ -96,43 +95,26 @@ class DatabaseRestaurantsStorage(
             restaurantQueries
                 .selectByIdWithDishes(id)
                 .executeAsList()
-                .toRestaurant()
+                .toRestaurants()
+                .firstOrNull()
         }
     }
 
-    private fun List<SelectAllActiveWithDishes>.toRestaurants(): List<Restaurant> {
-        return groupBy { it.id }
-            .map { (restaurantId, selectRows) ->
+    private fun List<RestaurantWithDishesEntity>.toRestaurants(): List<Restaurant> {
+        return groupBy { it.restaurantId }
+            .map { (_, selectRows) ->
                 val rowData = selectRows.first()
                 mapRestaurant(
-                    id = rowData.id,
-                    name = rowData.name,
+                    id = rowData.restaurantId,
+                    name = rowData.restaurantName,
                     addressValue = rowData.address,
                     phoneValue = rowData.phone,
-                    type = rowData.type,
+                    type = rowData.restaurantType,
                     dishes = selectRows.map {
-                        mapDish(it.id_, it.name_, it.price, it.type_)
+                        mapDish(it.dishId, it.dishName, it.price, it.dishType)
                     }
                 )
             }
-    }
-
-    private fun List<SelectByIdWithDishes>.toRestaurant(): Restaurant? {
-        return groupBy { it.id }
-            .map { (restaurantId, selectRows) ->
-                val rowData = selectRows.first()
-                mapRestaurant(
-                    id = rowData.id,
-                    name = rowData.name,
-                    addressValue = rowData.address,
-                    phoneValue = rowData.phone,
-                    type = rowData.type,
-                    dishes = selectRows.map {
-                        mapDish(it.id_, it.name_, it.price, it.type_)
-                    }
-                )
-            }
-            .firstOrNull()
     }
 
     private fun mapRestaurant(
