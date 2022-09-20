@@ -1,5 +1,8 @@
 package me.nemiron.khinkalyator.root.ui.start
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.launch
 import me.aartikov.sesame.dialog.DialogControl
@@ -23,6 +26,8 @@ class RealStartComponent(
     private val coroutineScope = componentCoroutineScope()
 
     override val onBoardingPromptDialog = DialogControl<AlertDialogData, DialogResult>()
+
+    override var isLoadingVisible by mutableStateOf(true)
 
     init {
         coroutineScope.launch {

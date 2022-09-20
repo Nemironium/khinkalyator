@@ -79,10 +79,9 @@ dependencies {
     implementation libs.splashscreen
     debugImplementation libs.compose.tooling
 
-    // TODO: use placeholder dependency
     // Accompanist
     implementation libs.accompanist.systemuicontroller
-    //implementation libs.accompanist.placeholder
+    implementation libs.accompanist.placeholder
     implementation libs.accompanist.insetsui
     implementation libs.accompanist.pager
     implementation libs.accompanist.pagerindicators
@@ -106,6 +105,7 @@ dependencies {
     implementation libs.timber
 }
 
+// FIXME: добавь новые пути + явный путь до моделек
 sqldelight {
     KhinkalytorDatabase {
         schemaOutputDirectory = file("src/main/sqldelight/schema")

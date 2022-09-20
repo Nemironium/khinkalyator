@@ -6,6 +6,7 @@ import me.nemiron.khinkalyator.core.widgets.dialog.DialogResult
 
 interface StartComponent {
     val onBoardingPromptDialog: DialogControl<AlertDialogData, DialogResult>
+    val isLoadingVisible: Boolean
 
     sealed interface Output {
         object HomeRequested : Output
