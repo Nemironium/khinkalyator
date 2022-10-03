@@ -15,13 +15,13 @@ import me.nemiron.khinkalyator.core.ComponentFactory
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.core.utils.log
 import me.nemiron.khinkalyator.core.utils.toComposeState
-import me.nemiron.khinkalyator.features.phone.domain.Phone
+import me.nemiron.khinkalyator.common_domain.model.Phone
 import me.nemiron.khinkalyator.features.dishes.createRestaurantDishesComponent
 import me.nemiron.khinkalyator.features.restaraunts.createRestaurantDetailsComponent
-import me.nemiron.khinkalyator.features.dishes.domain.Dish
+import me.nemiron.khinkalyator.common_domain.model.Dish
 import me.nemiron.khinkalyator.features.dishes.restaurant_dishes.ui.RestaurantDishesComponent
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.AddRestaurantUseCase
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Address
+import me.nemiron.khinkalyator.common_domain.model.Address
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.DeleteRestaurantByIdUseCase
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.GetRestaurantByIdUseCase
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.UpdateRestaurantUseCase
@@ -42,18 +42,14 @@ class RealRestaurantOverviewComponent(
 
     private val navigation = StackNavigation<ChildConfiguration>()
 
-    private val stack = childStack(
+    private val coroutineScope = componentCoroutineScope()
+
+    override val childStack: ChildStack<*, RestaurantOverviewComponent.Child> by childStack(
         source = navigation,
         initialConfiguration = ChildConfiguration.RestaurantDetails(configuration.toDetailsConfiguration()),
         handleBackButton = true,
         childFactory = ::createChild
-    ).log("RestaurantOverview")
-
-    private val coroutineScope = componentCoroutineScope()
-
-    override val childStackState: ChildStack<*, RestaurantOverviewComponent.Child> by stack.toComposeState(
-        lifecycle
-    )
+    ).log("RestaurantOverview").toComposeState(lifecycle)
 
     init {
         lifecycle.doOnCreate(::loadRestaurant)
@@ -121,13 +117,11 @@ class RealRestaurantOverviewComponent(
         when (configuration) {
             is RestaurantOverviewComponent.Configuration.EditRestaurant -> {
                 coroutineScope.launch {
-                    val data = getRestaurantById(configuration.restaurantId)
-                    data?.let { restaurant ->
-                        commonRestaurantState.setName(restaurant.name)
-                        restaurant.phone?.let(commonRestaurantState::setPhone)
-                        restaurant.address?.let(commonRestaurantState::setAddress)
-                        commonRestaurantState.setDishes(restaurant.dishes)
-                    }
+                    val restaurant = getRestaurantById(configuration.restaurantId)
+                    commonRestaurantState.setName(restaurant.name)
+                    restaurant.phone?.let(commonRestaurantState::setPhone)
+                    restaurant.address?.let(commonRestaurantState::setAddress)
+                    commonRestaurantState.setDishes(restaurant.dishes)
                 }
             }
             is RestaurantOverviewComponent.Configuration.NewRestaurant -> {

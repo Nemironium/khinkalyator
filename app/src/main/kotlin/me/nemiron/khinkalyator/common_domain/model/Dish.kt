@@ -1,4 +1,4 @@
-package me.nemiron.khinkalyator.features.dishes.domain
+package me.nemiron.khinkalyator.common_domain.model
 
 typealias DishId = Long
 
@@ -19,7 +19,7 @@ data class Dish(
         data class Absolut(val value: Double) : Discount
     }
 
-    enum class Status(val code: Long) {
+    enum class Status(val code: Int) {
         Archived(0),
         Active(1)
     }

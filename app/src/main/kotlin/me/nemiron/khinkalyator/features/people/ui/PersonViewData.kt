@@ -1,8 +1,8 @@
 package me.nemiron.khinkalyator.features.people.ui
 
 import me.aartikov.sesame.localizedstring.LocalizedString
-import me.nemiron.khinkalyator.features.people.domain.Person
-import me.nemiron.khinkalyator.features.people.domain.PersonId
+import me.nemiron.khinkalyator.common_domain.model.Person
+import me.nemiron.khinkalyator.common_domain.model.PersonId
 
 data class PersonViewData(
     val personId: PersonId,
@@ -10,7 +10,7 @@ data class PersonViewData(
     val isSelected: Boolean
 )
 
-fun Person.toMeetPersonViewData(isSelected: Boolean = false): PersonViewData {
+fun Person.toPersonViewData(isSelected: Boolean = false): PersonViewData {
     return PersonViewData(
         personId = id,
         title = LocalizedString.raw(name),

@@ -22,8 +22,8 @@ import me.nemiron.khinkalyator.core.theme.additionalColors
 import me.nemiron.khinkalyator.core.theme.appTypography
 import me.nemiron.khinkalyator.core.utils.resolve
 import me.nemiron.khinkalyator.core.widgets.KhChip
-import me.nemiron.khinkalyator.features.dishes.domain.Dish
-import me.nemiron.khinkalyator.features.dishes.domain.DishId
+import me.nemiron.khinkalyator.common_domain.model.Dish
+import me.nemiron.khinkalyator.common_domain.model.DishId
 
 @Composable
 fun DishesUi(

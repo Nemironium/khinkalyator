@@ -3,8 +3,8 @@ package me.nemiron.khinkalyator.features.people
 import com.arkivanov.decompose.ComponentContext
 import me.nemiron.khinkalyator.core.ComponentFactory
 import me.nemiron.khinkalyator.features.emoji.domain.EmojiProvider
-import me.nemiron.khinkalyator.features.people.data.DatabasePeopleStorage
-import me.nemiron.khinkalyator.features.people.domain.PeopleStorage
+import me.nemiron.khinkalyator.common_data.DatabasePeopleStorage
+import me.nemiron.khinkalyator.common_domain.PeopleStorage
 import me.nemiron.khinkalyator.features.people.domain.AddPersonUseCase
 import me.nemiron.khinkalyator.features.people.domain.GetPersonByIdUseCase
 import me.nemiron.khinkalyator.features.people.domain.DeletePersonUseCase

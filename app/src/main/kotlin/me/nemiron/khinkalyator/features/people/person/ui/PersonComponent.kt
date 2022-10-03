@@ -4,7 +4,7 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import me.aartikov.sesame.compose.form.control.InputControl
 import me.aartikov.sesame.localizedstring.LocalizedString
-import me.nemiron.khinkalyator.features.people.domain.PersonId
+import me.nemiron.khinkalyator.common_domain.model.PersonId
 
 interface PersonComponent {
 

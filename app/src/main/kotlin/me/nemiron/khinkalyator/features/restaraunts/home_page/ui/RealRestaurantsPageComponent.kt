@@ -6,8 +6,8 @@ import com.arkivanov.decompose.ComponentContext
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.core.utils.toComposeState
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.ObserveActiveRestaurantsUseCase
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Restaurant
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
+import me.nemiron.khinkalyator.common_domain.model.Restaurant
+import me.nemiron.khinkalyator.common_domain.model.RestaurantId
 
 class RealRestaurantsPageComponent(
     componentContext: ComponentContext,

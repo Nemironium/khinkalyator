@@ -1,8 +1,11 @@
-package me.nemiron.khinkalyator.features.restaraunts.restaurant.domain
+package me.nemiron.khinkalyator.common_domain
 
 import kotlinx.coroutines.flow.Flow
-import me.nemiron.khinkalyator.features.dishes.domain.Dish
-import me.nemiron.khinkalyator.features.phone.domain.Phone
+import me.nemiron.khinkalyator.common_domain.model.Address
+import me.nemiron.khinkalyator.common_domain.model.Dish
+import me.nemiron.khinkalyator.common_domain.model.Phone
+import me.nemiron.khinkalyator.common_domain.model.Restaurant
+import me.nemiron.khinkalyator.common_domain.model.RestaurantId
 
 interface RestaurantsStorage {
     fun observeActiveRestaurants(): Flow<List<Restaurant>>
@@ -25,5 +28,5 @@ interface RestaurantsStorage {
         newDishes: List<Dish>
     )
 
-    suspend fun getRestaurant(id: RestaurantId): Restaurant?
+    suspend fun getRestaurant(id: RestaurantId): Restaurant
 }

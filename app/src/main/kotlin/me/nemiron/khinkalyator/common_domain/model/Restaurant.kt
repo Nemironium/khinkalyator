@@ -1,7 +1,4 @@
-package me.nemiron.khinkalyator.features.restaraunts.restaurant.domain
-
-import me.nemiron.khinkalyator.features.dishes.domain.Dish
-import me.nemiron.khinkalyator.features.phone.domain.Phone
+package me.nemiron.khinkalyator.common_domain.model
 
 typealias RestaurantId = Long
 
@@ -13,7 +10,7 @@ data class Restaurant(
     val dishes: List<Dish>,
     val status: Status = Status.Active
 ) {
-    enum class Status(val code: Long) {
+    enum class Status(val code: Int) {
         Archived(0),
         Active(1)
     }

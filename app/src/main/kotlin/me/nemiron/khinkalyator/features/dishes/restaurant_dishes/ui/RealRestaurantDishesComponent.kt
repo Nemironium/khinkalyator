@@ -23,8 +23,8 @@ import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.features.dishes.domain.CreateDishUseCase
-import me.nemiron.khinkalyator.features.dishes.domain.Dish
-import me.nemiron.khinkalyator.features.dishes.domain.DishId
+import me.nemiron.khinkalyator.common_domain.model.Dish
+import me.nemiron.khinkalyator.common_domain.model.DishId
 import me.nemiron.khinkalyator.features.dishes.ui.DishesComponent
 
 // FIXME: насколько такая "композиция" из DishesComponent норм?

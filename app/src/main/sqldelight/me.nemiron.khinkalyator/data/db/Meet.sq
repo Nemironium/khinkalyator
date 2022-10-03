@@ -56,3 +56,6 @@ SELECT last_insert_rowid();
 
 isPersonAttemptsInAnyMeet:
 SELECT EXISTS (SELECT 1 FROM MeetsPeopleEntity WHERE personId =:personId);
+
+isRestaurantAttemptsInAnyMeet:
+SELECT EXISTS (SELECT 1 FROM MeetEntity WHERE restaurantId =:restaurantId);

@@ -1,7 +1,4 @@
-package me.nemiron.khinkalyator.features.people.domain
-
-import me.nemiron.khinkalyator.features.emoji.domain.Emoji
-import me.nemiron.khinkalyator.features.phone.domain.Phone
+package me.nemiron.khinkalyator.common_domain.model
 
 typealias PersonId = Long
 
@@ -12,7 +9,7 @@ data class Person(
     val emoji: Emoji,
     val status: Status = Status.Active
 ) {
-    enum class Status(val code: Long) {
+    enum class Status(val code: Int) {
         Archived(0),
         Active(1)
     }

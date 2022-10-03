@@ -1,6 +1,6 @@
 package me.nemiron.khinkalyator.features.people.home_page.ui
 
-import me.nemiron.khinkalyator.features.people.domain.PersonId
+import me.nemiron.khinkalyator.common_domain.model.PersonId
 
 interface PeoplePageComponent {
 

@@ -1,5 +1,6 @@
 package me.nemiron.khinkalyator.features.emoji.domain
 
+import me.nemiron.khinkalyator.common_domain.model.Emoji
 import kotlin.random.Random
 
 /**

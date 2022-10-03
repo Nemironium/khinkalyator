@@ -40,7 +40,7 @@ import me.nemiron.khinkalyator.core.widgets.KhContainedButton
 import me.nemiron.khinkalyator.core.widgets.KhOutlinedTextField
 import me.nemiron.khinkalyator.core.widgets.KhToolbar
 import me.nemiron.khinkalyator.core.widgets.OverflowMenu
-import me.nemiron.khinkalyator.features.dishes.domain.DishId
+import me.nemiron.khinkalyator.common_domain.model.DishId
 import me.nemiron.khinkalyator.features.dishes.ui.DishViewData
 
 // FIXME: Screen doesn't properly adapt Composables sizes after screenSize config changes

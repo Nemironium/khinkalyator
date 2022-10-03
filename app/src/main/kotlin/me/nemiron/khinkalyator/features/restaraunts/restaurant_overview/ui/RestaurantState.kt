@@ -4,12 +4,12 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import me.nemiron.khinkalyator.features.phone.domain.Phone
-import me.nemiron.khinkalyator.features.dishes.domain.Dish
-import me.nemiron.khinkalyator.features.dishes.domain.DishId
+import me.nemiron.khinkalyator.common_domain.model.Phone
+import me.nemiron.khinkalyator.common_domain.model.Dish
+import me.nemiron.khinkalyator.common_domain.model.DishId
 import me.nemiron.khinkalyator.features.dishes.restaurant_dishes.ui.RestaurantDishesComponent
 import me.nemiron.khinkalyator.features.dishes.ui.toDishViewData
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Address
+import me.nemiron.khinkalyator.common_domain.model.Address
 import me.nemiron.khinkalyator.features.restaraunts.details.ui.RestaurantDetailsComponent
 
 class RestaurantState : RestaurantDetailsComponent.State, RestaurantDishesComponent.State {

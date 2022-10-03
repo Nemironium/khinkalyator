@@ -4,8 +4,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import me.nemiron.khinkalyator.core.theme.initialsColors
-import me.nemiron.khinkalyator.features.emoji.domain.Emoji
-import me.nemiron.khinkalyator.features.people.domain.Person
+import me.nemiron.khinkalyator.common_domain.model.Emoji
+import me.nemiron.khinkalyator.common_domain.model.Person
 
 data class InitialsViewData(
     val initials: String,
@@ -24,7 +24,7 @@ data class InitialsViewData(
 
 fun Person.toInitialsViewData(): InitialsViewData {
     val firstCapitalizedChar = name.firstOrNull()?.uppercase().orEmpty()
-    val secondCapitalizedChar = name.substringAfter(" ").firstOrNull()?.uppercase().orEmpty()
+    val secondCapitalizedChar = name.substringAfter(" ", "").firstOrNull()?.uppercase().orEmpty()
     return InitialsViewData(
         initials = firstCapitalizedChar + secondCapitalizedChar,
         emoji = emoji

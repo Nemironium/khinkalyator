@@ -8,8 +8,8 @@ import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.core.utils.toComposeState
 import me.nemiron.khinkalyator.features.people.domain.DeletePersonUseCase
 import me.nemiron.khinkalyator.features.people.domain.ObserveActivePeopleUseCase
-import me.nemiron.khinkalyator.features.people.domain.Person
-import me.nemiron.khinkalyator.features.people.domain.PersonId
+import me.nemiron.khinkalyator.common_domain.model.Person
+import me.nemiron.khinkalyator.common_domain.model.PersonId
 
 class RealPeoplePageComponent(
     componentContext: ComponentContext,
@@ -34,6 +34,7 @@ class RealPeoplePageComponent(
     }
 
     override fun onPersonDeleteClick(personId: PersonId) {
+        // TODO: show snackbar/message with undo action
         coroutineScope.launch {
             deletePerson(personId)
         }

@@ -14,10 +14,10 @@ import me.nemiron.khinkalyator.core.utils.toComposeState
 import me.nemiron.khinkalyator.features.meets.domain.CreateMeetUseCase
 import me.nemiron.khinkalyator.features.people.createPersonComponent
 import me.nemiron.khinkalyator.features.people.domain.ObserveActivePeopleUseCase
-import me.nemiron.khinkalyator.features.people.domain.PersonId
+import me.nemiron.khinkalyator.common_domain.model.PersonId
 import me.nemiron.khinkalyator.features.people.person.ui.PersonComponent
 import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.ObserveActiveRestaurantsUseCase
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
+import me.nemiron.khinkalyator.common_domain.model.RestaurantId
 
 class RealCreateMeetComponent(
     componentContext: ComponentContext,

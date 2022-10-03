@@ -1,8 +1,10 @@
-package me.nemiron.khinkalyator.features.people.domain
+package me.nemiron.khinkalyator.common_domain
 
 import kotlinx.coroutines.flow.Flow
-import me.nemiron.khinkalyator.features.emoji.domain.Emoji
-import me.nemiron.khinkalyator.features.phone.domain.Phone
+import me.nemiron.khinkalyator.common_domain.model.Emoji
+import me.nemiron.khinkalyator.common_domain.model.Person
+import me.nemiron.khinkalyator.common_domain.model.PersonId
+import me.nemiron.khinkalyator.common_domain.model.Phone
 
 interface PeopleStorage {
     fun observeActivePeople(): Flow<List<Person>>
@@ -22,5 +24,5 @@ interface PeopleStorage {
         newPhone: Phone?
     )
 
-    suspend fun getPerson(id: PersonId): Person?
+    suspend fun getPerson(id: PersonId): Person
 }

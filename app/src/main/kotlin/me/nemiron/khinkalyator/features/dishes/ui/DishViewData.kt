@@ -1,9 +1,9 @@
 package me.nemiron.khinkalyator.features.dishes.ui
 
 import me.aartikov.sesame.localizedstring.LocalizedString
-import me.nemiron.khinkalyator.features.dishes.domain.Dish
-import me.nemiron.khinkalyator.features.dishes.domain.DishId
-import me.nemiron.khinkalyator.features.dishes.domain.Price
+import me.nemiron.khinkalyator.common_domain.model.Dish
+import me.nemiron.khinkalyator.common_domain.model.DishId
+import me.nemiron.khinkalyator.common_domain.model.Price
 import java.text.DecimalFormat
 
 data class DishViewData(
