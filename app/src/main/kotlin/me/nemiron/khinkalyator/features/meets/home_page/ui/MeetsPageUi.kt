@@ -18,8 +18,8 @@ import com.google.accompanist.insets.ui.Scaffold
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.widgets.KhContainedButton
-import me.nemiron.khinkalyator.features.meets.domain.Meet
-import me.nemiron.khinkalyator.features.meets.domain.MeetId
+import me.nemiron.khinkalyator.common_domain.model.MeetId
+import me.nemiron.khinkalyator.common_domain.model.Meet
 import me.nemiron.khinkalyator.features.meets.home_page.widgets.MeetHomePageCard
 
 @Composable
@@ -32,7 +32,7 @@ fun MeetsPageUi(
         floatingActionButton = {
             KhContainedButton(
                 modifier = Modifier.navigationBarsPadding(),
-                text = stringResource(R.string.meets_add_button),
+                text = stringResource(R.string.meets_home_page_add_button),
                 onClick = component::onMeetAddClick
             )
         },

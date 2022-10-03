@@ -1,6 +1,6 @@
 package me.nemiron.khinkalyator.features.meets.home_page.ui
 
-import me.nemiron.khinkalyator.features.meets.domain.MeetId
+import me.nemiron.khinkalyator.common_domain.model.MeetId
 
 interface MeetsPageComponent {
 

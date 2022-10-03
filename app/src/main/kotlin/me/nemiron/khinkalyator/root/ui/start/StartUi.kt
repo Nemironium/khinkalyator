@@ -29,7 +29,7 @@ fun StartUi(component: StartComponent, modifier: Modifier = Modifier) {
             KhContainedButtonPlaceholder(
                 modifier = Modifier.navigationBarsPadding(),
                 isVisible = component.isLoadingVisible,
-                text = stringResource(R.string.meets_add_button)
+                text = stringResource(R.string.meets_home_page_add_button)
             )
         },
         floatingActionButtonPosition = FabPosition.Center,

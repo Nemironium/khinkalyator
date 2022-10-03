@@ -18,9 +18,9 @@ import me.nemiron.khinkalyator.features.home.createHomeComponent
 import me.nemiron.khinkalyator.features.home.ui.HomeComponent
 import me.nemiron.khinkalyator.features.meets.create.ui.CreateMeetComponent
 import me.nemiron.khinkalyator.features.meets.createCreateMeetComponent
-import me.nemiron.khinkalyator.features.meets.createMeetSessionOverviewComponent
-import me.nemiron.khinkalyator.features.meets.domain.MeetId
-import me.nemiron.khinkalyator.features.meets.session.overview.ui.MeetSessionOverviewComponent
+import me.nemiron.khinkalyator.features.meets.createMeetOverviewComponent
+import me.nemiron.khinkalyator.common_domain.model.MeetId
+import me.nemiron.khinkalyator.features.meets.overview.ui.MeetOverviewComponent
 import me.nemiron.khinkalyator.features.restaraunts.createRestaurantOverviewComponent
 import me.nemiron.khinkalyator.features.restaraunts.restaurant_overview.ui.RestaurantOverviewComponent
 import me.nemiron.khinkalyator.root.createStartComponent
@@ -33,16 +33,12 @@ class RealRootComponent(
 
     private val navigation = StackNavigation<ChildConfiguration>()
 
-    private val stack = childStack(
+    override val childStack: ChildStack<*, RootComponent.Child> by childStack(
         source = navigation,
         initialConfiguration = ChildConfiguration.Start,
         handleBackButton = true,
         childFactory = ::createChild
-    ).log("Root")
-
-    override val childStackState: ChildStack<*, RootComponent.Child> by stack.toComposeState(
-        lifecycle
-    )
+    ).log("Root").toComposeState(lifecycle)
 
     private fun createChild(
         childConfig: ChildConfiguration,
@@ -61,11 +57,11 @@ class RealRootComponent(
                     ::onCreateMeetOutput
                 )
             )
-            is ChildConfiguration.MeetSession -> RootComponent.Child.MeetSession(
-                componentFactory.createMeetSessionOverviewComponent(
+            is ChildConfiguration.Meet -> RootComponent.Child.Meet(
+                componentFactory.createMeetOverviewComponent(
                     componentContext,
                     childConfig.meetId,
-                    ::onMeetSessionOutput
+                    ::onMeetOverviewOutput
                 )
             )
             is ChildConfiguration.Restaurant -> RootComponent.Child.Restaurant(
@@ -91,7 +87,7 @@ class RealRootComponent(
                 navigation.push(ChildConfiguration.CreateMeet)
             }
             is HomeComponent.Output.MeetRequested -> {
-                navigation.push(ChildConfiguration.MeetSession(output.meetId))
+                navigation.push(ChildConfiguration.Meet(output.meetId))
             }
             is HomeComponent.Output.NewRestaurantRequested -> {
                 navigation.push(
@@ -112,7 +108,7 @@ class RealRootComponent(
     private fun onCreateMeetOutput(output: CreateMeetComponent.Output) =
         when (output) {
             is CreateMeetComponent.Output.MeetCreated -> {
-                navigation.replaceCurrent(ChildConfiguration.MeetSession(output.meetId))
+                navigation.replaceCurrent(ChildConfiguration.Meet(output.meetId))
             }
             is CreateMeetComponent.Output.NewRestaurantRequested -> {
                 navigation.push(
@@ -123,9 +119,9 @@ class RealRootComponent(
             }
         }
 
-    private fun onMeetSessionOutput(output: MeetSessionOverviewComponent.Output) =
-        when(output) {
-            is MeetSessionOverviewComponent.Output.MeetSessionCloseRequested -> navigation.pop()
+    private fun onMeetOverviewOutput(output: MeetOverviewComponent.Output) =
+        when (output) {
+            is MeetOverviewComponent.Output.MeetCloseRequested -> navigation.pop()
         }
 
     private fun onRestaurantOutput(output: RestaurantOverviewComponent.Output) =
@@ -144,7 +140,7 @@ class RealRootComponent(
         object CreateMeet : ChildConfiguration
 
         @Parcelize
-        class MeetSession(val meetId: MeetId) : ChildConfiguration
+        class Meet(val meetId: MeetId) : ChildConfiguration
 
         @Parcelize
         class Restaurant(

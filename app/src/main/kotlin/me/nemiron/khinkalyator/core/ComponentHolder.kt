@@ -32,18 +32,16 @@ class ComponentHolder<C : Parcelable, T : Any>(
 
     private val coroutineScope = componentCoroutineScope()
 
-    private val stack = childStack(
+    private val childStack by childStack(
         source = navigation,
         initialConfiguration = Configuration.None,
         key = "ComponentHolder: $key",
         handleBackButton = removeOnBackPressed,
         childFactory = ::createComponent
-    )
-
-    private val childStackState by stack.toComposeState(lifecycle)
+    ).toComposeState(lifecycle)
 
     private val configurationState by derivedStateOf {
-        childStackState.currentConfiguration
+        childStack.currentConfiguration
     }
 
     private val isConfigurationSet by derivedStateOf {
@@ -59,7 +57,7 @@ class ComponentHolder<C : Parcelable, T : Any>(
     }
 
     val component by derivedStateOf {
-        childStackState.currentInstance.component
+        childStack.currentInstance.component
     }
 
     var configuration: C?

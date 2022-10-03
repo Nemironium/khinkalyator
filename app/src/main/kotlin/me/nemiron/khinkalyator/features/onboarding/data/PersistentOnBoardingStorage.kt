@@ -34,8 +34,12 @@ class PersistentOnBoardingStorage(
         withContext(coroutineDispatcher) {
             predefinedDataQueries.transaction {
                 predefinedDataQueries.insertDefaultPeople()
-                predefinedDataQueries.insertDefaultRestaurant()
+                predefinedDataQueries.insertDefaultRestaurants()
                 predefinedDataQueries.insertDefaultDishes()
+                predefinedDataQueries.insertDefaultMeets()
+                predefinedDataQueries.insertDefaultMeetsPeople()
+                predefinedDataQueries.insertDefaultOrders()
+                predefinedDataQueries.insertDefaultPeopleOrders()
             }
         }
     }
@@ -43,6 +47,7 @@ class PersistentOnBoardingStorage(
     override suspend fun clearOnboardingData() {
         withContext(coroutineDispatcher) {
             predefinedDataQueries.transaction {
+                predefinedDataQueries.deleteDefaultMeets()
                 predefinedDataQueries.deleteDefaultPeople()
                 predefinedDataQueries.deleteDefaultRestaurant()
             }

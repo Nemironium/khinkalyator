@@ -5,8 +5,10 @@ import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.features.initials.ui.InitialsViewData
 import me.nemiron.khinkalyator.features.initials.ui.toInitialsViewData
-import me.nemiron.khinkalyator.features.meets.domain.Meet
-import me.nemiron.khinkalyator.features.meets.domain.MeetId
+import me.nemiron.khinkalyator.common_domain.model.MeetId
+import me.nemiron.khinkalyator.common_domain.model.Meet
+import me.nemiron.khinkalyator.core.utils.isToday
+import me.nemiron.khinkalyator.core.utils.isYesterday
 import kotlin.math.absoluteValue
 
 data class MeetHomePageViewData(
@@ -19,9 +21,10 @@ data class MeetHomePageViewData(
 )
 
 fun Meet.toMeetHomePageViewData(): MeetHomePageViewData {
-    val date = when (type) {
-        is Meet.Type.Active -> LocalizedString.resource(R.string.meets_today_date)
-        is Meet.Type.Archived -> type.createTime.date.format()
+    val date = when {
+        status.createTime.isToday() -> LocalizedString.resource(R.string.meets_home_page_today_date)
+        status.createTime.isYesterday() -> LocalizedString.resource(R.string.meets_home_page_yesterday_date)
+        else -> status.createTime.date.format()
     }
 
     return MeetHomePageViewData(
@@ -30,13 +33,13 @@ fun Meet.toMeetHomePageViewData(): MeetHomePageViewData {
         title = LocalizedString.raw(restaurant.name),
         subtitle = LocalizedString.raw(restaurant.address?.value.orEmpty()),
         initials = people.toInitialsViewData(),
-        isActive = type is Meet.Type.Active
+        isActive = status is Meet.Status.Active
     )
 }
 
 private fun LocalDate.format(): LocalizedString {
     return LocalizedString.resource(
-        R.string.meets_date_format,
+        R.string.meets_home_page__date_format,
         dayOfMonth.toStringWithZero(),
         monthNumber.toStringWithZero(),
         year.toString()
