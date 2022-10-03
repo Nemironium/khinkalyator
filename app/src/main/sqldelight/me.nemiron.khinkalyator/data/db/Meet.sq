@@ -1,0 +1,58 @@
+CREATE TABLE MeetEntity (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	restaurantId INTEGER NOT NULL,
+	createDate TEXT NOT NULL,
+	tipsType INTEGER AS Int NOT NULL DEFAULT 0, -- 0 - no tips, 1 - fixed tips, 2 - percent tips
+    tipsValue REAL NOT NULL DEFAULT 0,
+	type INTEGER AS Int NOT NULL DEFAULT 1, -- 0 - archived, 1 - active
+	FOREIGN KEY (restaurantId) REFERENCES RestaurantEntity (id)
+);
+
+-- many-to-many relation of meets and people
+CREATE TABLE MeetsPeopleEntity (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	meetId INTEGER NOT NULL,
+	personId INTEGER NOT NULL,
+	FOREIGN KEY(meetId) REFERENCES MeetEntity(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(personId) REFERENCES PersonEntity(id)
+);
+
+CREATE VIEW MeetPersonEntity AS
+SELECT
+    MeetsPeopleEntity.meetId,
+    MeetsPeopleEntity.personId,
+    PersonEntity.name,
+    PersonEntity.emoji,
+    PersonEntity.phone,
+    PersonEntity.type
+FROM MeetsPeopleEntity
+JOIN PersonEntity ON MeetsPeopleEntity.personId = PersonEntity.id;
+
+insertMeet:
+INSERT INTO MeetEntity VALUES (?, ?, ?, ?, ?, ?);
+
+insertMeetPerson:
+INSERT INTO MeetsPeopleEntity(meetId, personId) VALUES (?, ?);
+
+selectAllMeets:
+SELECT * FROM MeetEntity;
+
+selectMeetById:
+SELECT * FROM MeetEntity WHERE id=:meetId;
+
+selectAllMeetsPeople:
+SELECT * FROM MeetPersonEntity;
+
+selectMeetPeopleById:
+SELECT *
+FROM MeetPersonEntity
+WHERE MeetPersonEntity.meetId=:meetId;
+
+delete:
+DELETE FROM MeetEntity WHERE id = :id;
+
+getLastInsertedId:
+SELECT last_insert_rowid();
+
+isPersonAttemptsInAnyMeet:
+SELECT EXISTS (SELECT 1 FROM MeetsPeopleEntity WHERE personId =:personId);

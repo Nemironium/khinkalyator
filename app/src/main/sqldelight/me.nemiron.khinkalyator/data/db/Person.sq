@@ -3,7 +3,7 @@ CREATE TABLE PersonEntity (
     name TEXT NOT NULL,
     emoji TEXT NOT NULL,
     phone TEXT,
-    type INTEGER NOT NULL DEFAULT 1 -- 0 - archived, 1 - active
+    type INTEGER AS Int NOT NULL DEFAULT 1 -- 0 - archived, 1 - active
 );
 
 insertOrReplace:
