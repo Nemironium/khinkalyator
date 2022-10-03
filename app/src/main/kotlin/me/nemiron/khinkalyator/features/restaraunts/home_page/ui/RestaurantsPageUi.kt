@@ -18,9 +18,9 @@ import com.google.accompanist.insets.ui.Scaffold
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.widgets.KhContainedButton
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
+import me.nemiron.khinkalyator.common_domain.model.RestaurantId
 import me.nemiron.khinkalyator.features.restaraunts.home_page.widgets.RestaurantHomePageCard
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Restaurant
+import me.nemiron.khinkalyator.common_domain.model.Restaurant
 
 @Composable
 fun RestaurantsPageUi(

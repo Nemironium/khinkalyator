@@ -4,22 +4,24 @@ import com.arkivanov.decompose.ComponentContext
 import me.nemiron.khinkalyator.core.ComponentFactory
 import me.nemiron.khinkalyator.features.meets.create.ui.CreateMeetComponent
 import me.nemiron.khinkalyator.features.meets.create.ui.RealCreateMeetComponent
-import me.nemiron.khinkalyator.features.meets.data.InMemoryMeetsStorage
+import me.nemiron.khinkalyator.common_data.DatabaseMeetsStorage
 import me.nemiron.khinkalyator.features.meets.domain.CreateMeetUseCase
-import me.nemiron.khinkalyator.features.meets.domain.MeetId
-import me.nemiron.khinkalyator.features.meets.domain.MeetsStorage
+import me.nemiron.khinkalyator.common_domain.model.MeetId
+import me.nemiron.khinkalyator.common_domain.MeetsStorage
 import me.nemiron.khinkalyator.features.meets.domain.ObserveMeetsUseCase
-import me.nemiron.khinkalyator.features.meets.domain.ObserveMeetSessionUseCase
+import me.nemiron.khinkalyator.features.meets.domain.ObserveMeetUseCase
 import me.nemiron.khinkalyator.features.meets.home_page.ui.MeetsPageComponent
 import me.nemiron.khinkalyator.features.meets.home_page.ui.RealMeetsPageComponent
-import me.nemiron.khinkalyator.features.meets.meet_session_check.ui.MeetSessionCheckComponent
-import me.nemiron.khinkalyator.features.meets.meet_session_check.ui.RealMeetSessionCheckComponent
-import me.nemiron.khinkalyator.features.meets.meet_session_details.ui.MeetSessionDetailsComponent
-import me.nemiron.khinkalyator.features.meets.meet_session_details.ui.RealMeetSessionDetailsComponent
-import me.nemiron.khinkalyator.features.meets.meet_session_overview.ui.MeetSessionOverviewComponent
-import me.nemiron.khinkalyator.features.meets.meet_session_overview.ui.RealMeetSessionOverviewComponent
-import me.nemiron.khinkalyator.features.meets.meet_session_pager.ui.MeetSessionPagerComponent
-import me.nemiron.khinkalyator.features.meets.meet_session_pager.ui.RealMeetSessionPagerComponent
+import me.nemiron.khinkalyator.features.meets.check.ui.MeetCheckComponent
+import me.nemiron.khinkalyator.features.meets.check.ui.RealMeetCheckComponent
+import me.nemiron.khinkalyator.features.meets.details.ui.MeetDetailsComponent
+import me.nemiron.khinkalyator.features.meets.details.ui.RealMeetDetailsComponent
+import me.nemiron.khinkalyator.features.meets.domain.ArchiveMeetUseCase
+import me.nemiron.khinkalyator.features.meets.domain.DeleteMeetUseCase
+import me.nemiron.khinkalyator.features.meets.overview.ui.MeetOverviewComponent
+import me.nemiron.khinkalyator.features.meets.overview.ui.RealMeetOverviewComponent
+import me.nemiron.khinkalyator.features.meets.pager.ui.MeetPagerComponent
+import me.nemiron.khinkalyator.features.meets.pager.ui.RealMeetPagerComponent
 import org.koin.core.component.get
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
@@ -27,10 +29,12 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val meetsModule = module {
-    singleOf(::InMemoryMeetsStorage) { bind<MeetsStorage>() }
+    singleOf(::DatabaseMeetsStorage) { bind<MeetsStorage>() }
     factoryOf(::CreateMeetUseCase)
+    factoryOf(::ArchiveMeetUseCase)
+    factoryOf(::DeleteMeetUseCase)
     factoryOf(::ObserveMeetsUseCase)
-    factoryOf(::ObserveMeetSessionUseCase)
+    factoryOf(::ObserveMeetUseCase)
 }
 
 fun ComponentFactory.createMeetsPageComponent(
@@ -58,33 +62,36 @@ fun ComponentFactory.createCreateMeetComponent(
     )
 }
 
-fun ComponentFactory.createMeetSessionOverviewComponent(
+fun ComponentFactory.createMeetOverviewComponent(
     componentContext: ComponentContext,
     meetId: MeetId,
-    onOutput: (MeetSessionOverviewComponent.Output) -> Unit,
-): MeetSessionOverviewComponent {
-    return RealMeetSessionOverviewComponent(
+    onOutput: (MeetOverviewComponent.Output) -> Unit,
+): MeetOverviewComponent {
+    return RealMeetOverviewComponent(
         componentContext,
         meetId,
         onOutput,
+        get(),
+        get(),
+        get(),
         get()
     )
 }
 
-fun ComponentFactory.createMeetSessionDetailsComponent(
+fun ComponentFactory.createMeetDetailsComponent(
     componentContext: ComponentContext,
-    configuration: MeetSessionDetailsComponent.Configuration
-): MeetSessionDetailsComponent {
-    return RealMeetSessionDetailsComponent(componentContext, configuration)
+    configuration: MeetDetailsComponent.Configuration
+): MeetDetailsComponent {
+    return RealMeetDetailsComponent(componentContext, configuration)
 }
 
-fun ComponentFactory.createMeetSessionPagerComponent(
+fun ComponentFactory.createMeetPagerComponent(
     componentContext: ComponentContext,
     meetId: MeetId,
-    page: MeetSessionPagerComponent.Page,
-    onOutput: (MeetSessionPagerComponent.Output) -> Unit
-): MeetSessionPagerComponent {
-    return RealMeetSessionPagerComponent(
+    page: MeetPagerComponent.Page,
+    onOutput: (MeetPagerComponent.Output) -> Unit
+): MeetPagerComponent {
+    return RealMeetPagerComponent(
         componentContext,
         meetId,
         page,
@@ -93,10 +100,10 @@ fun ComponentFactory.createMeetSessionPagerComponent(
     )
 }
 
-fun ComponentFactory.createMeetSessionCheckComponent(
+fun ComponentFactory.createMeetCheckComponent(
     componentContext: ComponentContext,
-    configuration: MeetSessionCheckComponent.Configuration,
-    onOutput: (MeetSessionCheckComponent.Output) -> Unit
-): MeetSessionCheckComponent {
-    return RealMeetSessionCheckComponent(componentContext, configuration, onOutput)
+    configuration: MeetCheckComponent.Configuration,
+    onOutput: (MeetCheckComponent.Output) -> Unit
+): MeetCheckComponent {
+    return RealMeetCheckComponent(componentContext, configuration, onOutput)
 }

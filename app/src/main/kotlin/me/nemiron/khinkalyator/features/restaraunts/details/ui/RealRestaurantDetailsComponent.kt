@@ -23,10 +23,10 @@ import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.utils.TextTransformations
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.core.widgets.OverflowMenuData
-import me.nemiron.khinkalyator.features.phone.domain.Phone
-import me.nemiron.khinkalyator.features.dishes.domain.DishId
+import me.nemiron.khinkalyator.common_domain.model.Phone
+import me.nemiron.khinkalyator.common_domain.model.DishId
 import me.nemiron.khinkalyator.features.dishes.ui.DishViewData
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Address
+import me.nemiron.khinkalyator.common_domain.model.Address
 
 class RealRestaurantDetailsComponent(
     componentContext: ComponentContext,

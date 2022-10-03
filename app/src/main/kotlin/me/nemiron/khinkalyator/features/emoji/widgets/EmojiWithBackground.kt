@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.theme.appTypography
-import me.nemiron.khinkalyator.features.emoji.domain.Emoji
+import me.nemiron.khinkalyator.common_domain.model.Emoji
 import me.nemiron.khinkalyator.features.emoji.utils.getBackgroundColor
 
 /**

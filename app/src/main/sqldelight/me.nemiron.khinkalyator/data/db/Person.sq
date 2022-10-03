@@ -1,0 +1,35 @@
+CREATE TABLE PersonEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    emoji TEXT NOT NULL,
+    phone TEXT,
+    type INTEGER AS Int NOT NULL DEFAULT 1 -- 0 - archived, 1 - active
+);
+
+insertOrReplace:
+INSERT OR REPLACE INTO PersonEntity VALUES (?, ?, ?, ?, ?);
+
+getLastInsertedId:
+SELECT last_insert_rowid();
+
+getRowsCount:
+SELECT COUNT(*) FROM PersonEntity;
+
+selectAllActive:
+SELECT * FROM PersonEntity WHERE type = 1;
+
+selectById:
+SELECT * FROM PersonEntity WHERE id = :id;
+
+updateName:
+UPDATE PersonEntity SET name = ? WHERE id = :id;
+
+-- TODO: support emoji updating
+updateEmoji:
+UPDATE PersonEntity SET emoji = ? WHERE id = :id;
+
+updatePhone:
+UPDATE PersonEntity SET phone = ? WHERE id = :id;
+
+delete:
+DELETE FROM PersonEntity WHERE id = :id;

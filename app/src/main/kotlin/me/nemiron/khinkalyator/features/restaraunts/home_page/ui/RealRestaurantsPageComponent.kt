@@ -5,19 +5,19 @@ import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.ComponentContext
 import me.nemiron.khinkalyator.core.utils.componentCoroutineScope
 import me.nemiron.khinkalyator.core.utils.toComposeState
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.ObserveRestaurantsUseCase
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.Restaurant
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
+import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.ObserveActiveRestaurantsUseCase
+import me.nemiron.khinkalyator.common_domain.model.Restaurant
+import me.nemiron.khinkalyator.common_domain.model.RestaurantId
 
 class RealRestaurantsPageComponent(
     componentContext: ComponentContext,
     private val onOutput: (RestaurantsPageComponent.Output) -> Unit,
-    observeRestaurants: ObserveRestaurantsUseCase
+    observeActiveRestaurants: ObserveActiveRestaurantsUseCase
 ) : RestaurantsPageComponent, ComponentContext by componentContext {
 
     private val coroutineScope = componentCoroutineScope()
 
-    private val restaurantsState by observeRestaurants().toComposeState(
+    private val restaurantsState by observeActiveRestaurants().toComposeState(
         initialValue = emptyList(),
         coroutineScope = coroutineScope
     )

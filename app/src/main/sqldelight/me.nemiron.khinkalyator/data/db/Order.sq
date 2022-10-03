@@ -1,0 +1,44 @@
+CREATE TABLE OrderEntity (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	meetId INTEGER NOT NULL,
+	dishId INTEGER NOT NULL,
+	count INTEGER AS Int NOT NULL DEFAULT 0 CHECK(count>=0),
+	FOREIGN KEY (meetId) REFERENCES MeetEntity (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (dishId) REFERENCES DishEntity (id)
+);
+
+-- many-to-many relation of people and orders
+CREATE TABLE PeopleOrdersEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    personId INTEGER NOT NULL,
+    orderId INTEGER NOT NULL,
+    FOREIGN KEY(personId) REFERENCES PersonEntity(id),
+    FOREIGN KEY(orderId) REFERENCES OrderEntity(id)  ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE VIEW PersonOrderEntity AS
+SELECT
+    OrderEntity.meetId,
+    PeopleOrdersEntity.orderId,
+    PeopleOrdersEntity.personId,
+    OrderEntity.dishId,
+    OrderEntity.count
+FROM PeopleOrdersEntity
+JOIN OrderEntity ON PeopleOrdersEntity.orderId = OrderEntity.id;
+
+insertOrder:
+INSERT INTO OrderEntity(meetId, dishId, count) VALUES (?, ?, ?);
+
+addOrderToPerson:
+INSERT INTO PeopleOrdersEntity(personId, orderId) VALUES (?, ?);
+
+getLastInsertedId:
+SELECT last_insert_rowid();
+
+selectAllMeetsOrders:
+SELECT * FROM PersonOrderEntity;
+
+selectMeetsOrdersById:
+SELECT *
+FROM PersonOrderEntity
+WHERE PersonOrderEntity.meetId=:meetId;

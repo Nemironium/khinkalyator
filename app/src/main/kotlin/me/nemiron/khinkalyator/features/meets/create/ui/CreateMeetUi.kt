@@ -39,7 +39,7 @@ import me.nemiron.khinkalyator.core.widgets.sheet.ModalBottomSheet
 import me.nemiron.khinkalyator.features.meets.create.widgets.KhinkaliButton
 import me.nemiron.khinkalyator.features.meets.create.widgets.MediumPersonItem
 import me.nemiron.khinkalyator.features.people.person.ui.PersonUi
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
+import me.nemiron.khinkalyator.common_domain.model.RestaurantId
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

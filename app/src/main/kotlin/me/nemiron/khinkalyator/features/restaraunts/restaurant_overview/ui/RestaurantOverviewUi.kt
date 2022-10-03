@@ -21,7 +21,7 @@ fun RestaurantOverviewUi(
 ) {
     Children(
         modifier = modifier,
-        stack = component.childStackState,
+        stack = component.childStack,
         animation = stackAnimation(fade())
     ) { child ->
         when (val instance = child.instance) {
@@ -41,7 +41,7 @@ private fun RestaurantOverviewPreview() {
 }
 
 private class PreviewRestaurantOverviewComponent : RestaurantOverviewComponent {
-    override val childStackState = createFakeChildStack(
+    override val childStack = createFakeChildStack(
         RestaurantOverviewComponent.Child.RestaurantDetails(PreviewRestaurantDetailsComponent())
     )
 }

@@ -91,16 +91,17 @@ data class AppTypography constructor(
         text2 = text2.withDefaultFontFamily(defaultFontFamily),
         button = button.withDefaultFontFamily(defaultFontFamily),
         emojiBig = emojiBig.withDefaultFontFamily(defaultFontFamily),
-        emojiSmall= emojiSmall.withDefaultFontFamily(defaultFontFamily),
-        initialsBig= initialsBig.withDefaultFontFamily(defaultFontFamily),
-        initialsSmall= initialsSmall.withDefaultFontFamily(defaultFontFamily)
+        emojiSmall = emojiSmall.withDefaultFontFamily(defaultFontFamily),
+        initialsBig = initialsBig.withDefaultFontFamily(defaultFontFamily),
+        initialsSmall = initialsSmall.withDefaultFontFamily(defaultFontFamily)
     )
 }
 
 // TODO: add shapes for required material2 components (dialogs and etc)
 fun AppTypography.toMaterialTypography(): Typography {
     return Typography(
-        h6 = head1 // toolbar title
+        h6 = head1, // toolbar title,
+        body1 = text1 // dialog text
     )
 }
 

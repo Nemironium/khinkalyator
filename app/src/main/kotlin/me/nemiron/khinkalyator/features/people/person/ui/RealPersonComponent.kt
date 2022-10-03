@@ -101,10 +101,8 @@ class RealPersonComponent(
             when (configuration) {
                 is PersonComponent.Configuration.EditPerson -> {
                     val person = getPersonById(configuration.personId)
-                    person?.let {
-                        nameInputControl.text = person.name
-                        phoneInputControl.text = person.phone?.value.orEmpty()
-                    }
+                    nameInputControl.text = person.name
+                    phoneInputControl.text = person.phone?.value.orEmpty()
                 }
                 is PersonComponent.Configuration.NewPerson -> {
                     // nothing

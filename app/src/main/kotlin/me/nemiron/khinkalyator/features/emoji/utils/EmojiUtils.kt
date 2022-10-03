@@ -4,7 +4,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import me.nemiron.khinkalyator.core.theme.emojiColors
-import me.nemiron.khinkalyator.features.emoji.domain.Emoji
+import me.nemiron.khinkalyator.common_domain.model.Emoji
 
 @Composable
 fun Emoji.getBackgroundColor(): Color = when (this.value) {

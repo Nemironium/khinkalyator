@@ -1,7 +1,8 @@
 package me.nemiron.khinkalyator.features.people.domain
 
+import me.nemiron.khinkalyator.common_domain.PeopleStorage
 import me.nemiron.khinkalyator.features.emoji.domain.EmojiProvider
-import me.nemiron.khinkalyator.features.phone.domain.Phone
+import me.nemiron.khinkalyator.common_domain.model.Phone
 
 class AddPersonUseCase(
     private val peopleStorage: PeopleStorage,

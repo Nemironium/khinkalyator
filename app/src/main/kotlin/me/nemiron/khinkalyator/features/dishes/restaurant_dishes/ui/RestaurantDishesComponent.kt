@@ -4,8 +4,8 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import me.aartikov.sesame.compose.form.control.InputControl
 import me.aartikov.sesame.localizedstring.LocalizedString
-import me.nemiron.khinkalyator.features.dishes.domain.Dish
-import me.nemiron.khinkalyator.features.dishes.domain.DishId
+import me.nemiron.khinkalyator.common_domain.model.Dish
+import me.nemiron.khinkalyator.common_domain.model.DishId
 import me.nemiron.khinkalyator.features.dishes.ui.DishViewData
 import me.nemiron.khinkalyator.features.dishes.ui.DishesComponent
 

@@ -19,8 +19,9 @@ import me.nemiron.khinkalyator.core.utils.createFakeChildStack
 import me.nemiron.khinkalyator.features.home.ui.HomeUi
 import me.nemiron.khinkalyator.features.home.ui.PreviewHomeComponent
 import me.nemiron.khinkalyator.features.meets.create.ui.CreateMeetUi
-import me.nemiron.khinkalyator.features.meets.meet_session_overview.ui.MeetSessionOverviewUi
+import me.nemiron.khinkalyator.features.meets.overview.ui.MeetOverviewUi
 import me.nemiron.khinkalyator.features.restaraunts.restaurant_overview.ui.RestaurantOverviewUi
+import me.nemiron.khinkalyator.root.ui.start.StartUi
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
@@ -30,19 +31,20 @@ fun RootUi(
 ) {
     SystemBarColors()
     Children(
-        stack = component.childStackState,
+        stack = component.childStack,
         animation = stackAnimation { child: Child.Created<Any, RootComponent.Child>, _, _ ->
             when (child.instance) {
-                is RootComponent.Child.MeetSession, is RootComponent.Child.Restaurant -> slide()
-                is RootComponent.Child.Home, is RootComponent.Child.CreateMeet -> fade()
+                is RootComponent.Child.Meet, is RootComponent.Child.Restaurant -> slide()
+                is RootComponent.Child.Start, is RootComponent.Child.Home, is RootComponent.Child.CreateMeet -> fade()
             }
         },
         modifier = modifier
     ) {
         when (val child = it.instance) {
+            is RootComponent.Child.Start -> StartUi(child.component)
             is RootComponent.Child.Home -> HomeUi(child.component)
             is RootComponent.Child.CreateMeet -> CreateMeetUi(child.component)
-            is RootComponent.Child.MeetSession -> MeetSessionOverviewUi(child.component)
+            is RootComponent.Child.Meet -> MeetOverviewUi(child.component)
             is RootComponent.Child.Restaurant -> RestaurantOverviewUi(child.component)
         }
     }
@@ -72,6 +74,6 @@ private fun RootPreview() {
 }
 
 private class PreviewRootComponent : RootComponent {
-    override val childStackState =
+    override val childStack =
         createFakeChildStack(RootComponent.Child.Home(PreviewHomeComponent()))
 }

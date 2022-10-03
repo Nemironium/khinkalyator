@@ -35,8 +35,8 @@ import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.theme.additionalColors
 import me.nemiron.khinkalyator.core.widgets.KhContainedButton
-import me.nemiron.khinkalyator.features.people.domain.Person
-import me.nemiron.khinkalyator.features.people.domain.PersonId
+import me.nemiron.khinkalyator.common_domain.model.Person
+import me.nemiron.khinkalyator.common_domain.model.PersonId
 import me.nemiron.khinkalyator.features.people.home_page.widgets.PersonHomePageCard
 
 @Composable

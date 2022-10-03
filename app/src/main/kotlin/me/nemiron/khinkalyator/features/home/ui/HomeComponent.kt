@@ -1,11 +1,11 @@
 package me.nemiron.khinkalyator.features.home.ui
 
 import kotlinx.coroutines.flow.Flow
-import me.nemiron.khinkalyator.features.meets.domain.MeetId
+import me.nemiron.khinkalyator.common_domain.model.MeetId
 import me.nemiron.khinkalyator.features.meets.home_page.ui.MeetsPageComponent
 import me.nemiron.khinkalyator.features.people.home_page.ui.PeoplePageComponent
 import me.nemiron.khinkalyator.features.people.person.ui.PersonComponent
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
+import me.nemiron.khinkalyator.common_domain.model.RestaurantId
 import me.nemiron.khinkalyator.features.restaraunts.home_page.ui.RestaurantsPageComponent
 
 interface HomeComponent {

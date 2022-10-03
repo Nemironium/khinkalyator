@@ -1,6 +1,6 @@
 package me.nemiron.khinkalyator.features.phone.utils
 
-import me.nemiron.khinkalyator.features.phone.domain.Phone
+import me.nemiron.khinkalyator.common_domain.model.Phone
 
 fun Phone.format(): String {
     return value.formatToPhoneNumber()

@@ -1,0 +1,55 @@
+CREATE TABLE RestaurantEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    address TEXT,
+    phone TEXT,
+    type INTEGER AS Int NOT NULL DEFAULT 1 -- 0 - archived, 1 - active
+);
+
+CREATE VIEW RestaurantWithDishesEntity AS
+SELECT
+  RestaurantEntity.id restaurantId,
+  RestaurantEntity.name restaurantName,
+  RestaurantEntity.address,
+  RestaurantEntity.phone,
+  RestaurantEntity.type restaurantType,
+  DishEntity.id dishId,
+  DishEntity.name dishName,
+  DishEntity.price,
+  DishEntity.type dishType
+FROM RestaurantEntity
+JOIN DishEntity ON RestaurantEntity.id = DishEntity.restaurantId;
+
+insertOrReplace:
+INSERT OR REPLACE INTO RestaurantEntity VALUES (?, ?, ?, ?, ?);
+
+getLastInsertedId:
+SELECT last_insert_rowid();
+
+getRowsCount:
+SELECT COUNT(*) FROM RestaurantEntity;
+
+selectAllWithDishes:
+SELECT * FROM RestaurantWithDishesEntity;
+
+selectAllActiveWithDishes:
+SELECT *
+FROM RestaurantWithDishesEntity
+WHERE RestaurantWithDishesEntity.restaurantType = 1 AND RestaurantWithDishesEntity.dishType = 1;
+
+selectByIdWithDishes:
+SELECT *
+FROM RestaurantWithDishesEntity
+WHERE RestaurantWithDishesEntity.restaurantId=:id;
+
+updateName:
+UPDATE RestaurantEntity SET name = ? WHERE id = :id;
+
+updatePhone:
+UPDATE RestaurantEntity SET phone = ? WHERE id = :id;
+
+updateAddress:
+UPDATE RestaurantEntity SET address = ? WHERE id = :id;
+
+delete:
+DELETE FROM RestaurantEntity WHERE id = :id;

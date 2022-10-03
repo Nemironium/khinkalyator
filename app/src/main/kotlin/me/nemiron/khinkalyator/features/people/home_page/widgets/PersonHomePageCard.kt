@@ -21,7 +21,7 @@ import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.theme.appTypography
 import me.nemiron.khinkalyator.core.utils.resolve
-import me.nemiron.khinkalyator.features.emoji.domain.Emoji
+import me.nemiron.khinkalyator.common_domain.model.Emoji
 import me.nemiron.khinkalyator.features.emoji.widgets.BigEmojiWithBackground
 import me.nemiron.khinkalyator.features.people.home_page.ui.PersonHomePageViewData
 

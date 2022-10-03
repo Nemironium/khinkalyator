@@ -57,6 +57,7 @@ dependencyResolutionManagement {
             // Testing
             library('junit', 'junit', 'junit').version('4.13.2')
 
+            // TODO: make bundle of libs
             // Accompanist
             version('accompanist', '0.26.2-beta')
             library('accompanist-systemuicontroller', 'com.google.accompanist', 'accompanist-systemuicontroller').versionRef('accompanist')
@@ -65,6 +66,19 @@ dependencyResolutionManagement {
             library('accompanist-pager', 'com.google.accompanist', 'accompanist-pager').versionRef('accompanist')
             library('accompanist-pagerindicators', 'com.google.accompanist', 'accompanist-pager-indicators').versionRef('accompanist')
             library('accompanist-flowlayout', 'com.google.accompanist', 'accompanist-flowlayout').versionRef('accompanist')
+
+            // SQLDelight
+            version('sqldelight', '1.5.3')
+            library('sqldelight-driver', 'com.squareup.sqldelight', 'android-driver').versionRef('sqldelight')
+            library('sqldelight-extensions', 'com.squareup.sqldelight', 'coroutines-extensions-jvm').versionRef('sqldelight')
+            bundle('sqldelight', ['sqldelight-driver', 'sqldelight-extensions'])
+
+            // Multiplatform key-value storage
+            version('settings', '1.0.0-alpha01')
+            library('multiplatform-settings', 'com.russhwolf', 'multiplatform-settings').versionRef('settings')
+            library('multiplatform-settings-no-arg', 'com.russhwolf', 'multiplatform-settings-no-arg').versionRef('settings')
+            library('multiplatform-settings-coroutines', 'com.russhwolf', 'multiplatform-settings-coroutines').versionRef('settings')
+            bundle('multiplatformsettings', ['multiplatform-settings', 'multiplatform-settings-no-arg', 'multiplatform-settings-coroutines'])
         }
     }
 }

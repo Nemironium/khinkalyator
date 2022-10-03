@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
@@ -18,16 +19,38 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.fade
+import com.google.accompanist.placeholder.material.placeholder
 import me.aartikov.sesame.localizedstring.LocalizedString
 import me.nemiron.khinkalyator.R
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.theme.additionalColors
 import me.nemiron.khinkalyator.core.theme.appTypography
 import me.nemiron.khinkalyator.core.utils.resolve
-import me.nemiron.khinkalyator.features.emoji.domain.Emoji
+import me.nemiron.khinkalyator.common_domain.model.Emoji
+import me.nemiron.khinkalyator.core.theme.appShapes
 import me.nemiron.khinkalyator.features.initials.ui.InitialsViewData
 import me.nemiron.khinkalyator.features.initials.widgets.InitialsBlock
 import me.nemiron.khinkalyator.features.meets.home_page.ui.MeetHomePageViewData
+
+@Composable
+fun MeetHomePageCardPlaceholder(
+    isVisible: Boolean,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier
+            .fillMaxWidth()
+            .height(130.dp)
+            .padding(horizontal = 16.dp)
+            .placeholder(
+                visible = isVisible,
+                shape = MaterialTheme.appShapes.card,
+                highlight = PlaceholderHighlight.fade(),
+            )
+    )
+}
 
 @Composable
 fun MeetHomePageCard(
@@ -104,7 +127,7 @@ private fun PeopleBlock(
     ) {
         if (!data.isActive) {
             Text(
-                text = stringResource(id = R.string.meets_archived),
+                text = stringResource(id = R.string.meets_home_page_archived),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.appTypography.text2,
@@ -129,7 +152,7 @@ private fun MeetHomePageCardPreview() {
         )
         val meetData = MeetHomePageViewData(
             id = 1L,
-            date = LocalizedString.resource(R.string.meets_today_date),
+            date = LocalizedString.resource(R.string.meets_home_page_today_date),
             title = LocalizedString.raw("Каха"),
             subtitle = LocalizedString.raw("Рубинштейна, 24"),
             initials = initialsData,

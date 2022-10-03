@@ -1,9 +1,9 @@
 package me.nemiron.khinkalyator.features.people.home_page.ui
 
 import me.aartikov.sesame.localizedstring.LocalizedString
-import me.nemiron.khinkalyator.features.emoji.domain.Emoji
-import me.nemiron.khinkalyator.features.people.domain.Person
-import me.nemiron.khinkalyator.features.people.domain.PersonId
+import me.nemiron.khinkalyator.common_domain.model.Emoji
+import me.nemiron.khinkalyator.common_domain.model.Person
+import me.nemiron.khinkalyator.common_domain.model.PersonId
 import me.nemiron.khinkalyator.features.phone.utils.format
 
 data class PersonHomePageViewData(

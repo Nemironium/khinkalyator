@@ -1,0 +1,22 @@
+CREATE TABLE DishEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    restaurantId INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    price REAL NOT NULL,
+    discountType INTEGER AS Int NOT NULL DEFAULT 0, -- 0 - full price, 1 - fixed discount, 2 - percent discount
+    discountValue REAL NOT NULL DEFAULT 0,
+    type INTEGER AS Int NOT NULL DEFAULT 1, -- 0 - archived, 1 - active
+    FOREIGN KEY (restaurantId) REFERENCES RestaurantEntity (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+insertOrReplace:
+INSERT OR REPLACE INTO DishEntity VALUES (?, ?, ?, ?, ?, ?, ?);
+
+getRowsCount:
+SELECT COUNT(*) FROM DishEntity;
+
+deleteDishesFromRestaurant:
+DELETE FROM DishEntity WHERE restaurantId=:restaurantId;
+
+getLastInsertedId:
+SELECT last_insert_rowid();

@@ -13,10 +13,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.fade
+import com.google.accompanist.placeholder.material.placeholder
 import me.nemiron.khinkalyator.core.theme.KhinkalyatorTheme
 import me.nemiron.khinkalyator.core.theme.additionalColors
 import me.nemiron.khinkalyator.core.theme.appShapes
 import me.nemiron.khinkalyator.core.theme.appTypography
+
+@Composable
+fun KhContainedButtonPlaceholder(
+    text: String,
+    isVisible: Boolean,
+    modifier: Modifier = Modifier
+) {
+    KhContainedButton(
+        modifier = modifier.placeholder(
+            visible = isVisible,
+            shape = MaterialTheme.appShapes.button,
+            highlight = PlaceholderHighlight.fade(),
+        ),
+        text = text,
+        onClick = { }
+    )
+}
 
 @Composable
 fun KhContainedButton(

@@ -2,11 +2,12 @@
 <resources>
 
     <!-- MeetsPage -->
-    <string name="meets_add_button">Добавить встречу</string>
-    <string name="meets_archived">Архив</string>
-    <string name="meets_today_date">Сегодня</string>
-    <string name="meets_previous_date">Встреча от %s</string>
-    <string name="meets_date_format">%s.%s.%s</string>
+    <string name="meets_home_page_add_button">Добавить встречу</string>
+    <string name="meets_home_page_archived">Архив</string>
+    <string name="meets_home_page_today_date">Сегодня</string>
+    <string name="meets_home_page_yesterday_date">Сегодня</string>
+    <string name="meets_home_page__previous_date">Встреча от %s</string>
+    <string name="meets_home_page__date_format">%s.%s.%s</string>
 
     <!-- CreateMeet -->
     <string name="create_meet_title">Новая встреча</string>
@@ -14,11 +15,11 @@
     <string name="create_meet_people_header">Выбор участников</string>
     <string name="create_meet_people_add_title">Друга</string>
 
-    <!-- MeetSessionPager -->
-    <string name="meet_session_pager_name_with_count">%s %d</string>
-    <string name="meet_session_pager_overall_sum_count">Счёт %s</string>
-    <string name="meet_session_pager_delete_menu_action">Удалить встречу</string>
-    <string name="meet_session_pager_people_tab">По людям</string>
-    <string name="meet_session_pager_dishes_tab">По блюдам</string>
+    <!-- MeetPager -->
+    <string name="meet_pager_name_with_count">%s %d</string>
+    <string name="meet_pager_overall_sum_count">Счёт %s</string>
+    <string name="meet_pager_delete_menu_action">Удалить встречу</string>
+    <string name="meet_pager_people_tab">По людям</string>
+    <string name="meet_pager_dishes_tab">По блюдам</string>
 
 </resources>

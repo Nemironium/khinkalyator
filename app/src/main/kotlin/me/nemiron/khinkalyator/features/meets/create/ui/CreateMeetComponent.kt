@@ -1,9 +1,9 @@
 package me.nemiron.khinkalyator.features.meets.create.ui
 
-import me.nemiron.khinkalyator.features.meets.domain.MeetId
-import me.nemiron.khinkalyator.features.people.domain.PersonId
+import me.nemiron.khinkalyator.common_domain.model.MeetId
+import me.nemiron.khinkalyator.common_domain.model.PersonId
 import me.nemiron.khinkalyator.features.people.person.ui.PersonComponent
-import me.nemiron.khinkalyator.features.restaraunts.restaurant.domain.RestaurantId
+import me.nemiron.khinkalyator.common_domain.model.RestaurantId
 
 interface CreateMeetComponent {
 
